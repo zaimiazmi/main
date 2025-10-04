@@ -1,5 +1,5 @@
 function playGame() {
-  alert("Launching Cyberwise... (nanti letak link Roblox/itch di sini)");
+  alert("Service under maintenance. Please try again later.");
 }
 
 // Splash 5 saat walaupun page dah load
