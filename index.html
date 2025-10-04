@@ -1,114 +1,78 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - [Nama Awak]</title>
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="preload" as="image" href="img/profilelogo.png">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – Zai Mi</title>
+  <meta name="description" content="Portfolio Zai Mi: game showcase, projek, dan info kontak.">
+  <meta name="theme-color" content="#0B0B0D">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preload" as="image" href="img/profilelogo.png" />
 </head>
-<body>
+<body class="loading">
 
-    <div id="loading-logo">
-        <img id="loading-logo-img" src="img/profilelogo.png" alt="Logo" class="loading-img" width="220" height="220">
-        <div class="loading-text">direka oleh ikanpaus2703</div>
+  <!-- Skip link (aksesibiliti) -->
+  <a class="skip-link" href="#main">Langkau ke kandungan</a>
+
+  <!-- Loading overlay -->
+  <div id="loading-logo" aria-live="polite">
+    <img id="loading-logo-img" src="img/profilelogo.png" alt="Logo Zai Mi" class="loading-img" width="220" height="220">
+    <div class="loading-text">direka oleh ikanpaus2703</div>
+  </div>
+
+  <!-- Header (sticky): Logo di atas, Navbar di bawah -->
+  <header class="site-header" id="site-header">
+    <div class="logo-wrapper">
+      <img src="img/profilelogo.png" alt="Logo Zai Mi" class="logo" width="72" height="72">
     </div>
-
-    <nav id="navbar">
-        <a href="#" class="nav-logo">[Nama Awak]</a>
-        <ul>
-            <li><a href="#projects">Projek</a></li>
-            <li><a href="#about">Tentang Saya</a></li>
-            <li><a href="#contact">Hubungi</a></li>
-        </ul>
+    <nav class="nav" aria-label="Utama">
+      <ul class="nav-list">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#showcase">Showcase</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <header id="hero" class="section">
-        <div class="hero-content">
-            <h1>Hai, saya [Nama Awak]</h1>
-            <p>Seorang Game Developer yang bersemangat mencipta dunia dan pengalaman interaktif.</p>
-            <a href="#projects" class="btn btn-primary">Lihat Projek Saya ↓</a>
-            <div class="social-links">
-                <a href="[Link LinkedIn Anda]" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="[Link GitHub Anda]" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="[Link Itch.io Anda]" target="_blank"><i class="fab fa-itch-io"></i></a>
-            </div>
+  <main id="main">
+    <h1 id="home" class="visually-hidden">Portfolio Zai Mi</h1>
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="section-hero">
+      <span class="badge">NOW AVAILABLE</span>
+      <div class="feature-card" role="group" aria-label="Apl pilihan: Cyberwise">
+        <div class="feature-thumb" aria-hidden="true"></div>
+        <div class="feature-meta">
+          <div class="feature-title">Cyberwise</div>
+          <div class="feature-sub">Testing now available.</div>
         </div>
-    </header>
-
-    <section id="projects" class="section">
-        <h2>PROJEK-PROJEK SAYA</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <img src="https://via.placeholder.com/400x300.png?text=Projek+1" alt="Imej Projek 1">
-                <div class="card-content">
-                    <h3>CyberGlitch</h3>
-                    <div class="tags">
-                        <span>Unity</span>
-                        <span>C#</span>
-                        <span>Platformer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/400x300.png?text=Projek+2" alt="Imej Projek 2">
-                <div class="card-content">
-                    <h3>Project Nebula</h3>
-                    <div class="tags">
-                        <span>Unreal</span>
-                        <span>C++</span>
-                        <span>RPG</span>
-                    </div>
-                </div>
-            </div>
-            </div>
+        <button class="play" type="button" aria-label="Mainkan Cyberwise" onclick="playGame()">Play</button>
+      </div>
     </section>
 
-    <section id="about" class="section">
-        <h2>TENTANG SAYA</h2>
-        <div class="about-container">
-            <img src="profilelogo.png" alt="Profile Logo" class="profile-pic">
-            <div class="about-text">
-                <h3>Membangunkan Idea Menjadi Realiti</h3>
-                <p>Bermula dengan minat mendalam terhadap penceritaan interaktif, saya kini mempunyai pengalaman selama [Jumlah] tahun dalam pembangunan permainan. Saya suka menyelesaikan masalah yang mencabar dan bekerjasama dalam pasukan untuk menghasilkan produk yang digilap.</p>
-                <h4>Kemahiran Teknikal:</h4>
-                <ul>
-                    <li><strong>Bahasa:</strong> C#, Python, JavaScript</li>
-                    <li><strong>Enjin:</strong> Unity, Unreal Engine (Asas)</li>
-                    <li><strong>Alatan:</strong> Git, Blender, Photoshop</li>
-                </ul>
-            </div>
-        </div>
+    <!-- Showcase -->
+    <section id="showcase" class="copy">
+      <h2 class="title">Showcase: Now – 13 November 2025</h2>
+      <p class="para">
+        Welcome to Cyberwise – an interactive educational game that trains players
+        to identify and defend against common cyber threats in an engaging,
+        mission-based format.
+      </p>
     </section>
 
-    <section id="resume" class="section">
-        <h2>Berminat untuk bekerjasama?</h2>
-        <p>Sila muat turun resume saya untuk melihat pengalaman penuh saya.</p>
-        <a href="[Link ke fail resume.pdf anda]" class="btn btn-secondary" download>📄 Muat Turun Resume</a>
+    <!-- Placeholder seksyen lain -->
+    <section id="portfolio" class="copy">
+      <h2 class="title">Portfolio</h2>
+      <p class="para">Projek-projek pilihan akan diletak di sini.</p>
     </section>
 
-    <section id="contact" class="section">
-        <h2>JOM BERHUBUNG!</h2>
-        <p>Saya sentiasa terbuka untuk peluang baharu. Hubungi saya melalui emel atau platform di bawah.</p>
-        <a href="mailto:[alamat-emel-awak@gmail.com]" class="email-link">[alamat-emel-awak@gmail.com]</a>
-        <div class="social-links large-icons">
-            <a href="[Link LinkedIn Anda]" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="[Link GitHub Anda]" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="[Link Twitter Anda]" target="_blank"><i class="fab fa-twitter"></i></a>
-        </div>
+    <section id="about" class="copy">
+      <h2 class="title">About</h2>
+      <p class="para">Sedikit tentang saya.</p>
     </section>
+  </main>
 
-    <footer>
-        <p>Direka & Dibina oleh [Nama Awak] © 2025</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
