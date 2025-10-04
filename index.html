@@ -1,121 +1,101 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zaimi - Homepage</title>
-  <meta name="description" content="Portfolio Zaimi" />
-  <meta name="theme-color" content="#0B0B0D" />
+  <meta name="description" content="Zai Mi – Multimedia Interactive Designer. I build creative, impactful experiences across game design, branding, and video.">
+  <title>Zai Mi – Multimedia Interactive Designer</title>
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preload" as="image" href="img/profilelogo.png" />
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="loading">
-  <!-- Skip link -->
-  <a class="skip-link" href="#main">Langkau ke kandungan</a>
+<body>
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-inner container">
+      <h1 class="h-eyebrow">Hi, I’m Zaimi</h1>
+      <p class="h-sub">
+        I’m a multimedia interactive designer. I love building creative experiences
+        and helping ideas grow into something impactful.
+      </p>
+    </div>
+  </section>
 
-  <!-- Loading overlay (5s) -->
-  <div id="loading-logo" aria-live="polite">
-    <img src="img/profilelogo.png" alt="Logo Zai Mi" class="loading-img" width="220" height="220">
-    <div class="loading-text">Designed by ikanpaus2703</div>
+  <!-- Pill navbar (sits under hero, overlaps slightly) -->
+  <div class="pillbar-out container">
+    <nav class="bar nav-bar" id="navBar" aria-label="Primary">
+      <a class="pill active" href="#hero">Home</a>
+      <a class="pill" href="#now-title">Showcase</a>
+      <a class="pill" href="#projects-title">Projects</a>
+      <a class="pill" href="#portfolio">Portfolio</a>
+    </nav>
   </div>
 
-  <!-- Header sticky -->
-  <header class="site-header" id="site-header">
-    <!-- Desktop logo row -->
-    <div class="logo-wrapper">
-      <img src="img/profilelogo.png" alt="Logo Zai Mi" class="logo" width="72" height="72">
-    </div>
-
-    <!-- Desktop nav -->
-    <nav class="nav" aria-label="Utama">
-      <div class="container">
-        <ul class="nav-list">
-          <li><a class="active" href="#home">Home</a></li>
-          <li><a href="#showcase">Showcase</a></li>
-          <li><a href="#portfolio" aria-disabled="true" tabindex="-1">Portfolio</a></li>
-          <li><a href="#about" aria-disabled="true" tabindex="-1">About</a></li>
-        </ul>
-      </div>
-    </nav>
-    <!-- Apple-like mobile navbar -->
-    <div class="mobile-nav" aria-label="Navigasi mudah alih">
-      <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
-      </button>
-      <img src="img/profilelogo.png" alt="" class="mobile-logo" width="32" height="32">
-      <a class="bag-link" href="#home" aria-label="Ke laman utama">
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
-      </a>
-    </div>
-
-    <!-- Fullscreen mobile menu -->
-    <div id="mobile-menu" class="mobile-menu" hidden>
-      <div class="mobile-menu-inner">
-        <button class="menu-close" aria-label="Tutup menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.3 5.71 12 12.01l-6.29-6.3-1.42 1.42 6.3 6.29-6.3 6.29 1.42 1.42 6.29-6.3 6.29 6.3 1.42-1.42-6.3-6.29 6.3-6.29z"/></svg>
-        </button>
-        <ul class="mobile-menu-list" role="menu">
-          <li role="none"><a role="menuitem" class="active" href="#home">Home</a></li>
-          <li role="none"><a role="menuitem" href="#showcase">Showcase</a></li>
-          <li role="none"><a role="menuitem" aria-disabled="true" tabindex="-1" href="#portfolio">Portfolio</a></li>
-          <li role="none"><a role="menuitem" aria-disabled="true" tabindex="-1" href="#about">About</a></li>
-        </ul>
+  <!-- ===== QUOTE ===== -->
+  <section class="quote container" aria-label="Design Quote">
+    <h3 id="quote-text">“Design is not just what it looks like, but how it feels.”</h3>
+    <div class="lang-switch">
+      <!-- reuse the SAME look as nav bar -->
+      <div class="bar nav-bar" role="tablist" aria-label="Language switcher">
+        <a href="#" class="pill active" role="tab" aria-selected="true" data-lang="EN">EN</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-lang="MY">MY</a>
       </div>
     </div>
-  </header>
+  </section>
 
-  <!-- (Removed) Mobile banner -->
+  <!-- ===== WHAT'S HAPPENING ===== -->
+  <section class="section container" aria-labelledby="now-title">
+    <h2 id="now-title">What’s happening?</h2>
 
-  <main id="main">
-    <h1 id="home" class="visually-hidden">Portfolio Zai Mi</h1>
+    <div class="wh-grid">
+      <!-- LEFT: Visual banner ONLY -->
+      <figure class="banner">
+        <img class="cover" src="wh-banner.jpg" alt="Season Server Opening banner">
+        <figcaption class="now-badge">NOW AVAILABLE</figcaption>
+      </figure>
 
-    <!-- Hero -->
-    <section class="hero" aria-label="Hero">
-      <div class="inner container">
-        <span class="badge">NOW AVAILABLE</span>
-        <div class="feature-card" role="group" aria-label="Apl pilihan: Cyberwise">
-          <div class="feature-thumb" aria-hidden="true"></div>
-          <div class="feature-meta">
-            <div class="feature-title">Cyberwise</div>
-            <div class="feature-sub">Testing now available.</div>
-          </div>
-          <button class="play" type="button" aria-label="Mainkan Cyberwise" onclick="playGame()">Play</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Showcase -->
-    <section id="showcase" class="copy">
-      <div class="container">
-        <h2 class="title">Showcase: Now – 13 November 2025</h2>
-        <p class="para">
+      <!-- RIGHT: Title + copy + CTA card (App Store style) -->
+      <div class="wh-copy">
+        <h3 class="wh-title">Showcase: Now – 1 November 2025</h3>
+        <p>
           Welcome to Cyberwise – an interactive educational game that trains players
           to identify and defend against common cyber threats in an engaging,
           mission-based format.
         </p>
-      </div>
-    </section>
-  </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>© 2025 Zai Mi.</p>
-      <p>
-        <a href="mailto:zzaimii@icloud.com">zzaimii@icloud.com</a> |
-        <a href="https://www.linkedin.com/in/muhdzaimi143/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
-      </p>
+        <div class="cta-right">
+          <div class="left">
+            <img class="thumb" src="cyberwise-thumb.jpg" alt="Cyberwise icon">
+            <div class="meta">
+              <strong>Cyberwise</strong>
+              <div class="sub">Play Cyberwise demo today</div>
+            </div>
+          </div>
+          <button class="play-btn" type="button" id="play">Play</button>
+        </div>
+      </div>
     </div>
-  </footer>
+
+    <div class="divider"></div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section class="section container" aria-labelledby="projects-title">
+    <div class="projects-head">
+      <h2 id="projects-title">Projects</h2>
+      <button class="seeall" type="button" aria-label="See all projects">See all</button>
+    </div>
+
+    <div class="cards">
+      <article class="card"><div class="label">Game Design</div></article>
+      <article class="card"><div class="label">Branding</div></article>
+      <article class="card"><div class="label">Video</div></article>
+    </div>
+  </section>
 
   <!-- Scripts -->
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>

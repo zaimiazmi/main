@@ -1,89 +1,56 @@
-function playGame() {
-  alert("Service under maintenance. Please try again later.");
-}
+// Show a floating (fixed) copy of the navbar after you scroll past the hero.
+// It looks IDENTICAL to the original — no style changes, only position fixed.
 
-// Splash 5s walaupun page dah load
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.body.classList.remove("loading");
-    const splash = document.getElementById("loading-logo");
-    if (splash) {
-      splash.classList.add("fade-out");
-      setTimeout(() => (splash.style.display = "none"), 600);
+const navBar = document.getElementById('navBar'); // original .bar.nav-bar
+const hero = document.getElementById('hero');
+
+let floating = null;
+
+function updateNav(){
+  const threshold = hero.offsetTop + hero.offsetHeight - 1; // just past hero
+
+  if (window.scrollY > threshold){
+    if (!floating){
+      floating = navBar.cloneNode(true);
+      floating.removeAttribute('id');       // avoid duplicate IDs
+      floating.classList.add('floating');   // .nav-bar.floating (fixed at top)
+      document.body.appendChild(floating);
     }
-  }, 5000);
-});
-
-// Kecilkan logo bila scroll
-const header = document.getElementById("site-header");
-const onScroll = () => {
-  if (window.scrollY > 10) header.classList.add("scrolled");
-  else header.classList.remove("scrolled");
-};
-window.addEventListener("scroll", onScroll);
-onScroll();
-
-/* =========================
-   MOBILE MENU TOGGLE
-   ========================= */
-const mobileMenu = document.getElementById("mobile-menu");
-const toggleBtn = document.querySelector(".menu-toggle");
-const closeBtn = document.querySelector(".menu-close");
-
-function openMenu() {
-  if (!mobileMenu) return;
-  mobileMenu.hidden = false;
-  mobileMenu.classList.add("show");
-  toggleBtn?.setAttribute("aria-expanded", "true");
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
-}
-function closeMenu() {
-  if (!mobileMenu) return;
-  mobileMenu.classList.remove("show");
-  mobileMenu.hidden = true;
-  toggleBtn?.setAttribute("aria-expanded", "false");
-  document.documentElement.style.overflow = "";
-  document.body.style.overflow = "";
-}
-toggleBtn?.addEventListener("click", openMenu);
-closeBtn?.addEventListener("click", closeMenu);
-mobileMenu?.addEventListener("click", (e) => { if (e.target === mobileMenu) closeMenu(); });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !mobileMenu.hidden) closeMenu(); });
-
-/* =========================
-   ACTIVE STATE / SCROLL-SPY
-   ========================= */
-const navLinks = Array.from(document.querySelectorAll('.nav-list a, .mobile-menu-list a'));
-const sectionIds = ['home', 'showcase', 'portfolio', 'about'];
-const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
-
-function setActive(hash) {
-  const target = (hash && hash.startsWith('#')) ? hash : '#home';
-  navLinks.forEach(a => a.classList.remove('active'));
-  navLinks.filter(a => a.getAttribute('href') === target).forEach(a => a.classList.add('active'));
-}
-
-function updateActiveOnScroll() {
-  const offset = 120; // buffer untuk header
-  const y = window.scrollY + offset;
-  let current = sections[0]?.id || 'home';
-  for (const sec of sections) {
-    if (sec.offsetTop <= y) current = sec.id;
+  } else {
+    if (floating){
+      floating.remove();
+      floating = null;
+    }
   }
-  setActive('#' + current);
 }
 
-// Initial state
-setActive(location.hash || '#home');
-updateActiveOnScroll();
-window.addEventListener('scroll', updateActiveOnScroll);
-window.addEventListener('hashchange', () => setActive(location.hash));
+// ===== Language switch — pills behave like nav pills =====
+  const langBar = document.querySelector(".lang-switch .nav-bar");
+  if (langBar) {
+    langBar.addEventListener("click", (e) => {
+      const target = e.target.closest(".pill");
+      if (!target) return;
+      e.preventDefault();
 
-// Sync & close on mobile link tap
-document.querySelectorAll('.mobile-menu-list a[href^="#"]').forEach(a => {
-  a.addEventListener('click', () => {
-    setActive(a.getAttribute('href'));
-    setTimeout(closeMenu, 50);
-  });
-});
+      // toggle active class
+      [...langBar.querySelectorAll(".pill")].forEach(p => {
+        p.classList.toggle("active", p === target);
+        p.setAttribute("aria-selected", String(p === target));
+      });
+
+      // (Optional) If you want to change the quote text:
+      const lang = target.dataset.lang || "EN";
+      const quote = document.getElementById("quote-text");
+      if (quote) {
+        quote.textContent =
+          lang === "MY"
+            ? "“Reka bentuk bukan sekadar rupa, tetapi juga rasa.”"
+            : "“Design is not just what it looks like, but how it feels.”";
+      }
+    });
+  }
+
+
+window.addEventListener('scroll', updateNav, { passive: true });
+window.addEventListener('resize', updateNav);
+document.addEventListener('DOMContentLoaded', updateNav);
