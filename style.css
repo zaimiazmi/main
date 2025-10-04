@@ -8,8 +8,8 @@
   --ink: #f9fafb;
   --muted: #9ca3af;
 
-  --primary: #3b82f6;   /* biru */
-  --badge: #f7f019;     /* kuning App-Store */
+  --primary: #3b82f6;
+  --badge: #f7f019;
   --card: #3b3b3b;
 
   --radius: 12px;
@@ -21,7 +21,16 @@
    ========================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--ink); }
+
+/* Flex layout -> footer sticks to bottom */
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+}
+main { flex: 1; }
 
 /* Aksesibiliti */
 .visually-hidden {
@@ -54,7 +63,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); }
 }
 .site-header.scrolled .logo { width: 48px; height: 48px; opacity: .95; }
 
-/* Navbar */
+/* Desktop Navbar */
 .nav {
   display: flex; justify-content: center; align-items: center; gap: 40px;
   padding: 12px 16px;
@@ -67,14 +76,15 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); }
   color: var(--ink); text-decoration: none; font-weight: 600; transition: color .2s ease;
 }
 .nav-list a:hover { color: var(--primary); }
-.nav-list a.active { font-weight: 800; }
+.nav-list a.active { color: var(--primary); font-weight: 800; }
 
 /* =========================
    HERO + APP STORE CARD
    ========================= */
 .hero {
   background: var(--grey); color: #111;
-  min-height: 360px; position: relative;
+  min-height: 420px; /* bigger for graphics */
+  position: relative;
   margin: 20px; border-radius: 6px;
 }
 .badge {
@@ -83,22 +93,23 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); }
   padding: 6px 12px; font-size: 14px; border-radius: 4px;
 }
 
-/* App Store–style card */
+/* App Store–style card (bigger) */
 .feature-card {
   position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 16px;
   background: var(--card); color: #fff;
-  border-radius: var(--radius); padding: 12px 16px;
+  border-radius: calc(var(--radius) + 4px);
+  padding: 16px 20px;
   box-shadow: 0 6px 0 rgba(0,0,0,.25), 0 10px 30px rgba(0,0,0,.2);
   border: 1px solid rgba(255,255,255,.1);
-  width: min(640px, calc(100% - 40px));
+  width: min(780px, calc(100% - 40px));
 }
-.feature-thumb { width: 40px; height: 40px; background: #bbb; border-radius: 8px; }
-.feature-title { font-weight: 800; line-height: 1.1; }
-.feature-sub { font-size: 13px; color: #ddd; line-height: 1.2; }
+.feature-thumb { width: 56px; height: 56px; background: #bbb; border-radius: 10px; }
+.feature-title { font-weight: 800; line-height: 1.1; font-size: 1.05rem; }
+.feature-sub { font-size: 13.5px; color: #ddd; line-height: 1.25; }
 .play {
   margin-left: auto; background: var(--badge); color: #000; font-weight: 800;
-  border: none; padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  border: none; padding: 10px 18px; border-radius: 999px; cursor: pointer;
 }
 .play:focus-visible { outline: 3px solid #000; outline-offset: 3px; }
 
@@ -144,17 +155,86 @@ footer a {
 footer a:hover { color: var(--primary); }
 
 /* =========================
-   RESPONSIVE
+   MOBILE NAV (Apple-like)
+   ========================= */
+.mobile-nav {
+  display: none;
+  align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  background: rgba(31,41,55,0.6);
+  backdrop-filter: blur(6px);
+}
+.menu-toggle, .menu-close {
+  background: transparent; border: 0; color: var(--ink);
+  width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer;
+}
+
+/* MOBILE LOGO: shrink via transform (reliable di mobile) */
+.mobile-logo {
+  width: 56px; height: 56px; border-radius: 8px;
+  display: block;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform .25s ease, opacity .25s ease;
+  will-change: transform;
+}
+/* shrink bila header ada .scrolled */
+.site-header.scrolled .mobile-nav .mobile-logo {
+  transform: scale(0.78); /* ~44px visual */
+  opacity: .95;
+}
+
+.bag-link { color: var(--ink); display: grid; place-items: center; width: 40px; height: 40px; }
+
+/* Fullscreen sheet */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 1200;
+  background: rgba(11,11,13,0.95);
+  display: none;
+}
+.mobile-menu.show { display: block; }
+.mobile-menu-inner { padding: 20px; }
+.mobile-menu-list {
+  list-style: none;
+  display: grid; gap: 14px;
+  margin-top: 10px;
+}
+.mobile-menu-list a {
+  color: var(--ink); text-decoration: none; font-size: 1.1rem; font-weight: 700;
+}
+/* Active state (digunakan oleh scroll-spy JS) */
+.mobile-menu-list a.active { color: var(--primary); font-weight: 800; }
+
+/* Kurangkan hover “melekat” pada touch */
+@media (hover: none) {
+  .nav-list a:hover,
+  .mobile-menu-list a:hover { color: inherit; }
+}
+@media (hover: hover) {
+  .mobile-menu-list a:hover { color: var(--primary); }
+}
+.mobile-menu-list a:visited { color: var(--ink); }
+
+/* =========================
+   RESPONSIVE (≤768px)
    ========================= */
 @media (max-width: 768px) {
-  .logo { width: 56px; height: 56px; }
-  .site-header.scrolled .logo { width: 44px; height: 44px; }
+  /* elak 2 logo di mobile */
+  .logo-wrapper { display: none; }
+  .nav { display: none; }
+  .nav-list { display: none; }
 
-  .nav { gap: 16px; }
-  .nav-list { display: none; } /* (boleh tambah hamburger nanti) */
+  /* show Apple-like bar */
+  .mobile-nav { display: flex; border-top: none; }
 
-  .hero { min-height: 300px; margin: 12px; }
-  .feature-card { right: 16px; left: auto; transform: none; width: calc(100% - 32px); }
-  .feature-thumb { width: 36px; height: 36px; }
+  /* hero + card tweaks */
+  .hero { min-height: 360px; margin: 12px; }
+  .feature-card {
+    right: 16px; left: auto; transform: none;
+    width: calc(100% - 32px);
+    padding: 14px 16px; gap: 14px;
+  }
+  .feature-thumb { width: 44px; height: 44px; }
   .title { font-size: 20px; }
 }
