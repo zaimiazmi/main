@@ -1,9 +1,9 @@
-/* --- Pembolehubah & Gaya Global --- */
+/* --- Variables & Global Styles --- */
 :root {
     --dark-bg: #111827;
     --light-bg: #1F2937;
-    --primary-color: #3B82F6; /* Biru */
-    --secondary-color: #10B981; /* Hijau */
+    --primary-color: #3B82F6; /* Blue */
+    --secondary-color: #10B981; /* Green */
     --text-color: #F9FAFB;
     --text-muted: #9CA3AF;
     --font-family: 'Poppins', sans-serif;
@@ -27,7 +27,7 @@ body {
 
 .section {
     padding: 100px 10%;
-    opacity: 0; /* Untuk animasi fade-in */
+    opacity: 0; /* For fade-in animation */
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
@@ -47,7 +47,7 @@ h2 {
     margin-bottom: 50px;
 }
 
-/* --- Navigasi --- */
+/* --- Navigation --- */
 #navbar {
     display: flex;
     justify-content: space-between;
@@ -88,7 +88,6 @@ h2 {
 #navbar ul li a:hover {
     color: var(--primary-color);
 }
-
 
 /* --- Hero Section --- */
 #hero {
@@ -146,7 +145,7 @@ h2 {
     color: var(--primary-color);
 }
 
-/* --- Projek --- */
+/* --- Projects --- */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -189,7 +188,7 @@ h2 {
     margin-right: 5px;
 }
 
-/* --- Tentang Saya --- */
+/* --- About Me --- */
 .about-container {
     display: flex;
     align-items: center;
@@ -222,7 +221,7 @@ h2 {
     margin-bottom: 5px;
 }
 
-/* --- Resume & Hubungi --- */
+/* --- Resume & Contact --- */
 #resume, #contact {
     text-align: center;
     background-color: var(--light-bg);
@@ -257,10 +256,74 @@ footer {
     font-size: 0.9rem;
 }
 
-/* --- Responsif untuk Mobile --- */
+/* --- Loading Logo Styles --- */
+#loading-logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+.loading-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.loading-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    opacity: 0;
+    animation: fadeInText 1s ease-in 0.5s forwards;
+}
+
+#loading-logo.fade-out {
+    opacity: 0;
+}
+
+body.loading #navbar,
+body.loading .section,
+body.loading footer {
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* --- Mobile Responsive Styles --- */
 @media (max-width: 768px) {
     #navbar ul {
-        display: none; /* Sembunyikan menu untuk mobile (boleh tambah menu hamburger kemudian) */
+        display: none;
     }
 
     .section {
