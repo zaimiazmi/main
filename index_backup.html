@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zaimi - Homepage</title>
+  <meta name="description" content="Portfolio Zaimi" />
+  <meta name="theme-color" content="#0B0B0D" />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preload" as="image" href="img/profilelogo.png" />
+</head>
+<body class="loading">
+  <!-- Skip link -->
+  <a class="skip-link" href="#main">Langkau ke kandungan</a>
+
+  <!-- Loading overlay (5s) -->
+  <div id="loading-logo" aria-live="polite">
+    <img src="img/profilelogo.png" alt="Logo Zai Mi" class="loading-img" width="220" height="220">
+    <div class="loading-text">Designed by ikanpaus2703</div>
+  </div>
+
+  <!-- Header sticky -->
+  <header class="site-header" id="site-header">
+    <!-- Desktop logo row -->
+    <div class="logo-wrapper">
+      <img src="img/profilelogo.png" alt="Logo Zai Mi" class="logo" width="72" height="72">
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="nav" aria-label="Utama">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a class="active" href="#home">Home</a></li>
+          <li><a href="#showcase">Showcase</a></li>
+          <li><a href="#portfolio" aria-disabled="true" tabindex="-1">Portfolio</a></li>
+          <li><a href="#about" aria-disabled="true" tabindex="-1">About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Apple-like mobile navbar -->
+    <div class="mobile-nav" aria-label="Navigasi mudah alih">
+      <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+      </button>
+      <img src="img/profilelogo.png" alt="" class="mobile-logo" width="32" height="32">
+      <a class="bag-link" href="#home" aria-label="Ke laman utama">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+      </a>
+    </div>
+
+    <!-- Fullscreen mobile menu -->
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <div class="mobile-menu-inner">
+        <button class="menu-close" aria-label="Tutup menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.3 5.71 12 12.01l-6.29-6.3-1.42 1.42 6.3 6.29-6.3 6.29 1.42 1.42 6.29-6.3 6.29 6.3 1.42-1.42-6.3-6.29 6.3-6.29z"/></svg>
+        </button>
+        <ul class="mobile-menu-list" role="menu">
+          <li role="none"><a role="menuitem" class="active" href="#home">Home</a></li>
+          <li role="none"><a role="menuitem" href="#showcase">Showcase</a></li>
+          <li role="none"><a role="menuitem" aria-disabled="true" tabindex="-1" href="#portfolio">Portfolio</a></li>
+          <li role="none"><a role="menuitem" aria-disabled="true" tabindex="-1" href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- (Removed) Mobile banner -->
+
+  <main id="main">
+    <h1 id="home" class="visually-hidden">Portfolio Zai Mi</h1>
+
+    <!-- Hero -->
+    <section class="hero" aria-label="Hero">
+      <div class="inner container">
+        <span class="badge">NOW AVAILABLE</span>
+        <div class="feature-card" role="group" aria-label="Apl pilihan: Cyberwise">
+          <div class="feature-thumb" aria-hidden="true"></div>
+          <div class="feature-meta">
+            <div class="feature-title">Cyberwise</div>
+            <div class="feature-sub">Testing now available.</div>
+          </div>
+          <button class="play" type="button" aria-label="Mainkan Cyberwise" onclick="playGame()">Play</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase -->
+    <section id="showcase" class="copy">
+      <div class="container">
+        <h2 class="title">Showcase: Now – 13 November 2025</h2>
+        <p class="para">
+          Welcome to Cyberwise – an interactive educational game that trains players
+          to identify and defend against common cyber threats in an engaging,
+          mission-based format.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Zai Mi.</p>
+      <p>
+        <a href="mailto:zzaimii@icloud.com">zzaimii@icloud.com</a> |
+        <a href="https://www.linkedin.com/in/muhdzaimi143/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+</body>
+</html>
