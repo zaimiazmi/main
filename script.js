@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Loading Logo Logic ---
     const loadingOverlay = document.getElementById('loading-logo');
     console.log('[DEBUG] loadingOverlay exists:', !!loadingOverlay);
+    const loadingImg = document.getElementById('loading-logo-img');
+    if (loadingImg) {
+        loadingImg.addEventListener('load', () => console.log('[DEBUG] Loading image loaded OK:', loadingImg.src));
+        loadingImg.addEventListener('error', () => console.log('[DEBUG][ERROR] Loading image FAILED to load:', loadingImg.src));
+        console.log('[DEBUG] Loading image tag present with src:', loadingImg.getAttribute('src'));
+    } else {
+        console.log('[DEBUG][WARN] Loading image element not found');
+    }
     const body = document.body;
 
     // Add 'loading' class to body to hide main content initially
@@ -18,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // After fade-out animation finishes (500ms), remove the element
         setTimeout(() => {
-            loadingOverlay.style.display = 'none';
             loadingOverlay.style.display = 'none';
             console.log('[DEBUG] Loading overlay display set to none');
             // Remove 'loading' class from body to show main content
