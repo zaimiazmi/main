@@ -1,18 +1,20 @@
 function playGame() {
-  alert("Launching Cyberwise... (nanti link ke Roblox/itch)");
+  alert("Launching Cyberwise... (nanti letak link Roblox/itch di sini)");
 }
 
-// Fade-out loading overlay bila semua asset ready
+// Splash 5 saat walaupun page dah load
 window.addEventListener("load", () => {
-  document.body.classList.remove("loading");
-  const splash = document.getElementById("loading-logo");
-  if (splash) {
-    splash.classList.add("fade-out");
-    setTimeout(() => (splash.style.display = "none"), 600);
-  }
+  setTimeout(() => {
+    document.body.classList.remove("loading");
+    const splash = document.getElementById("loading-logo");
+    if (splash) {
+      splash.classList.add("fade-out");
+      setTimeout(() => (splash.style.display = "none"), 600);
+    }
+  }, 5000); // 5000 ms = 5 saat
 });
 
-// Kecilkan logo + solidkan header bila scroll
+// Kecilkan logo bila scroll
 const header = document.getElementById("site-header");
 const onScroll = () => {
   if (window.scrollY > 10) header.classList.add("scrolled");

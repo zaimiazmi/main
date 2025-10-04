@@ -4,23 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio – Zai Mi</title>
-  <meta name="description" content="Portfolio Zai Mi: game showcase, projek, dan info kontak.">
-  <meta name="theme-color" content="#0B0B0D">
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Portfolio Zai Mi: game showcase dan info kontak." />
+  <meta name="theme-color" content="#0B0B0D" />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
   <link rel="preload" as="image" href="img/profilelogo.png" />
 </head>
 <body class="loading">
 
-  <!-- Skip link (aksesibiliti) -->
+  <!-- Skip link -->
   <a class="skip-link" href="#main">Langkau ke kandungan</a>
 
-  <!-- Loading overlay -->
+  <!-- Loading overlay (5s) -->
   <div id="loading-logo" aria-live="polite">
-    <img id="loading-logo-img" src="img/profilelogo.png" alt="Logo Zai Mi" class="loading-img" width="220" height="220">
+    <img src="img/profilelogo.png" alt="Logo Zai Mi" class="loading-img" width="220" height="220">
     <div class="loading-text">direka oleh ikanpaus2703</div>
   </div>
 
-  <!-- Header (sticky): Logo di atas, Navbar di bawah -->
+  <!-- Header sticky: Logo atas, navbar bawah -->
   <header class="site-header" id="site-header">
     <div class="logo-wrapper">
       <img src="img/profilelogo.png" alt="Logo Zai Mi" class="logo" width="72" height="72">
@@ -29,8 +36,6 @@
       <ul class="nav-list">
         <li><a class="active" href="#home">Home</a></li>
         <li><a href="#showcase">Showcase</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#about">About</a></li>
       </ul>
     </nav>
   </header>
@@ -39,7 +44,7 @@
     <h1 id="home" class="visually-hidden">Portfolio Zai Mi</h1>
 
     <!-- Hero -->
-    <section class="hero" aria-labelledby="section-hero">
+    <section class="hero" aria-label="Hero">
       <span class="badge">NOW AVAILABLE</span>
       <div class="feature-card" role="group" aria-label="Apl pilihan: Cyberwise">
         <div class="feature-thumb" aria-hidden="true"></div>
@@ -52,27 +57,26 @@
     </section>
 
     <!-- Showcase -->
-    <section id="showcase" class="copy">
-      <h2 class="title">Showcase: Now – 13 November 2025</h2>
+    <section id="showcase" class="copy" aria-labelledby="section-showcase">
+      <h2 id="section-showcase" class="title">Showcase: Now – 13 November 2025</h2>
       <p class="para">
         Welcome to Cyberwise – an interactive educational game that trains players
         to identify and defend against common cyber threats in an engaging,
         mission-based format.
       </p>
     </section>
-
-    <!-- Placeholder seksyen lain -->
-    <section id="portfolio" class="copy">
-      <h2 class="title">Portfolio</h2>
-      <p class="para">Projek-projek pilihan akan diletak di sini.</p>
-    </section>
-
-    <section id="about" class="copy">
-      <h2 class="title">About</h2>
-      <p class="para">Sedikit tentang saya.</p>
-    </section>
   </main>
 
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Zai Mi. Dibina dengan ♥.</p>
+    <p>
+      <a href="mailto:muhdzaimi4444@gmail.com">muhdzaimi4444@gmail.com</a> |
+      <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+    </p>
+  </footer>
+
+  <!-- Scripts -->
   <script src="script.js" defer></script>
 </body>
 </html>
