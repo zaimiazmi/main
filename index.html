@@ -44,6 +44,31 @@
         </ul>
       </div>
     </nav>
+    <!-- Apple-like mobile navbar -->
+    <div class="mobile-nav" aria-label="Navigasi mudah alih">
+      <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+      </button>
+      <img src="img/profilelogo.png" alt="" class="mobile-logo" width="32" height="32">
+      <a class="bag-link" href="#home" aria-label="Ke laman utama">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+      </a>
+    </div>
+
+    <!-- Fullscreen mobile menu -->
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <div class="mobile-menu-inner">
+        <button class="menu-close" aria-label="Tutup menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.3 5.71 12 12.01l-6.29-6.3-1.42 1.42 6.3 6.29-6.3 6.29 1.42 1.42 6.29-6.3 6.29 6.3 1.42-1.42-6.3-6.29 6.3-6.29z"/></svg>
+        </button>
+        <ul class="mobile-menu-list" role="menu">
+          <li role="none"><a role="menuitem" class="active" href="#home">Home</a></li>
+          <li role="none"><a role="menuitem" href="#showcase">Showcase</a></li>
+          <li role="none"><a role="menuitem" aria-disabled="true" tabindex="-1" href="#portfolio">Portfolio</a></li>
+          <li role="none"><a role="menuitem" aria-disabled="true" tabindex="-1" href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
   </header>
 
   <!-- (Removed) Mobile banner -->
