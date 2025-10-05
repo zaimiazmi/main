@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.replace('/closed.html');
     return;
   }
+  if (!CLOSE_SITE && window.location.pathname === '/closed.html') {
+    window.location.replace('https://zzaimii.com');
+    return;
+  }
 
   // (Optional) If you want to keep redirect for unknown paths when site is open:
   if (!CLOSE_SITE) {
