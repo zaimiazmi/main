@@ -1,3 +1,32 @@
+// ===== Site Close Toggle =====
+const CLOSE_SITE = true; // <-- Set to true to close site, false to open
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (CLOSE_SITE && window.location.pathname !== '/closed.html') {
+    window.location.replace('/closed.html');
+    return;
+  }
+
+  // Redirect to homepage if path is not allowed
+  var allowedPaths = [
+    '/',
+    '/index.html',
+    '/showcase',
+    '/showcase/',
+    '/showcase/index.html',
+    '/projects',
+    '/projects/',
+    '/projects/index.html',
+    '/portfolio',
+    '/portfolio/',
+    '/portfolio/index.html',
+    '/closed.html'
+  ];
+  var currentPath = window.location.pathname;
+  if (!allowedPaths.includes(currentPath)) {
+    window.location.replace('https://zzaimii.com');
+  }
+});
 // Redirect to homepage if path is not allowed
 document.addEventListener('DOMContentLoaded', function() {
   var allowedPaths = [
