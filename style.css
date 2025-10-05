@@ -210,11 +210,12 @@ a{text-decoration:none;color:inherit}
 
     overflow-x:auto;                  /* ✅ enable slide */
     -webkit-overflow-scrolling:touch; /* iOS momentum */
-    scrollbar-width:none;
+  scrollbar-width:none; /* Firefox */
     pointer-events:auto;
     touch-action:pan-x;
   }
   .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
+  .bar.nav-bar::-webkit-scrollbar{ display:none; }
 
   .pillbar-out .bar.nav-bar .pill{
     display:inline-flex; align-items:center;
@@ -242,6 +243,8 @@ a{text-decoration:none;color:inherit}
     scrollbar-width:none;
   }
   .cards::-webkit-scrollbar{display:none;}
+  .cards::-webkit-scrollbar{display:none;}
+  .cards { scrollbar-width: none; }
   .card{
     flex:0 0 46%;                 /* ~2 cards visible */
     max-width:220px;
