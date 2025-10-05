@@ -33,26 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-// Redirect to homepage if path is not allowed
-document.addEventListener('DOMContentLoaded', function() {
-  var allowedPaths = [
-    '/',
-    '/index.html',
-    '/showcase',
-    '/showcase/',
-    '/showcase/index.html',
-    '/projects',
-    '/projects/',
-    '/projects/index.html',
-    '/portfolio',
-    '/portfolio/',
-    '/portfolio/index.html'
-  ];
-  var currentPath = window.location.pathname;
-  if (!allowedPaths.includes(currentPath)) {
-    window.location.replace('https://zzaimii.com');
-  }
-});
 // Show a floating (fixed) copy of the navbar after you scroll past the hero.
 // It looks IDENTICAL to the original — no style changes, only position fixed.
 
