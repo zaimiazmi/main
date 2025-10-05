@@ -13,22 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // (Optional) If you want to keep redirect for unknown paths when site is open:
   if (!CLOSE_SITE) {
-    var allowedPaths = [
+    var allowedPrefixes = [
       '/',
       '/index.html',
       '/showcase',
-      '/showcase/',
-      '/showcase/index.html',
       '/projects',
-      '/projects/',
-      '/projects/index.html',
       '/portfolio',
-      '/portfolio/',
-      '/portfolio/index.html',
       '/closed.html'
     ];
     var currentPath = window.location.pathname;
-    if (!allowedPaths.includes(currentPath)) {
+    var allowed = allowedPrefixes.some(prefix => currentPath === prefix || currentPath.startsWith(prefix + '/'));
+    if (!allowed) {
       window.location.replace('https://zzaimii.com');
     }
   }
