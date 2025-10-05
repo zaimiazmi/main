@@ -1,3 +1,13 @@
+/* =========================================================
+   Zaimi — Clean CSS (Desktop intact, Mobile refined)
+   - Desktop: same visual design you already had
+   - Mobile (≤640px):
+       • Desktop-style pill navbar fixed at the bottom (no slide)
+       • Projects header inline (“Project” + “See all” aligned)
+       • Projects become a neat, compact horizontal slider (3:4 cards)
+   ========================================================= */
+
+/* ---------- Tokens ---------- */
 :root{
   --bg:#FFFFFF; --text:#0F1115; --muted:#D1D5DB; --chip:#3A3A3A; --surface:#EFEFEF;
   --accent:#FFE500; --accent-ink:#0F1115; --border:#E6E6E6;
@@ -8,6 +18,7 @@
   --container:1120px; --gutter:24px;
 }
 
+/* ---------- Resets ---------- */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
@@ -18,7 +29,7 @@ img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 .container{max-width:var(--container);margin:0 auto;padding-inline:var(--gutter)}
 
-/* ===== HERO ===== */
+/* ---------- Hero ---------- */
 .hero{
   position:relative; z-index:0;
   min-height:70vh; display:flex; align-items:flex-end;
@@ -33,21 +44,19 @@ a{text-decoration:none;color:inherit}
 .h-eyebrow{font-weight:800;font-size:clamp(2.8rem,6vw,4.2rem);letter-spacing:.2px;margin-bottom:12px}
 .h-sub{max-width:640px;color:var(--muted);font-weight:400;line-height:1.6;font-size:clamp(1rem,1.4vw,1.125rem)}
 
-/* ===== NAV PILL BAR (desktop/top) ===== */
+/* ---------- Pill Navbar (desktop/top) ---------- */
 .pillbar-out{
   position:relative;
   margin-top:-56px;                 /* overlap hero’s bottom edge */
   display:flex; justify-content:center;
-  z-index:10;                       /* above hero */
+  z-index:10;
 }
-
 .bar.nav-bar{
   display:inline-flex; gap:18px; padding:14px 22px;
   background:rgba(40,40,40,.9); color:#fff; border-radius:32px;
   box-shadow:0 18px 36px rgba(0,0,0,.28);
   backdrop-filter:blur(18px) saturate(180%);
 }
-
 .pill{
   display:inline-flex; align-items:center;
   padding:12px 20px; border-radius:999px;
@@ -68,14 +77,14 @@ a{text-decoration:none;color:inherit}
   z-index:10000;
 }
 
-/* ===== QUOTE ===== */
+/* ---------- Quote ---------- */
 .quote{padding:80px 0;text-align:center}
 .quote h3{
   font-size:clamp(2.2rem,7vw,3.8rem);
   font-weight:900; font-style:italic; line-height:1.15; margin-bottom:28px;
 }
 
-/* ===== LANGUAGE SWITCH (shares pill style) ===== */
+/* ---------- Language switch (shares pill style) ---------- */
 .lang-switch{display:flex;justify-content:center}
 .lang-switch .bar{
   display:inline-flex; gap:18px; padding:14px 22px;
@@ -90,7 +99,7 @@ a{text-decoration:none;color:inherit}
 .lang-switch .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
 .lang-switch .pill.active{background:var(--accent); color:var(--accent-ink)}
 
-/* ===== WHAT'S HAPPENING ===== */
+/* ---------- What’s happening ---------- */
 .section{padding:80px 0}
 .section h2{font-size:clamp(2.6rem,6.5vw,3.6rem);margin-bottom:36px;font-weight:900;letter-spacing:-.3px}
 .wh-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch}
@@ -101,7 +110,7 @@ a{text-decoration:none;color:inherit}
 .wh-copy .wh-title{font-size:clamp(2rem,3.4vw,2.4rem);font-weight:900;margin:0}
 .wh-copy p{color:#3b3f46;line-height:1.75}
 
-/* ===== CTA ===== */
+/* ---------- CTA ---------- */
 .cta-right{
   margin-top:18px;background:#fff;color:#0F1115;border-radius:16px;padding:10px 12px;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -120,40 +129,56 @@ a{text-decoration:none;color:inherit}
 
 .divider{height:1px;background:#D8D8D8;margin:40px 0;border-radius:1px}
 
-/* ===== PROJECTS ===== */
-.projects-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px}
-.seeall{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;background:var(--accent);color:#111;border:none;border-radius:999px;font-weight:900}
+/* ---------- Projects ---------- */
+.projects-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;            /* align inline like your screenshot */
+  gap:12px;
+  margin-bottom:20px;
+}
+.projects-head h2{
+  margin:0;
+  font-size:clamp(1.6rem,4.5vw,2rem);
+  font-weight:900;
+  letter-spacing:-.3px;
+}
+.seeall{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:8px 14px;
+  background:var(--accent);
+  color:#111;
+  border:none;
+  border-radius:999px;
+  font-weight:900;
+  font-size:.95rem;
+  white-space:nowrap;
+}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .card{background:#1E1E1E;color:#fff;border-radius:16px;height:280px;padding:16px;display:flex;align-items:flex-end}
 .card .label{font-size:1.2rem;font-weight:700;opacity:.95}
 
-/* ===== Tablet adjustments ===== */
+/* ---------- Tablet → stack ---------- */
 @media (max-width:980px){
   .pillbar-out{ margin-top:-44px; }
   .wh-grid{grid-template-columns:1fr}
   .cta-right{max-width:100%}
 }
-@media (max-width:640px){
-  .pillbar-out{ margin-top:-36px; }
-  .cards{grid-template-columns:1fr}
-}
 
 /* =========================================================
-   MOBILE (≤640px): SAME DESKTOP NAV, BUT FIXED AT BOTTOM
+   Mobile (≤640px): 
+   - Desktop navbar moves to bottom (no slide)
+   - Projects compact horizontal slider (3:4 cards)
    ========================================================= */
 @media (max-width:640px){
 
-  /* Hide the top floating copy on phones */
-  .nav-bar.floating{ display:none !important; }
+  /* Navbar bottom (same look as desktop, no horizontal scroll) */
+  .nav-bar.floating{ display:none !important; }        /* no top duplicate */
+  .pillbar-out{ margin-top:0 !important; height:0; pointer-events:none; }
 
-  /* Wrapper should not push layout; we’re fixing the bar */
-  .pillbar-out{
-    margin-top:0 !important;
-    height:0;
-    pointer-events:none;
-  }
-
-  /* EXACT desktop look, just re-positioned to bottom center */
   .pillbar-out .bar.nav-bar{
     position:fixed;
     bottom:calc(16px + env(safe-area-inset-bottom, 0px));
@@ -163,26 +188,17 @@ a{text-decoration:none;color:inherit}
     max-width:440px;
     z-index:9999;
 
-    display:inline-flex;
-    gap:18px;
-    padding:14px 22px;
+    display:inline-flex; gap:18px; padding:14px 22px;
     border-radius:32px;
-
-    background:rgba(40,40,40,.9);
-    color:#fff;
+    background:rgba(40,40,40,.9); color:#fff;
     box-shadow:0 18px 36px rgba(0,0,0,.28);
     backdrop-filter:blur(18px) saturate(180%);
     -webkit-backdrop-filter:blur(18px);
 
-    overflow-x:auto;             /* scroll if too many pills */
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    pointer-events:auto;         /* enable taps on the bar */
-    touch-action:pan-x;          /* avoid vertical drag conflicts */
+    overflow-x:visible;                  /* ✅ no slide on navbar */
+    pointer-events:auto;
+    touch-action:pan-x;                  /* avoid vertical grab conflicts */
   }
-  .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
-
-  /* Pills identical to desktop */
   .pillbar-out .bar.nav-bar .pill{
     display:inline-flex; align-items:center;
     padding:12px 20px; border-radius:999px;
@@ -190,18 +206,41 @@ a{text-decoration:none;color:inherit}
     color:#fff; font-weight:700; letter-spacing:.2px;
     transition:.2s ease; white-space:nowrap;
   }
-  .pillbar-out .bar.nav-bar .pill:hover{
-    background:rgba(255,255,255,.25); transform:translateY(-1px);
+  .pillbar-out .bar.nav-bar .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
+  .pillbar-out .bar.nav-bar .pill.active{background:var(--accent); color:var(--accent-ink)}
+  body{ padding-bottom:96px; }           /* keep content above nav */
+
+  /* Projects → compact horizontal slider (kemas & rapat) */
+  .cards{
+    display:flex;                         /* from grid → horizontal row */
+    gap:8px;                              /* rapat & kemas */
+    overflow-x:auto;                      /* slide left/right */
+    -webkit-overflow-scrolling:touch;     /* momentum on iOS */
+    scroll-snap-type:x mandatory;         /* snap each card */
+    scroll-padding-left:16px;
+    padding:4px 16px 12px;
+    margin:0 -16px;                       /* edge-to-edge feel */
+    touch-action:pan-x;
+    scrollbar-width:none;
   }
-  .pillbar-out .bar.nav-bar .pill.active{
-    background:var(--accent); color:var(--accent-ink);
+  .cards::-webkit-scrollbar{display:none;}
+  .card{
+    flex:0 0 46%;                         /* ~2 cards visible */
+    max-width:220px;
+    aspect-ratio:3 / 4;                   /* portrait — avoid “petak panjang/lebar” */
+    height:auto;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    border-radius:14px;
   }
 
-  /* Keep content clear of bottom bar */
-  body{ padding-bottom:96px; }
+  /* Projects header inline & tight */
+  .projects-head{ margin-bottom:14px; }
+  .seeall{ padding:8px 14px; font-size:.9rem; }
 }
 
-/* Extra-small phones */
+/* ---------- Extra-small phones (≤480px) ---------- */
 @media (max-width:480px){
   .pillbar-out .bar.nav-bar{ width:calc(100% - 24px); }
+  .card{ flex-basis:52%; max-width:200px; aspect-ratio:3 / 4; }
 }
