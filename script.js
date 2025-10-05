@@ -7,24 +7,26 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
-  // Redirect to homepage if path is not allowed
-  var allowedPaths = [
-    '/',
-    '/index.html',
-    '/showcase',
-    '/showcase/',
-    '/showcase/index.html',
-    '/projects',
-    '/projects/',
-    '/projects/index.html',
-    '/portfolio',
-    '/portfolio/',
-    '/portfolio/index.html',
-    '/closed.html'
-  ];
-  var currentPath = window.location.pathname;
-  if (!allowedPaths.includes(currentPath)) {
-    window.location.replace('https://zzaimii.com');
+  // (Optional) If you want to keep redirect for unknown paths when site is open:
+  if (!CLOSE_SITE) {
+    var allowedPaths = [
+      '/',
+      '/index.html',
+      '/showcase',
+      '/showcase/',
+      '/showcase/index.html',
+      '/projects',
+      '/projects/',
+      '/projects/index.html',
+      '/portfolio',
+      '/portfolio/',
+      '/portfolio/index.html',
+      '/closed.html'
+    ];
+    var currentPath = window.location.pathname;
+    if (!allowedPaths.includes(currentPath)) {
+      window.location.replace('https://zzaimii.com');
+    }
   }
 });
 // Redirect to homepage if path is not allowed
