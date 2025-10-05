@@ -53,4 +53,15 @@ function updateNav(){
 
 window.addEventListener('scroll', updateNav, { passive: true });
 window.addEventListener('resize', updateNav);
+
 document.addEventListener('DOMContentLoaded', updateNav);
+
+// Make Play button go to cyberwise.zzaimii.com
+document.addEventListener('DOMContentLoaded', function() {
+  var playBtn = document.getElementById('play');
+  if (playBtn) {
+    playBtn.addEventListener('click', function() {
+      window.open('https://cyberwise.zzaimii.com', '_blank');
+    });
+  }
+});
