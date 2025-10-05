@@ -1,8 +1,9 @@
 // ===== Site Close Toggle =====
-const CLOSE_SITE = false; // <-- Set to true to close site, false to open
+const CLOSE_SITE = true; // <-- Set to true to close site, false to open
 
 document.addEventListener('DOMContentLoaded', function() {
   if (CLOSE_SITE && window.location.pathname !== '/closed.html') {
+    // Always redirect to closed.html if site is closed and not already on closed.html
     window.location.replace('/closed.html');
     return;
   }
