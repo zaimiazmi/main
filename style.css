@@ -1,11 +1,11 @@
 /* =========================================================
-   Zaimi — Clean CSS (Desktop intact, Mobile refined)
+   Zaimi — Final CSS (Desktop intact, Mobile refined)
    - Desktop: same visual design
    - Mobile (≤640px):
-       • Desktop-style pill navbar fixed at the bottom (unchanged)
-       • Projects header inline (“Project” + “See all”)
-       • Projects compact horizontal slider (3:4 cards)
-       • CONTENT GAP FIX: left/right padding for sections
+       • Desktop-style pill navbar fixed at the BOTTOM and SCROLLABLE (slide)
+       • Content gap fix: left/right padding for sections
+       • Projects header inline (“Projects” + “See all”)
+       • Projects = compact horizontal slider (portrait 3:4 cards)
    ========================================================= */
 
 /* ---------- Tokens ---------- */
@@ -134,7 +134,7 @@ a{text-decoration:none;color:inherit}
 .projects-head{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:center;            /* inline like your screenshot */
   gap:12px;
   margin-bottom:20px;
 }
@@ -171,9 +171,9 @@ a{text-decoration:none;color:inherit}
 
 /* =========================================================
    MOBILE (≤640px)
-   - Navbar bottom (unchanged)
-   - Projects compact slider
-   - CONTENT GAP FIX for sections
+   - Bottom navbar (SCROLLABLE)
+   - Section content left/right padding
+   - Projects compact slider + header inline
    ========================================================= */
 @media (max-width:640px){
 
@@ -185,13 +185,13 @@ a{text-decoration:none;color:inherit}
     padding-left:16px;
     padding-right:16px;
   }
-  /* reduce section vertical padding for mobile */
   .section{ padding-top:56px; padding-bottom:56px; }
   .wh-grid{ gap:16px; }
 
-  /* ===== Navbar bottom (keep current behavior; no slide) ===== */
+  /* ===== Navbar: same look, fixed at bottom, SCROLLABLE ===== */
   .nav-bar.floating{ display:none !important; }
   .pillbar-out{ margin-top:0 !important; height:0; pointer-events:none; }
+
   .pillbar-out .bar.nav-bar{
     position:fixed;
     bottom:calc(16px + env(safe-area-inset-bottom, 0px));
@@ -208,22 +208,27 @@ a{text-decoration:none;color:inherit}
     backdrop-filter:blur(18px) saturate(180%);
     -webkit-backdrop-filter:blur(18px);
 
-    overflow-x:visible;       /* no horizontal slide */
+    overflow-x:auto;                  /* ✅ enable slide */
+    -webkit-overflow-scrolling:touch; /* iOS momentum */
+    scrollbar-width:none;
     pointer-events:auto;
     touch-action:pan-x;
   }
+  .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
+
   .pillbar-out .bar.nav-bar .pill{
     display:inline-flex; align-items:center;
     padding:12px 20px; border-radius:999px;
     background:rgba(255,255,255,.16);
     color:#fff; font-weight:700; letter-spacing:.2px;
     transition:.2s ease; white-space:nowrap;
+    flex:0 0 auto;                     /* don’t stretch */
   }
   .pillbar-out .bar.nav-bar .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
   .pillbar-out .bar.nav-bar .pill.active{background:var(--accent); color:var(--accent-ink)}
-  body{ padding-bottom:96px; }
+  body{ padding-bottom:96px; }          /* keep content above nav */
 
-  /* ===== Projects → compact horizontal slider ===== */
+  /* ===== Projects → compact horizontal slider (portrait cards) ===== */
   .cards{
     display:flex;                 /* from grid → row */
     gap:8px;
@@ -231,8 +236,8 @@ a{text-decoration:none;color:inherit}
     -webkit-overflow-scrolling:touch;
     scroll-snap-type:x mandatory;
     scroll-padding-left:16px;
-    padding-bottom:12px;          /* we already added inline padding above */
-    margin:0;                     /* no negative margins → keeps side gap */
+    padding-bottom:12px;
+    margin:0;                     /* keep side gap from padding */
     touch-action:pan-x;
     scrollbar-width:none;
   }
@@ -256,4 +261,191 @@ a{text-decoration:none;color:inherit}
 @media (max-width:480px){
   .pillbar-out .bar.nav-bar{ width:calc(100% - 32px); } /* keep side gap */
   .card{ flex-basis:52%; max-width:200px; aspect-ratio:3 / 4; }
+}
+
+/* =========================================
+   FIX GAP BETWEEN SECTIONS
+   ========================================= */
+@media (max-width:640px){
+  /* Kurangkan padding section di mobile */
+  .section{ padding-top:56px; padding-bottom:40px; }
+
+  /* H2 margin bawah lebih kecil */
+  .section h2{ margin-bottom:20px; }
+
+  /* Projects header lebih rapat */
+  .projects-head{ margin-bottom:12px; }
+}
+
+/* =========================================
+   FIX: Jarak besar antara sections (web & mobile)
+   ========================================= */
+
+/* 1) Standardize spacing untuk semua skrin */
+.section{ 
+  padding-top: 64px; 
+  padding-bottom: 48px; 
+}
+
+/* 2) Bila ada .section berturut-turut, kecilkan padding-top section kedua */
+.section + .section{
+  padding-top: 16px;   /* <-- KUNCI: kecilkan ruang di atas section kedua */
+}
+
+/* 3) Ketatkan heading dan elemen dalam section supaya tak tambah jurang */
+.section h2{ 
+  margin-bottom: 16px; 
+}
+.wh-grid{ 
+  margin-bottom: 0; 
+}
+
+/* 4) Projects header — pastikan tak tolak ke bawah */
+.projects-head{
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+/* 5) Jika ada .divider digunakan di antara sections, kecilkan juga */
+.divider{ 
+  margin: 24px 0; 
+}
+.section .divider:last-child{ 
+  margin-bottom: 0; 
+}
+
+/* =========================================
+   FOOTER — Premium Glassy Style
+   ========================================= */
+.footer{
+  position: relative;
+  isolation: isolate;                    /* allow overlay */
+  background: #0E0F13;
+  color: #E8EAED;
+  margin-top: 72px;
+  padding: 56px 24px 36px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1200px 400px at 20% -10%, rgba(255,229,0,0.10), transparent 60%),
+    radial-gradient(900px 300px at 90% -10%, rgba(255,255,255,0.06), transparent 55%);
+  pointer-events:none;
+  z-index:0;
+}
+.footer-inner{
+  position: relative; z-index:1;
+  max-width: 1120px; margin:0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr .8fr 1.2fr;  /* brand | links | links | newsletter */
+  gap: 28px;
+}
+
+/* Brand / blurb */
+.footer-brand{
+  display:flex; flex-direction:column; gap:12px;
+}
+.footer-logo{
+  display:inline-flex; align-items:center; gap:10px;
+  font-weight:900; letter-spacing:.2px; font-size:1.1rem;
+  color:#fff;
+}
+.footer-logo .dot{ width:10px; height:10px; border-radius:999px; background: var(--accent); box-shadow:0 0 12px rgba(255,229,0,.6); }
+.footer-blurb{ color:#AEB3BC; line-height:1.7; font-size:.95rem; }
+
+/* Columns */
+.footer-col h4{
+  font-size:.95rem; font-weight:800; color:#fff; margin-bottom:12px;
+  letter-spacing:.2px;
+}
+.footer-col ul{ list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+.footer-col a{
+  color:#C9CED6; font-size:.95rem; text-decoration:none; transition:color .2s ease;
+}
+.footer-col a:hover{ color: var(--accent); }
+
+/* Newsletter */
+.footer-news{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 14px;
+  display:flex; flex-direction:column; gap:10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.16) inset;
+}
+.footer-news h5{
+  margin:0; font-size:.95rem; font-weight:800; color:#fff;
+}
+.footer-news p{
+  margin:0; color:#AEB3BC; font-size:.9rem; line-height:1.5;
+}
+.footer-form{
+  display:flex; gap:8px; margin-top:4px;
+}
+.footer-input{
+  flex:1; height:42px; padding:0 12px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color:#fff; outline:none;
+}
+.footer-input::placeholder{ color:#9BA1AA; }
+.footer-btn{
+  flex:0 0 auto; height:42px; padding:0 14px; border-radius:999px;
+  background: var(--accent); color: var(--accent-ink);
+  border:none; font-weight:800; cursor:pointer;
+  box-shadow: 0 6px 18px rgba(255,229,0,.25);
+  transition: transform .15s ease;
+}
+.footer-btn:active{ transform: translateY(1px); }
+
+/* Socials */
+.footer-social{
+  display:flex; gap:10px; margin-top:8px;
+}
+.footer-social a{
+  width:36px; height:36px; border-radius:12px;
+  display:inline-flex; align-items:center; justify-content:center;
+  color:#111; background:#fff;
+  border:1px solid #E6E6E6;
+  transition: transform .15s ease, background .2s ease, color .2s ease;
+}
+.footer-social a:hover{ background: var(--accent); color: var(--accent-ink); transform: translateY(-1px); }
+
+/* Bottom strip */
+.footer-bottom{
+  position: relative; z-index:1;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; max-width:1120px; margin: 24px auto 0;
+  padding-top: 16px;
+  border-top:1px solid rgba(255,255,255,.06);
+  color:#AEB3BC; font-size:.9rem;
+}
+.footer-legal{
+  display:flex; gap:14px; flex-wrap:wrap;
+}
+.footer-legal a{ color:#C9CED6; text-decoration:none; }
+.footer-legal a:hover{ color: var(--accent); }
+
+/* Mobile & small tablets */
+@media (max-width:980px){
+  .footer-inner{
+    grid-template-columns: 1fr 1fr;   /* 2 kolum */
+  }
+  .footer-news{ grid-column: 1 / -1; } /* newsletter penuh lebar */
+}
+@media (max-width:640px){
+  .footer{ padding: 44px 16px 28px; margin-top: 56px; }
+  .footer-inner{
+    grid-template-columns: 1fr;       /* stack */
+    gap: 20px;
+  }
+  .footer-news{ padding: 12px; }
+  .footer-form{ flex-direction:row; } /* kekal row, muat phone */
+  .footer-input{ height:40px; }
+  .footer-btn{ height:40px; padding:0 12px; }
+  .footer-bottom{
+    flex-direction:column; gap:8px; text-align:center;
+  }
 }
