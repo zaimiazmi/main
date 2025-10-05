@@ -20,7 +20,7 @@ a{text-decoration:none;color:inherit}
 
 /* ===== HERO ===== */
 .hero{
-  position:relative; z-index:0;
+  position:relative; z-index:0;  /* keep hero below navbar */
   min-height:70vh; display:flex; align-items:flex-end;
   overflow:hidden; border-bottom-left-radius:28px; border-bottom-right-radius:28px;
   box-shadow:0 14px 40px rgba(0,0,0,.18);
@@ -33,15 +33,15 @@ a{text-decoration:none;color:inherit}
 .h-eyebrow{font-weight:800;font-size:clamp(2.8rem,6vw,4.2rem);letter-spacing:.2px;margin-bottom:12px}
 .h-sub{max-width:640px;color:var(--muted);font-weight:400;line-height:1.6;font-size:clamp(1rem,1.4vw,1.125rem)}
 
-/* ===== NAV PILL BAR ===== */
+/* ===== NAV PILL BAR (overlap hero; floating copy on scroll desktop) ===== */
 .pillbar-out{
   position:relative;
-  margin-top:-56px;
+  margin-top:-56px;                 /* overlap the hero’s bottom edge */
   display:flex; justify-content:center;
-  z-index:10;
+  z-index:10;                       /* above hero */
 }
 
-/* Base look */
+/* Base look (desktop & general) */
 .bar.nav-bar{
   display:inline-flex; gap:18px; padding:14px 22px;
   background:rgba(40,40,40,.9); color:#fff; border-radius:32px;
@@ -55,7 +55,7 @@ a{text-decoration:none;color:inherit}
 .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
 .pill.active{background:var(--accent); color:var(--accent-ink)}
 
-/* Floating copy (desktop scroll only) */
+/* Floating copy (appears after scroll; desktop/tablet) */
 .nav-bar.floating{
   position:fixed;
   top:max(12px, env(safe-area-inset-top));
@@ -65,10 +65,7 @@ a{text-decoration:none;color:inherit}
 }
 
 /* ===== QUOTE ===== */
-.quote {
-  padding: 80px 0;
-  text-align: center;
-}
+.quote { padding: 80px 0; text-align: center; }
 .quote h3 {
   font-size: clamp(2.2rem, 7vw, 3.8rem);
   font-weight: 900;
@@ -77,40 +74,20 @@ a{text-decoration:none;color:inherit}
   margin-bottom: 28px;
 }
 
-/* ===== LANGUAGE SWITCH ===== */
-.lang-switch {
-  display: flex;
-  justify-content: center;
+/* ===== LANGUAGE SWITCH (matches pill style) ===== */
+.lang-switch { display:flex; justify-content:center; }
+.lang-switch .bar{
+  display:inline-flex; gap:18px; padding:14px 22px;
+  background:rgba(40,40,40,.9); color:#fff; border-radius:32px;
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+  backdrop-filter:blur(18px) saturate(180%);
 }
-.lang-switch .bar {
-  display: inline-flex;
-  gap: 18px;
-  padding: 14px 22px;
-  background: rgba(40,40,40,.9);
-  color: #fff;
-  border-radius: 32px;
-  box-shadow: 0 18px 36px rgba(0,0,0,.28);
-  backdrop-filter: blur(18px) saturate(180%);
+.lang-switch .pill{
+  display:inline-flex; align-items:center; padding:12px 20px; border-radius:999px;
+  background:rgba(255,255,255,.16); color:#fff; font-weight:700; letter-spacing:.2px; transition:.2s ease;
 }
-.lang-switch .pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.16);
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: .2px;
-  transition: .2s ease;
-}
-.lang-switch .pill:hover {
-  background: rgba(255,255,255,.25);
-  transform: translateY(-1px);
-}
-.lang-switch .pill.active {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
+.lang-switch .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
+.lang-switch .pill.active{background:var(--accent); color:var(--accent-ink)}
 
 /* ===== WHAT'S HAPPENING ===== */
 .section{padding:80px 0}
@@ -119,7 +96,6 @@ a{text-decoration:none;color:inherit}
 .banner{position:relative;border-radius:20px;min-height:420px;overflow:hidden;box-shadow:var(--shadow-sm);background:#f3f3f3}
 .banner .cover{width:100%;height:100%;object-fit:cover}
 .now-badge{position:absolute;left:14px;top:14px;background:var(--accent);color:#111;font-weight:900;font-size:.82rem;padding:6px 12px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.12)}
-
 .wh-copy{display:flex;flex-direction:column;justify-content:center;padding:8px 6px;gap:12px}
 .wh-copy .wh-title{font-size:clamp(2rem,3.4vw,2.4rem);font-weight:900;margin:0}
 .wh-copy p{color:#3b3f46;line-height:1.75}
@@ -150,7 +126,7 @@ a{text-decoration:none;color:inherit}
 .card{background:#1E1E1E;color:#fff;border-radius:16px;height:280px;padding:16px;display:flex;align-items:flex-end}
 .card .label{font-size:1.2rem;font-weight:700;opacity:.95}
 
-/* ===== Responsive tweaks ===== */
+/* ===== Responsive (tablet/desktop) ===== */
 @media (max-width:980px){
   .pillbar-out{ margin-top:-44px; }
   .wh-grid{grid-template-columns:1fr}
@@ -161,52 +137,83 @@ a{text-decoration:none;color:inherit}
   .cards{grid-template-columns:1fr}
 }
 
-/* ===== MOBILE FLOATING NAV ONLY ===== */
+/* =========================================================
+   MOBILE (≤ 640px): FLOATING BOTTOM NAV — CLEAN TEXT PILLS
+   - Hides top floating copy
+   - Centers bar above bottom safe area
+   - Only active pill is filled (yellow)
+   ========================================================= */
 @media (max-width: 640px){
 
-  /* hide top floating copy on phones */
-  .nav-bar.floating{ display:none!important; }
+  /* Hide the top floating duplicate on phones */
+  .nav-bar.floating{ display:none !important; }
 
-  /* wrapper carries no layout height */
-  .pillbar-out{ height:0; pointer-events:none; }
+  /* Remove hero-overlap margin effect and avoid blocking taps */
+  .pillbar-out{
+    margin-top:0 !important;
+    height:0;
+    pointer-events:none;
+  }
 
-  /* floating nav bar itself */
+  /* Floating bottom bar container */
   .pillbar-out .bar.nav-bar{
     position:fixed;
-    bottom:calc(16px + env(safe-area-inset-bottom,0px));
+    bottom:calc(16px + env(safe-area-inset-bottom, 0px));
     left:50%;
     transform:translateX(-50%);
-    width:calc(100% - 32px);
-    max-width:440px;
+    width:calc(100% - 32px);      /* side margins */
+    max-width:440px;              /* tidy on large phones */
     z-index:9999;
 
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:10px;
+    justify-content:space-around;
+    gap:8px;
 
-    padding:10px 12px;
+    padding:8px 12px;
     border-radius:20px;
-    background:rgba(40,40,40,.9);
+    background:rgba(40,40,40,.92);
     box-shadow:0 12px 30px rgba(0,0,0,.35);
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
 
+    /* Scroll horizontally if many items; keep vertical stable */
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
-    pointer-events:auto;
+    touch-action:pan-x;
+    pointer-events:auto;          /* enable taps */
   }
-  .pillbar-out .bar.nav-bar::-webkit-scrollbar{display:none;}
+  .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
 
+  /* Lighter pills: transparent by default, active is filled */
   .pillbar-out .bar.nav-bar .pill{
     flex:1 0 auto;
-    text-align:center;
-    padding:10px 0;
+    background:transparent;
+    color:#fff;
+    padding:8px 0;
     border-radius:999px;
+    font-weight:600;
+    font-size:.95rem;
+    line-height:1;
+    text-align:center;
     white-space:nowrap;
   }
+  .pillbar-out .bar.nav-bar .pill.active,
+  .pillbar-out .bar.nav-bar .pill[aria-current="page"]{
+    background:var(--accent);
+    color:var(--accent-ink);
+    font-weight:700;
+  }
 
-  body{ padding-bottom:96px; } /* keep content above bar */
+  /* Keep content clear of the bar */
+  body{
+    padding-bottom:max(96px, calc(64px + env(safe-area-inset-bottom, 0px)));
+  }
 }
 
+/* Super-compact phones (≤ 480px) */
+@media (max-width:480px){
+  .pillbar-out .bar.nav-bar{ width:calc(100% - 24px); }
+  .pillbar-out .bar.nav-bar .pill{ font-size:.9rem; }
+}
