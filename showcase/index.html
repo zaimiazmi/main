@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    const CLOSE_SITE = true;
+    if (CLOSE_SITE && window.location.pathname !== '/closed.html') {
+      window.location.replace('/closed.html');
+    }
+  </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Showcase – Zaimi</title>
