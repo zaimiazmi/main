@@ -1,10 +1,11 @@
 /* =========================================================
    Zaimi — Clean CSS (Desktop intact, Mobile refined)
-   - Desktop: same visual design you already had
+   - Desktop: same visual design
    - Mobile (≤640px):
-       • Desktop-style pill navbar fixed at the bottom (no slide)
-       • Projects header inline (“Project” + “See all” aligned)
-       • Projects become a neat, compact horizontal slider (3:4 cards)
+       • Desktop-style pill navbar fixed at the bottom (unchanged)
+       • Projects header inline (“Project” + “See all”)
+       • Projects compact horizontal slider (3:4 cards)
+       • CONTENT GAP FIX: left/right padding for sections
    ========================================================= */
 
 /* ---------- Tokens ---------- */
@@ -133,7 +134,7 @@ a{text-decoration:none;color:inherit}
 .projects-head{
   display:flex;
   justify-content:space-between;
-  align-items:center;            /* align inline like your screenshot */
+  align-items:center;
   gap:12px;
   margin-bottom:20px;
 }
@@ -161,7 +162,7 @@ a{text-decoration:none;color:inherit}
 .card{background:#1E1E1E;color:#fff;border-radius:16px;height:280px;padding:16px;display:flex;align-items:flex-end}
 .card .label{font-size:1.2rem;font-weight:700;opacity:.95}
 
-/* ---------- Tablet → stack ---------- */
+/* ---------- Tablet ---------- */
 @media (max-width:980px){
   .pillbar-out{ margin-top:-44px; }
   .wh-grid{grid-template-columns:1fr}
@@ -169,22 +170,34 @@ a{text-decoration:none;color:inherit}
 }
 
 /* =========================================================
-   Mobile (≤640px): 
-   - Desktop navbar moves to bottom (no slide)
-   - Projects compact horizontal slider (3:4 cards)
+   MOBILE (≤640px)
+   - Navbar bottom (unchanged)
+   - Projects compact slider
+   - CONTENT GAP FIX for sections
    ========================================================= */
 @media (max-width:640px){
 
-  /* Navbar bottom (same look as desktop, no horizontal scroll) */
-  .nav-bar.floating{ display:none !important; }        /* no top duplicate */
-  .pillbar-out{ margin-top:0 !important; height:0; pointer-events:none; }
+  /* ===== Content left/right gap fix ===== */
+  .section,
+  .wh-grid,
+  .projects-head,
+  .cards{
+    padding-left:16px;
+    padding-right:16px;
+  }
+  /* reduce section vertical padding for mobile */
+  .section{ padding-top:56px; padding-bottom:56px; }
+  .wh-grid{ gap:16px; }
 
+  /* ===== Navbar bottom (keep current behavior; no slide) ===== */
+  .nav-bar.floating{ display:none !important; }
+  .pillbar-out{ margin-top:0 !important; height:0; pointer-events:none; }
   .pillbar-out .bar.nav-bar{
     position:fixed;
     bottom:calc(16px + env(safe-area-inset-bottom, 0px));
     left:50%;
     transform:translateX(-50%);
-    width:calc(100% - 32px);
+    width:calc(100% - 40px);  /* side gap preserved */
     max-width:440px;
     z-index:9999;
 
@@ -195,9 +208,9 @@ a{text-decoration:none;color:inherit}
     backdrop-filter:blur(18px) saturate(180%);
     -webkit-backdrop-filter:blur(18px);
 
-    overflow-x:visible;                  /* ✅ no slide on navbar */
+    overflow-x:visible;       /* no horizontal slide */
     pointer-events:auto;
-    touch-action:pan-x;                  /* avoid vertical grab conflicts */
+    touch-action:pan-x;
   }
   .pillbar-out .bar.nav-bar .pill{
     display:inline-flex; align-items:center;
@@ -208,39 +221,39 @@ a{text-decoration:none;color:inherit}
   }
   .pillbar-out .bar.nav-bar .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
   .pillbar-out .bar.nav-bar .pill.active{background:var(--accent); color:var(--accent-ink)}
-  body{ padding-bottom:96px; }           /* keep content above nav */
+  body{ padding-bottom:96px; }
 
-  /* Projects → compact horizontal slider (kemas & rapat) */
+  /* ===== Projects → compact horizontal slider ===== */
   .cards{
-    display:flex;                         /* from grid → horizontal row */
-    gap:8px;                              /* rapat & kemas */
-    overflow-x:auto;                      /* slide left/right */
-    -webkit-overflow-scrolling:touch;     /* momentum on iOS */
-    scroll-snap-type:x mandatory;         /* snap each card */
+    display:flex;                 /* from grid → row */
+    gap:8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
     scroll-padding-left:16px;
-    padding:4px 16px 12px;
-    margin:0 -16px;                       /* edge-to-edge feel */
+    padding-bottom:12px;          /* we already added inline padding above */
+    margin:0;                     /* no negative margins → keeps side gap */
     touch-action:pan-x;
     scrollbar-width:none;
   }
   .cards::-webkit-scrollbar{display:none;}
   .card{
-    flex:0 0 46%;                         /* ~2 cards visible */
+    flex:0 0 46%;                 /* ~2 cards visible */
     max-width:220px;
-    aspect-ratio:3 / 4;                   /* portrait — avoid “petak panjang/lebar” */
+    aspect-ratio:3 / 4;
     height:auto;
     scroll-snap-align:start;
     scroll-snap-stop:always;
     border-radius:14px;
   }
 
-  /* Projects header inline & tight */
+  /* Projects header tight */
   .projects-head{ margin-bottom:14px; }
   .seeall{ padding:8px 14px; font-size:.9rem; }
 }
 
 /* ---------- Extra-small phones (≤480px) ---------- */
 @media (max-width:480px){
-  .pillbar-out .bar.nav-bar{ width:calc(100% - 24px); }
+  .pillbar-out .bar.nav-bar{ width:calc(100% - 32px); } /* keep side gap */
   .card{ flex-basis:52%; max-width:200px; aspect-ratio:3 / 4; }
 }
