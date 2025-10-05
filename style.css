@@ -20,7 +20,7 @@ a{text-decoration:none;color:inherit}
 
 /* ===== HERO ===== */
 .hero{
-  position:relative; z-index:0;  /* keep hero below navbar */
+  position:relative; z-index:0;
   min-height:70vh; display:flex; align-items:flex-end;
   overflow:hidden; border-bottom-left-radius:28px; border-bottom-right-radius:28px;
   box-shadow:0 14px 40px rgba(0,0,0,.18);
@@ -33,29 +33,33 @@ a{text-decoration:none;color:inherit}
 .h-eyebrow{font-weight:800;font-size:clamp(2.8rem,6vw,4.2rem);letter-spacing:.2px;margin-bottom:12px}
 .h-sub{max-width:640px;color:var(--muted);font-weight:400;line-height:1.6;font-size:clamp(1rem,1.4vw,1.125rem)}
 
-/* ===== NAV PILL BAR (overlap hero; floating copy on scroll desktop) ===== */
+/* ===== NAV PILL BAR (desktop/top) ===== */
 .pillbar-out{
   position:relative;
-  margin-top:-56px;                 /* overlap the hero’s bottom edge */
+  margin-top:-56px;                 /* overlap hero’s bottom edge */
   display:flex; justify-content:center;
   z-index:10;                       /* above hero */
 }
 
-/* Base look (desktop & general) */
 .bar.nav-bar{
   display:inline-flex; gap:18px; padding:14px 22px;
   background:rgba(40,40,40,.9); color:#fff; border-radius:32px;
   box-shadow:0 18px 36px rgba(0,0,0,.28);
   backdrop-filter:blur(18px) saturate(180%);
 }
+
 .pill{
-  display:inline-flex; align-items:center; padding:12px 20px; border-radius:999px;
-  background:rgba(255,255,255,.16); color:#fff; font-weight:700; letter-spacing:.2px; transition:.2s ease;
+  display:inline-flex; align-items:center;
+  padding:12px 20px; border-radius:999px;
+  background:rgba(255,255,255,.16);
+  color:#fff; font-weight:700; letter-spacing:.2px;
+  transition:.2s ease;
+  white-space:nowrap;
 }
 .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
 .pill.active{background:var(--accent); color:var(--accent-ink)}
 
-/* Floating copy (appears after scroll; desktop/tablet) */
+/* Optional desktop floating copy on scroll */
 .nav-bar.floating{
   position:fixed;
   top:max(12px, env(safe-area-inset-top));
@@ -65,17 +69,14 @@ a{text-decoration:none;color:inherit}
 }
 
 /* ===== QUOTE ===== */
-.quote { padding: 80px 0; text-align: center; }
-.quote h3 {
-  font-size: clamp(2.2rem, 7vw, 3.8rem);
-  font-weight: 900;
-  font-style: italic;
-  line-height: 1.15;
-  margin-bottom: 28px;
+.quote{padding:80px 0;text-align:center}
+.quote h3{
+  font-size:clamp(2.2rem,7vw,3.8rem);
+  font-weight:900; font-style:italic; line-height:1.15; margin-bottom:28px;
 }
 
-/* ===== LANGUAGE SWITCH (matches pill style) ===== */
-.lang-switch { display:flex; justify-content:center; }
+/* ===== LANGUAGE SWITCH (shares pill style) ===== */
+.lang-switch{display:flex;justify-content:center}
 .lang-switch .bar{
   display:inline-flex; gap:18px; padding:14px 22px;
   background:rgba(40,40,40,.9); color:#fff; border-radius:32px;
@@ -126,7 +127,7 @@ a{text-decoration:none;color:inherit}
 .card{background:#1E1E1E;color:#fff;border-radius:16px;height:280px;padding:16px;display:flex;align-items:flex-end}
 .card .label{font-size:1.2rem;font-weight:700;opacity:.95}
 
-/* ===== Responsive (tablet/desktop) ===== */
+/* ===== Tablet adjustments ===== */
 @media (max-width:980px){
   .pillbar-out{ margin-top:-44px; }
   .wh-grid{grid-template-columns:1fr}
@@ -138,82 +139,69 @@ a{text-decoration:none;color:inherit}
 }
 
 /* =========================================================
-   MOBILE (≤ 640px): FLOATING BOTTOM NAV — CLEAN TEXT PILLS
-   - Hides top floating copy
-   - Centers bar above bottom safe area
-   - Only active pill is filled (yellow)
+   MOBILE (≤640px): SAME DESKTOP NAV, BUT FIXED AT BOTTOM
    ========================================================= */
-@media (max-width: 640px){
+@media (max-width:640px){
 
-  /* Hide the top floating duplicate on phones */
+  /* Hide the top floating copy on phones */
   .nav-bar.floating{ display:none !important; }
 
-  /* Remove hero-overlap margin effect and avoid blocking taps */
+  /* Wrapper should not push layout; we’re fixing the bar */
   .pillbar-out{
     margin-top:0 !important;
     height:0;
     pointer-events:none;
   }
 
-  /* Floating bottom bar container */
+  /* EXACT desktop look, just re-positioned to bottom center */
   .pillbar-out .bar.nav-bar{
     position:fixed;
     bottom:calc(16px + env(safe-area-inset-bottom, 0px));
     left:50%;
     transform:translateX(-50%);
-    width:calc(100% - 32px);      /* side margins */
-    max-width:440px;              /* tidy on large phones */
+    width:calc(100% - 32px);
+    max-width:440px;
     z-index:9999;
 
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    gap:8px;
+    display:inline-flex;
+    gap:18px;
+    padding:14px 22px;
+    border-radius:32px;
 
-    padding:8px 12px;
-    border-radius:20px;
-    background:rgba(40,40,40,.92);
-    box-shadow:0 12px 30px rgba(0,0,0,.35);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
+    background:rgba(40,40,40,.9);
+    color:#fff;
+    box-shadow:0 18px 36px rgba(0,0,0,.28);
+    backdrop-filter:blur(18px) saturate(180%);
+    -webkit-backdrop-filter:blur(18px);
 
-    /* Scroll horizontally if many items; keep vertical stable */
-    overflow-x:auto;
+    overflow-x:auto;             /* scroll if too many pills */
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
-    touch-action:pan-x;
-    pointer-events:auto;          /* enable taps */
+    pointer-events:auto;         /* enable taps on the bar */
+    touch-action:pan-x;          /* avoid vertical drag conflicts */
   }
   .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
 
-  /* Lighter pills: transparent by default, active is filled */
+  /* Pills identical to desktop */
   .pillbar-out .bar.nav-bar .pill{
-    flex:1 0 auto;
-    background:transparent;
-    color:#fff;
-    padding:8px 0;
-    border-radius:999px;
-    font-weight:600;
-    font-size:.95rem;
-    line-height:1;
-    text-align:center;
-    white-space:nowrap;
+    display:inline-flex; align-items:center;
+    padding:12px 20px; border-radius:999px;
+    background:rgba(255,255,255,.16);
+    color:#fff; font-weight:700; letter-spacing:.2px;
+    transition:.2s ease; white-space:nowrap;
   }
-  .pillbar-out .bar.nav-bar .pill.active,
-  .pillbar-out .bar.nav-bar .pill[aria-current="page"]{
-    background:var(--accent);
-    color:var(--accent-ink);
-    font-weight:700;
+  .pillbar-out .bar.nav-bar .pill:hover{
+    background:rgba(255,255,255,.25); transform:translateY(-1px);
+  }
+  .pillbar-out .bar.nav-bar .pill.active{
+    background:var(--accent); color:var(--accent-ink);
   }
 
-  /* Keep content clear of the bar */
-  body{
-    padding-bottom:max(96px, calc(64px + env(safe-area-inset-bottom, 0px)));
-  }
+  /* Keep content clear of bottom bar */
+  body{ padding-bottom:96px; }
 }
 
-/* Super-compact phones (≤ 480px) */
+/* Extra-small phones */
 @media (max-width:480px){
   .pillbar-out .bar.nav-bar{ width:calc(100% - 24px); }
-  .pillbar-out .bar.nav-bar .pill{ font-size:.9rem; }
 }
