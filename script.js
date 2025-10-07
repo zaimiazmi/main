@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
   if (!CLOSE_SITE && window.location.pathname === '/closed.html') {
-    window.location.replace('https://zzaimii.com');
+    window.location.replace('/');
     return;
   }
 
