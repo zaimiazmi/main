@@ -3,13 +3,145 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Showcase – Zaimi</title>
-  <link rel="stylesheet" href="../assets/styles.css">
+  <meta name="description" content="Showcase – Selected work by Zai Mi" />
+  <title>Showcase – Zai Mi</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Styles (reuse the same site CSS) -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Showcase</h1>
-  <p>This is the Showcase page.</p>
-  <a href="../index.html">Back to Home</a>
-  <script src="../assets/script.js"></script>
+  <!-- ===== HERO (reusing site style) ===== -->
+  <section class="hero" id="hero" aria-label="Showcase hero">
+    <div class="hero-inner container">
+      <h1 class="h-eyebrow">Showcase</h1>
+      <p class="h-sub">A curated selection of my favorite projects. I’ll add the content here once you send it.</p>
+    </div>
+  </section>
+
+  <!-- Pill navbar (same style; links point to pages) -->
+  <div class="pillbar-out container">
+    <nav class="bar nav-bar" id="navBar" aria-label="Primary">
+      <a class="pill" href="/">Home</a>
+      <a class="pill active" href="/showcase">Showcase</a>
+      <a class="pill" href="/projects">Projects</a>
+      <a class="pill" href="/portfolio">Portfolio</a>
+    </nav>
+  </div>
+
+  <!-- ===== FILTERS / TAGS (optional, non-functional for now) ===== -->
+  <section class="section container" aria-label="Showcase filters">
+    <div class="lang-switch" role="tablist" aria-label="Showcase categories">
+      <div class="bar nav-bar">
+        <a href="#" class="pill active" role="tab" aria-selected="true" data-cat="all">All</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="game">Game</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="branding">Branding</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="video">Video</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SHOWCASE GRID (placeholder cards) ===== -->
+  <section class="section container" aria-labelledby="showcase-title">
+    <h2 id="showcase-title">Featured Work</h2>
+
+    <div class="cards" id="showcaseGrid">
+      <!-- Placeholder items. Replace with your real content later. -->
+      <article class="card" aria-label="Showcase item placeholder">
+        <div class="label">Coming soon</div>
+      </article>
+      <article class="card" aria-label="Showcase item placeholder">
+        <div class="label">Coming soon</div>
+      </article>
+      <article class="card" aria-label="Showcase item placeholder">
+        <div class="label">Coming soon</div>
+      </article>
+    </div>
+
+    <div class="divider" role="separator"></div>
+  </section>
+
+  <!-- ===== DETAIL / RICH BLOCK (optional placeholder) ===== -->
+  <section class="section container" aria-labelledby="feature-block-title">
+    <h2 id="feature-block-title">Spotlight</h2>
+    <div class="wh-grid">
+      <figure class="banner" aria-label="Spotlight visual placeholder">
+        <img class="cover" src="wh-banner.jpg" alt="Showcase visual placeholder" />
+        <figcaption class="now-badge">COMING SOON</figcaption>
+      </figure>
+      <div class="wh-copy">
+        <h3 class="wh-title">Title goes here</h3>
+        <p>
+          Add a short write‑up here describing the featured project: goals, role,
+          tools, and the outcome. You can paste your real copy later.
+        </p>
+        <div class="cta-right">
+          <div class="left">
+            <img class="thumb" src="cyberwise-thumb.jpg" alt="Thumbnail placeholder">
+            <div class="meta">
+              <strong>Project name</strong>
+              <div class="sub">One‑liner / call to action</div>
+            </div>
+          </div>
+          <button class="play-btn" type="button">View</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (same markup as Home) ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="dot"></span> Zaimi aka zzaimii
+        </div>
+        <p class="footer-blurb">Multimedia Interactive Designer.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="YouTube">✕</a>
+          <a href="#" aria-label="TikTok">◎</a>
+          <a href="#" aria-label="LinkedIn">▶</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/showcase">Showcase</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-news">
+        <h5>Subscribe</h5>
+        <p>Get latest updates — no spam.</p>
+        <form class="footer-form" onsubmit="return false;">
+          <input class="footer-input" type="email" placeholder="Your email" />
+          <button class="footer-btn" type="submit">(Not available)</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2025 Zaimi. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
 </body>
 </html>
