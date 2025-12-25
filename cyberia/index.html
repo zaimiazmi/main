@@ -94,7 +94,14 @@
         bottom: 20px;
         top: auto;
       }
-      body { padding: 60px 10px 80px; }
+      .nav-bar {
+        gap: 4px;
+        padding: 6px 10px;
+      }
+      .pill {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
     }
   </style>
 </head>
@@ -152,6 +159,7 @@
     let isHoveringPreOrder = false;
     let isHoveringPlay = false;
     let scanlineY = 0;
+    let isMobile = window.innerWidth <= 768;
 
     // --- ASSET MANAGEMENT ---
     let assetsLoaded = 0;
@@ -183,8 +191,12 @@
     // --- SETUP ---
     function setupCanvas() {
       resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+      window.addEventListener('resize', () => {
+        isMobile = window.innerWidth <= 768;
+        resizeCanvas();
+      });
 
+      // Mouse events
       canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
         const scaleX = WIDTH / rect.width;
@@ -192,6 +204,36 @@
         mouseX = (e.clientX - rect.left) * scaleX;
         mouseY = (e.clientY - rect.top) * scaleY;
       });
+
+      // Touch events for mobile
+      canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = WIDTH / rect.width;
+        const scaleY = HEIGHT / rect.height;
+        mouseX = (touch.clientX - rect.left) * scaleX;
+        mouseY = (touch.clientY - rect.top) * scaleY;
+        
+        // Check hit detection immediately for touch
+        updateLogic();
+        if (isHoveringPreOrder) {
+          window.open('https://cyberwise.zzaimii.com', '_blank');
+        }
+        if (isHoveringPlay) {
+          alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
+        }
+      }, { passive: false });
+
+      canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = WIDTH / rect.width;
+        const scaleY = HEIGHT / rect.height;
+        mouseX = (touch.clientX - rect.left) * scaleX;
+        mouseY = (touch.clientY - rect.top) * scaleY;
+      }, { passive: false });
 
       canvas.addEventListener('click', () => {
         if (isHoveringPreOrder) {
@@ -208,10 +250,10 @@
       const containerW = window.innerWidth;
       const containerH = window.innerHeight;
       
-      // Calculate scale to fill screen while maintaining aspect ratio
+      // Calculate scale - use contain on mobile for better visibility
       const scaleX = containerW / WIDTH;
       const scaleY = containerH / HEIGHT;
-      const scale = Math.max(scaleX, scaleY); // Use max to fill entire screen
+      const scale = isMobile ? Math.min(scaleX, scaleY) : Math.max(scaleX, scaleY);
       
       canvas.width = WIDTH * dpr;
       canvas.height = HEIGHT * dpr;
@@ -437,7 +479,7 @@
       ctx.font = '700 11px "Roboto Mono"';
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
-      ctx.fillText('PRE-ORDER', 925, 45);
+      ctx.fillText('TRY NOW', 925, 45);
 
       // Play Trailer (Center)
       const centerX = x + (w / 2);
@@ -511,16 +553,8 @@
       }
     }
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      const container = document.getElementById('canvas-container');
-      const maxWidth = Math.min(window.innerWidth - 40, WIDTH);
-      canvas.style.width = `${maxWidth}px`;
-      canvas.style.height = `${(maxWidth / WIDTH) * HEIGHT}px`;
-    });
-
-    // Trigger initial resize
-    window.dispatchEvent(new Event('resize'));
+    // Trigger initial mobile check
+    isMobile = window.innerWidth <= 768;
   </script>
 </body>
 </html>
