@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			'/showcase',
 			'/projects',
 			'/portfolio',
+			'/cyberia-game.html',
 			'/closed.html'
 		];
 		var path = window.location.pathname;
