@@ -96,3 +96,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+// ===== Image Skeleton Loader =====
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('img').forEach(function(img) {
+    // Skip if already wrapped
+    if (img.parentElement.classList.contains('img-wrapper')) return;
+
+    // Wrap image in skeleton container
+    const wrapper = document.createElement('div');
+    wrapper.className = 'img-wrapper';
+    wrapper.style.borderRadius = window.getComputedStyle(img).borderRadius;
+    img.parentElement.insertBefore(wrapper, img);
+    wrapper.appendChild(img);
+
+    // Create skeleton overlay
+    const skeleton = document.createElement('div');
+    skeleton.className = 'img-skeleton';
+    wrapper.appendChild(skeleton);
+
+    // Add lazy class for fade-in effect
+    img.classList.add('lazy');
+
+    // Handle image load
+    img.addEventListener('load', function() {
+      img.classList.add('loaded');
+      skeleton.classList.add('hidden');
+    });
+
+    // Handle load error - keep skeleton visible
+    img.addEventListener('error', function() {
+      img.style.display = 'none';
+      skeleton.style.background = '#e5e5e5';
+    });
+
+    // Trigger load if already cached
+    if (img.complete) {
+      img.classList.add('loaded');
+      skeleton.classList.add('hidden');
+    }
+  });
+});

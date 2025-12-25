@@ -30,6 +30,27 @@ img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 .container{max-width:var(--container);margin:0 auto;padding-inline:var(--gutter)}
 
+/* ---------- Skeleton/Shimmer Loading ---------- */
+@keyframes shimmer{
+  0%{background-position:0 0}
+  100%{background-position:1000px 0}
+}
+.img-wrapper{
+  position:relative; overflow:hidden;
+  background:#f0f0f0; border-radius:inherit;
+}
+.img-skeleton{
+  position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,240,240,1) 0%, rgba(220,220,220,1) 50%, rgba(240,240,240,1) 100%);
+  background-size:1000px 100%;
+  animation:shimmer 2s infinite;
+  z-index:1; pointer-events:none;
+  opacity:1; transition:opacity .3s ease;
+}
+.img-skeleton.hidden{opacity:0; pointer-events:none}
+img.lazy{opacity:0; transition:opacity .3s ease}
+img.loaded{opacity:1}
+
 /* ---------- Hero ---------- */
 .hero{
   position:relative; z-index:0;
