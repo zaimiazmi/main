@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Cyberia: Wira Siber – A 2D pixel adventure about online safety" />
+  <title>Cyberia: Wira Siber – The Game</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto+Mono:wght@400;500;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto Mono', monospace;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    #canvas-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== SECTIONS ========== */
+    .cyber-section {
+      position: relative;
+      padding: 80px 40px;
+      background: #0a0a0a;
+      border-top: 1px solid #1a1a1a;
+      overflow: hidden;
+    }
+
+    .cyber-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #ccff00, transparent);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .section-number {
+      font-family: 'Oswald', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1;
+      -webkit-text-stroke: 1px #333;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #ccff00;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-top: 8px;
+    }
+
+    /* Shimmer Effect */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, #151515 25%, #222 50%, #151515 75%);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Media Grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .media-item {
+      aspect-ratio: 16/9;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #222;
+    }
+
+    .media-item::after {
+      content: '▶';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      color: rgba(204, 255, 0, 0.3);
+    }
+
+    /* Poster Grid */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .poster-item {
+      aspect-ratio: 2/3;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #222;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .poster-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(204, 255, 0, 0.1);
+    }
+
+    .poster-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .poster-item:hover::before {
+      border-color: #ccff00;
+    }
+
+    /* Developer Section */
+    .dev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .dev-card {
+      background: #111;
+      border: 1px solid #222;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dev-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #ccff00;
+    }
+
+    .dev-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .dev-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .dev-role {
+      font-size: 11px;
+      color: #ccff00;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .dev-bio {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .dev-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .dev-link {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #888;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .dev-link:hover {
+      background: #ccff00;
+      border-color: #ccff00;
+      color: #0a0a0a;
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: bounce 2s infinite;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .scroll-indicator span {
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-indicator::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, #ccff00, transparent);
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* Cyber Accents */
+    .cyber-line {
+      height: 1px;
+      background: linear-gradient(90deg, #ccff00, transparent);
+      margin: 40px 0;
+    }
+
+    .corner-accent {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #333;
+    }
+
+    .corner-accent.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+    .corner-accent.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+    .corner-accent.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+    .corner-accent.br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+    /* Footer */
+    .cyber-footer {
+      padding: 40px;
+      background: #050505;
+      border-top: 1px solid #1a1a1a;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      color: #ccff00;
+      margin-bottom: 16px;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .cyber-section {
+        padding: 60px 20px;
+      }
+
+      .section-number {
+        font-size: 48px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .poster-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .dev-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .scroll-indicator {
+        display: none;
+      }
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+      color: #ccff00;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 14px;
+      z-index: 1000;
+      transition: opacity 0.5s ease;
+    }
+    #loading.hidden { opacity: 0; pointer-events: none; }
+    #loading .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid #222;
+      border-top-color: #ccff00;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Navbar */
+    .pillbar-out {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+    .nav-bar {
+      display: inline-flex;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(40,40,40,.85);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+    }
+    .pill {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all .2s ease;
+    }
+    .pill:hover { background: rgba(255,255,255,.2); }
+    .pill.active { background: #ccff00; color: #0a0a0a; }
+
+    @media (max-width: 768px) {
+      .pillbar-out {
+        bottom: 20px;
+        top: auto;
+        z-index: 200;
+      }
+      .nav-bar {
+        gap: 4px;
+        padding: 6px 10px;
+      }
+      .pill {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+      
+      /* Add padding at bottom of page for navbar */
+      .cyber-footer {
+        padding-bottom: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <span>Initialising System...</span>
+  </div>
+
+  <!-- Navbar -->
+  <div class="pillbar-out">
+    <nav class="nav-bar">
+      <a class="pill" href="/">Home</a>
+      <a class="pill" href="/showcase">Showcase</a>
+      <a class="pill" href="/projects">Projects</a>
+      <a class="pill" href="/portfolio">Portfolio</a>
+    </nav>
+  </div>
+
+  <!-- Canvas Container -->
+  <div id="canvas-container">
+    <canvas id="uiCanvas"></canvas>
+    <div class="scroll-indicator">
+      <span>SCROLL</span>
+    </div>
+  </div>
+
+  <!-- MEDIA SECTION -->
+  <section class="cyber-section" id="media">
+    <div class="corner-accent tl"></div>
+    <div class="corner-accent tr"></div>
+    <div class="corner-accent bl"></div>
+    <div class="corner-accent br"></div>
+    
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div>
+        <h2 class="section-title">Media</h2>
+        <p class="section-subtitle">Trailers • Gameplay • Behind the Scenes</p>
+      </div>
+    </div>
+
+    <div class="media-grid">
+      <div class="media-item shimmer"></div>
+      <div class="media-item shimmer"></div>
+      <div class="media-item shimmer"></div>
+      <div class="media-item shimmer"></div>
+    </div>
+
+    <div class="cyber-line"></div>
+  </section>
+
+  <!-- POSTER SECTION -->
+  <section class="cyber-section" id="posters">
+    <div class="corner-accent tl"></div>
+    <div class="corner-accent tr"></div>
+    <div class="corner-accent bl"></div>
+    <div class="corner-accent br"></div>
+    
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <div>
+        <h2 class="section-title">Posters</h2>
+        <p class="section-subtitle">Official Artwork • Key Visuals</p>
+      </div>
+    </div>
+
+    <div class="poster-grid">
+      <div class="poster-item shimmer"></div>
+      <div class="poster-item shimmer"></div>
+      <div class="poster-item shimmer"></div>
+      <div class="poster-item shimmer"></div>
+      <div class="poster-item shimmer"></div>
+      <div class="poster-item shimmer"></div>
+    </div>
+
+    <div class="cyber-line"></div>
+  </section>
+
+  <!-- DEVELOPER SECTION -->
+  <section class="cyber-section" id="developer">
+    <div class="corner-accent tl"></div>
+    <div class="corner-accent tr"></div>
+    <div class="corner-accent bl"></div>
+    <div class="corner-accent br"></div>
+    
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div>
+        <h2 class="section-title">Developer</h2>
+        <p class="section-subtitle">The Team Behind Cyberia</p>
+      </div>
+    </div>
+
+    <div class="dev-grid">
+      <div class="dev-card">
+        <div class="dev-avatar shimmer"></div>
+        <h3 class="dev-name">Zaimi Azmi</h3>
+        <p class="dev-role">Lead Developer & Designer</p>
+        <p class="dev-bio">Creating immersive gaming experiences that educate and entertain. Passionate about cybersecurity awareness through interactive media.</p>
+        <div class="dev-links">
+          <a href="https://zzaimii.com" class="dev-link" title="Website">🌐</a>
+          <a href="https://github.com/zaimiazmi" class="dev-link" title="GitHub">⌨</a>
+          <a href="https://linkedin.com/in/zaimiazmi" class="dev-link" title="LinkedIn">in</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="footer-logo">CYBERIA</div>
+    <p class="footer-text">© 2025 Zaimi Azmi • All Rights Reserved</p>
+    <p class="footer-text" style="margin-top: 8px; color: #333;">Any run can lead to safety.</p>
+  </footer>
+
+  <script>
+    /**
+     * CYBERIA UI - CANVAS RENDERER (Marathon Style)
+     * Pixel-perfect rendering with HTML5 Canvas API
+     */
+
+    const canvas = document.getElementById('uiCanvas');
+    const ctx = canvas.getContext('2d');
+    const loadingEl = document.getElementById('loading');
+
+    // --- CONFIGURATION ---
+    const DESKTOP_WIDTH = 1000;
+    const DESKTOP_HEIGHT = 600;
+    const MOBILE_WIDTH = 400;
+    const MOBILE_HEIGHT = 800;
+    let WIDTH = DESKTOP_WIDTH;
+    let HEIGHT = DESKTOP_HEIGHT;
+    
+    // Warna tema Cyberia
+    const colors = {
+      neon: '#ccff00',
+      black: '#0a0a0a',
+      panelBlack: '#050505',
+      white: '#ffffff',
+      gray: '#888888',
+      overlay: 'rgba(0,0,0,0.35)',
+      grid: 'rgba(255,255,255,0.15)'
+    };
+
+    // State untuk interaksi
+    let mouseX = 0;
+    let mouseY = 0;
+    let isHoveringPreOrder = false;
+    let isHoveringPlay = false;
+    let scanlineY = 0;
+    let isMobile = window.innerWidth <= 768;
+
+    // --- ASSET MANAGEMENT ---
+    let assetsLoaded = 0;
+    const totalAssets = 2;
+
+    const bgImage = new Image();
+    bgImage.crossOrigin = "Anonymous";
+    bgImage.src = 'cyberwise-thumb.jpg';
+    
+    bgImage.onload = () => checkLoad();
+    bgImage.onerror = () => {
+      console.warn("Image failed to load, using fallback");
+      checkLoad();
+    };
+
+    document.fonts.ready.then(() => checkLoad());
+
+    function checkLoad() {
+      assetsLoaded++;
+      if (assetsLoaded >= totalAssets) {
+        setTimeout(() => {
+          loadingEl.classList.add('hidden');
+          setupCanvas();
+          requestAnimationFrame(renderLoop);
+        }, 500);
+      }
+    }
+
+    // --- SETUP ---
+    function setupCanvas() {
+      resizeCanvas();
+      window.addEventListener('resize', () => {
+        isMobile = window.innerWidth <= 768;
+        resizeCanvas();
+      });
+
+      // Mouse events
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = WIDTH / rect.width;
+        const scaleY = HEIGHT / rect.height;
+        mouseX = (e.clientX - rect.left) * scaleX;
+        mouseY = (e.clientY - rect.top) * scaleY;
+      });
+
+      // Touch events for mobile - only prevent default on buttons
+      canvas.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = WIDTH / rect.width;
+        const scaleY = HEIGHT / rect.height;
+        mouseX = (touch.clientX - rect.left) * scaleX;
+        mouseY = (touch.clientY - rect.top) * scaleY;
+        
+        // Check hit detection immediately for touch
+        updateLogic();
+        if (isHoveringPreOrder) {
+          e.preventDefault();
+          window.open('https://cyberwise.zzaimii.com', '_blank');
+        }
+        if (isHoveringPlay) {
+          e.preventDefault();
+          alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
+        }
+      }, { passive: false });
+
+      canvas.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = WIDTH / rect.width;
+        const scaleY = HEIGHT / rect.height;
+        mouseX = (touch.clientX - rect.left) * scaleX;
+        mouseY = (touch.clientY - rect.top) * scaleY;
+      });
+
+      canvas.addEventListener('click', () => {
+        if (isHoveringPreOrder) {
+          window.open('https://cyberwise.zzaimii.com', '_blank');
+        }
+        if (isHoveringPlay) {
+          alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
+        }
+      });
+    }
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      const containerW = window.innerWidth;
+      const containerH = window.innerHeight;
+      
+      // Switch canvas dimensions based on device
+      WIDTH = isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH;
+      HEIGHT = isMobile ? MOBILE_HEIGHT : DESKTOP_HEIGHT;
+      
+      canvas.width = WIDTH * dpr;
+      canvas.height = HEIGHT * dpr;
+      
+      // Calculate scale to fill container
+      const scaleX = containerW / WIDTH;
+      const scaleY = containerH / HEIGHT;
+      const scale = Math.max(scaleX, scaleY);
+      
+      const scaledW = WIDTH * scale;
+      const scaledH = HEIGHT * scale;
+      
+      canvas.style.width = `${scaledW}px`;
+      canvas.style.height = `${scaledH}px`;
+      canvas.style.position = 'absolute';
+      canvas.style.left = `${(containerW - scaledW) / 2}px`;
+      // Keep canvas aligned to top, don't go negative
+      canvas.style.top = '0';
+      
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+
+    // --- MAIN RENDER LOOP ---
+    function renderLoop() {
+      updateLogic();
+      
+      ctx.fillStyle = colors.black;
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      if (isMobile) {
+        drawMobileLayout();
+      } else {
+        drawLeftPanel();
+        drawDivider();
+        drawRightPanel();
+      }
+      drawScanlines();
+
+      requestAnimationFrame(renderLoop);
+    }
+
+    function updateLogic() {
+      scanlineY += 2;
+      if (scanlineY > HEIGHT) scanlineY = 0;
+
+      // Hit Detection - different positions for mobile vs desktop
+      if (isMobile) {
+        // Mobile: TRY NOW button at bottom
+        if (mouseX >= 30 && mouseX <= WIDTH - 30 && mouseY >= 680 && mouseY <= 740) {
+          isHoveringPreOrder = true;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'pointer';
+        } else if (mouseX >= 50 && mouseX <= WIDTH - 50 && mouseY >= 180 && mouseY <= 280) {
+          // Mobile: PLAY TRAILER in hero area
+          isHoveringPlay = true;
+          isHoveringPreOrder = false;
+          canvas.style.cursor = 'pointer';
+        } else {
+          isHoveringPreOrder = false;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'default';
+        }
+      } else {
+        // Desktop hit detection - TRY NOW in left panel
+        if (mouseX >= 40 && mouseX <= 310 && mouseY >= 440 && mouseY <= 490) {
+          isHoveringPreOrder = true;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'pointer';
+        } else if (mouseX >= 520 && mouseX <= 890 && mouseY >= 260 && mouseY <= 340) {
+          isHoveringPlay = true;
+          isHoveringPreOrder = false;
+          canvas.style.cursor = 'pointer';
+        } else {
+          isHoveringPreOrder = false;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'default';
+        }
+      }
+    }
+
+    // --- DRAWING FUNCTIONS ---
+
+    function drawMobileLayout() {
+      // === HERO SECTION (Top half with image) ===
+      const heroH = 320;
+      
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, WIDTH, heroH);
+      ctx.clip();
+
+      // Draw background image
+      if (bgImage.complete && bgImage.naturalWidth !== 0) {
+        const imgRatio = bgImage.width / bgImage.height;
+        const canvasRatio = WIDTH / heroH;
+        let sx, sy, sWidth, sHeight;
+
+        if (imgRatio > canvasRatio) {
+          sHeight = bgImage.height;
+          sWidth = bgImage.height * canvasRatio;
+          sx = (bgImage.width - sWidth) / 2;
+          sy = 0;
+        } else {
+          sWidth = bgImage.width;
+          sHeight = bgImage.width / canvasRatio;
+          sx = 0;
+          sy = (bgImage.height - sHeight) / 2;
+        }
+        ctx.drawImage(bgImage, sx, sy, sWidth, sHeight, 0, 0, WIDTH, heroH);
+      } else {
+        ctx.fillStyle = '#151515';
+        ctx.fillRect(0, 0, WIDTH, heroH);
+      }
+
+      // Dark overlay
+      ctx.fillStyle = 'rgba(0,0,0,0.4)';
+      ctx.fillRect(0, 0, WIDTH, heroH);
+
+      // PLAY TRAILER centered in hero
+      const centerX = WIDTH / 2;
+      const centerY = heroH / 2;
+      
+      ctx.textAlign = 'center';
+      ctx.font = '700 36px "Oswald"';
+      ctx.fillStyle = isHoveringPlay ? colors.white : colors.neon;
+      
+      if (isHoveringPlay) {
+        ctx.shadowColor = 'rgba(255,255,255,0.5)';
+        ctx.shadowBlur = 20;
+      }
+      ctx.fillText('PLAY TRAILER', centerX, centerY);
+      ctx.shadowBlur = 0;
+
+      // Brackets around PLAY TRAILER
+      ctx.strokeStyle = isHoveringPlay ? colors.neon : colors.white;
+      ctx.lineWidth = 2;
+      const bracketH = 40;
+      const bracketW = 15;
+      const gap = 110;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX - gap, centerY - bracketH/2);
+      ctx.lineTo(centerX - gap - bracketW, centerY - bracketH/2);
+      ctx.lineTo(centerX - gap - bracketW, centerY + bracketH/2);
+      ctx.lineTo(centerX - gap, centerY + bracketH/2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(centerX + gap, centerY - bracketH/2);
+      ctx.lineTo(centerX + gap + bracketW, centerY - bracketH/2);
+      ctx.lineTo(centerX + gap + bracketW, centerY + bracketH/2);
+      ctx.lineTo(centerX + gap, centerY + bracketH/2);
+      ctx.stroke();
+
+      ctx.restore();
+
+      // === CONTENT SECTION (Bottom half - white background) ===
+      ctx.fillStyle = colors.white;
+      ctx.fillRect(0, heroH, WIDTH, HEIGHT - heroH);
+
+      // Checkerboard accent
+      drawCheckerPattern(0, heroH, WIDTH, 20);
+
+      // LOGO
+      ctx.fillStyle = colors.neon;
+      ctx.font = 'bold 48px "Oswald"';
+      ctx.textBaseline = 'top';
+      ctx.textAlign = 'left';
+      ctx.fillText('CYBERIA', 30, heroH + 40);
+
+      // Subtitle
+      ctx.fillStyle = colors.panelBlack;
+      ctx.font = '500 12px "Roboto Mono"';
+      ctx.fillText('from the creators', 30, heroH + 100);
+      ctx.font = '700 16px "Roboto Mono"';
+      ctx.fillText('of cyber-safety games', 30, heroH + 120);
+
+      // Description
+      ctx.fillStyle = '#333';
+      ctx.font = '400 11px "Roboto Mono"';
+      const lines = [
+        "become a cyber hero in this pixel rpg.",
+        "spot scams, fake accounts, and online",
+        "dangers through exciting missions."
+      ];
+      lines.forEach((line, i) => {
+        ctx.fillText(line, 30, heroH + 160 + (i * 18));
+      });
+
+      // Chips
+      const chips = ['7+', 'RPG', 'TESTING'];
+      let chipX = 30;
+      ctx.font = '700 10px "Roboto Mono"';
+      chips.forEach(chip => {
+        const w = ctx.measureText(chip).width + 24;
+        ctx.fillStyle = colors.panelBlack;
+        ctx.fillRect(chipX, heroH + 230, w, 26);
+        ctx.fillStyle = colors.neon;
+        ctx.beginPath();
+        ctx.arc(chipX + 12, heroH + 243, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = colors.white;
+        ctx.textBaseline = 'middle';
+        ctx.fillText(chip, chipX + 22, heroH + 243);
+        chipX += w + 8;
+      });
+
+      // === TRY NOW BUTTON (Full width at bottom) ===
+      ctx.fillStyle = isHoveringPreOrder ? colors.white : colors.neon;
+      ctx.fillRect(30, 680, WIDTH - 60, 60);
+      
+      // Button border on hover
+      if (isHoveringPreOrder) {
+        ctx.strokeStyle = colors.neon;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(30, 680, WIDTH - 60, 60);
+      }
+      
+      ctx.fillStyle = colors.black;
+      ctx.font = '700 18px "Roboto Mono"';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('TRY NOW', WIDTH / 2, 710);
+
+      // Bottom tagline bar
+      ctx.fillStyle = colors.panelBlack;
+      ctx.fillRect(0, 760, WIDTH, 40);
+      ctx.fillStyle = colors.neon;
+      ctx.font = '700 11px "Roboto Mono"';
+      ctx.textAlign = 'center';
+      ctx.fillText('ANY RUN CAN LEAD TO SAFETY', WIDTH / 2, 780);
+    }
+
+    function drawLeftPanel() {
+      // Background Putih
+      ctx.fillStyle = colors.white;
+      ctx.fillRect(0, 0, 350, HEIGHT);
+
+      // -- LOGO --
+      ctx.fillStyle = colors.neon;
+      ctx.font = 'bold 65px "Oswald"';
+      ctx.textBaseline = 'top';
+      ctx.textAlign = 'left';
+      ctx.fillText('CYBERIA', 40, 50);
+
+      // -- SUBTITLES --
+      ctx.fillStyle = colors.panelBlack;
+      ctx.font = '500 14px "Roboto Mono"';
+      ctx.fillText('from the creators', 40, 140);
+      
+      ctx.font = '700 22px "Roboto Mono"';
+      ctx.fillText('of cyber-safety games', 40, 165);
+
+      // -- DESCRIPTION PARAGRAPH --
+      ctx.fillStyle = '#333';
+      ctx.font = '400 11px "Roboto Mono"';
+      const lineHeight = 18;
+      const startY = 220;
+      const lines = [
+        "become a cyber hero in this pixel",
+        "rpg adventure. spot scams, fake",
+        "accounts, and online dangers",
+        "through exciting missions.",
+        "defend friends, stay sharp, and",
+        "learn the skills to win every run.",
+        "",
+        "any run can lead to safety."
+      ];
+
+      lines.forEach((line, index) => {
+        if (index === lines.length - 1) {
+          ctx.font = '700 11px "Roboto Mono"';
+        } else {
+          ctx.font = '400 11px "Roboto Mono"';
+        }
+        ctx.fillText(line, 40, startY + (index * lineHeight));
+      });
+
+      // -- CHIPS --
+      const chips = ['7+', 'RPG', 'TESTING'];
+      let chipX = 40;
+      ctx.font = '700 10px "Roboto Mono"';
+      chips.forEach(chip => {
+        const w = ctx.measureText(chip).width + 24;
+        ctx.fillStyle = colors.panelBlack;
+        ctx.fillRect(chipX, 380, w, 26);
+        // Neon dot
+        ctx.fillStyle = colors.neon;
+        ctx.beginPath();
+        ctx.arc(chipX + 12, 393, 4, 0, Math.PI * 2);
+        ctx.fill();
+        // Text
+        ctx.fillStyle = colors.white;
+        ctx.textBaseline = 'middle';
+        ctx.fillText(chip, chipX + 22, 393);
+        chipX += w + 8;
+      });
+
+      // -- TRY NOW BUTTON --
+      ctx.fillStyle = isHoveringPreOrder ? colors.white : colors.neon;
+      ctx.fillRect(40, 440, 270, 50);
+      if (isHoveringPreOrder) {
+        ctx.strokeStyle = colors.panelBlack;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(40, 440, 270, 50);
+      }
+      ctx.fillStyle = colors.panelBlack;
+      ctx.font = '700 16px "Roboto Mono"';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.fillText('TRY NOW', 175, 465);
+      ctx.textAlign = 'left';
+
+      // -- BOTTOM BARS --
+      ctx.fillStyle = colors.panelBlack;
+      ctx.fillRect(0, 520, 350, 40);
+      ctx.fillStyle = colors.white;
+      ctx.font = '700 12px "Roboto Mono"';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('NOWHERE TO LEARN? THEN PLAY.', 40, 540);
+
+      // Neon Bar at bottom
+      ctx.fillStyle = colors.neon;
+      ctx.fillRect(0, 560, 350, 40);
+      ctx.fillStyle = colors.panelBlack;
+      ctx.font = '700 11px "Roboto Mono"';
+      ctx.fillText('ANY RUN CAN LEAD TO SAFETY', 40, 580);
+    }
+
+    function drawDivider() {
+      ctx.fillStyle = colors.panelBlack;
+      ctx.fillRect(350, 0, 60, HEIGHT);
+      
+      ctx.strokeStyle = '#222';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(410, 0);
+      ctx.lineTo(410, HEIGHT);
+      ctx.stroke();
+
+      // Checkerboard Patterns
+      drawCheckerPattern(350, 40, 60, 60);
+      drawCheckerPattern(350, 200, 60, 140);
+      drawCheckerPattern(350, 500, 60, 60);
+    }
+
+    function drawCheckerPattern(x, y, w, h) {
+      const cellSize = 10;
+      ctx.fillStyle = 'rgba(255,255,255, 0.8)';
+      
+      for (let row = 0; row < h; row += cellSize) {
+        for (let col = 0; col < w; col += cellSize) {
+          if (((row/cellSize) + (col/cellSize)) % 2 === 0) {
+            ctx.fillRect(x + col, y + row, cellSize, cellSize);
+          }
+        }
+      }
+    }
+
+    function drawRightPanel() {
+      const x = 410;
+      const w = WIDTH - x;
+      const h = HEIGHT;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x, 0, w, h);
+      ctx.clip();
+
+      // Draw Image or fallback
+      if (bgImage.complete && bgImage.naturalWidth !== 0) {
+        const imgRatio = bgImage.width / bgImage.height;
+        const canvasRatio = w / h;
+        let sx, sy, sWidth, sHeight;
+
+        if (imgRatio > canvasRatio) {
+          sHeight = bgImage.height;
+          sWidth = bgImage.height * canvasRatio;
+          sx = (bgImage.width - sWidth) / 2;
+          sy = 0;
+        } else {
+          sWidth = bgImage.width;
+          sHeight = bgImage.width / canvasRatio;
+          sx = 0;
+          sy = (bgImage.height - sHeight) / 2;
+        }
+
+        ctx.drawImage(bgImage, sx, sy, sWidth, sHeight, x, 0, w, h);
+      } else {
+        ctx.fillStyle = '#151515';
+        ctx.fillRect(x, 0, w, h);
+      }
+
+      // Dark Overlay
+      ctx.fillStyle = colors.overlay;
+      ctx.fillRect(x, 0, w, h);
+
+      // Grid Lines Decoration (Top Right)
+      ctx.strokeStyle = colors.grid;
+      ctx.setLineDash([5, 5]);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + w - 120, 20);
+      ctx.lineTo(x + w - 20, 20);
+      ctx.lineTo(x + w - 20, 120);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Play Trailer (Center)
+      const centerX = x + (w / 2);
+      const centerY = h / 2;
+
+      ctx.textAlign = 'center';
+      ctx.font = '700 48px "Oswald"';
+      ctx.fillStyle = isHoveringPlay ? colors.white : colors.neon;
+      
+      // Text shadow
+      if (isHoveringPlay) {
+        ctx.shadowColor = 'rgba(255,255,255,0.5)';
+        ctx.shadowBlur = 20;
+      }
+      ctx.fillText('PLAY TRAILER', centerX, centerY - 10);
+      ctx.shadowBlur = 0;
+
+      // Brackets
+      ctx.strokeStyle = isHoveringPlay ? colors.neon : colors.white;
+      ctx.lineWidth = 3;
+      const bracketH = 60;
+      const bracketW = 20;
+      const gap = 160;
+
+      // Left Bracket
+      ctx.beginPath();
+      ctx.moveTo(centerX - gap, centerY - bracketH/2);
+      ctx.lineTo(centerX - gap - bracketW, centerY - bracketH/2);
+      ctx.lineTo(centerX - gap - bracketW, centerY + bracketH/2);
+      ctx.lineTo(centerX - gap, centerY + bracketH/2);
+      ctx.stroke();
+
+      // Right Bracket
+      ctx.beginPath();
+      ctx.moveTo(centerX + gap, centerY - bracketH/2);
+      ctx.lineTo(centerX + gap + bracketW, centerY - bracketH/2);
+      ctx.lineTo(centerX + gap + bracketW, centerY + bracketH/2);
+      ctx.lineTo(centerX + gap, centerY + bracketH/2);
+      ctx.stroke();
+
+      // Info badge bottom right
+      ctx.fillStyle = 'rgba(0,0,0,0.7)';
+      ctx.fillRect(x + w - 150, h - 50, 130, 30);
+      ctx.strokeStyle = 'rgba(204,255,0,0.5)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x + w - 150, h - 50, 130, 30);
+      
+      // Pulse dot
+      ctx.fillStyle = colors.neon;
+      ctx.beginPath();
+      ctx.arc(x + w - 138, h - 35, 4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.fillStyle = colors.white;
+      ctx.font = '500 10px "Roboto Mono"';
+      ctx.textAlign = 'left';
+      ctx.fillText('PIXEL RPG • 2025', x + w - 128, h - 31);
+
+      ctx.restore();
+    }
+
+    function drawScanlines() {
+      // Moving scanline beam
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.fillRect(0, scanlineY, WIDTH, 5);
+
+      // Static CRT lines
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      for(let i = 0; i < HEIGHT; i += 4) {
+        ctx.fillRect(0, i, WIDTH, 1);
+      }
+    }
+
+    // Trigger initial mobile check
+    isMobile = window.innerWidth <= 768;
+  </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Showcase – Selected work by Zai Mi" />
+  <title>Showcase – Zai Mi</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- ===== HERO (reusing site style) ===== -->
+  <section class="hero" id="hero" aria-label="Showcase hero">
+    <div class="hero-inner container">
+      <h1 class="h-eyebrow">Showcase</h1>
+      <p class="h-sub">A curated selection of my favorite projects. I’ll add the content here once you send it.</p>
+    </div>
+  </section>
+
+  <!-- Pill navbar (same style; links point to pages) -->
+  <div class="pillbar-out container">
+    <nav class="bar nav-bar" id="navBar" aria-label="Primary">
+      <a class="pill" href="/">Home</a>
+      <a class="pill active" href="/showcase">Showcase</a>
+      <a class="pill" href="/projects">Projects</a>
+      <a class="pill" href="/portfolio">Portfolio</a>
+    </nav>
+  </div>
+
+  <!-- ===== FILTERS / TAGS (optional, non-functional for now) ===== -->
+  <section class="section container" aria-label="Showcase filters">
+    <div class="lang-switch" role="tablist" aria-label="Showcase categories">
+      <div class="bar nav-bar">
+        <a href="#" class="pill active" role="tab" aria-selected="true" data-cat="all">All</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="fyp">FYP</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="game">Game</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="branding">Branding</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="video">Video</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SHOWCASE GRID (placeholder cards) ===== -->
+  <section class="section container" aria-labelledby="showcase-title">
+    <h2 id="showcase-title">Featured Work</h2>
+
+    <div class="cards" id="showcaseGrid">
+      <!-- Placeholder items. Replace with your real content later. -->
+      <article class="card" aria-label="Showcase item placeholder">
+        <div class="img-skeleton"></div>
+        <div class="label">Coming soon</div>
+      </article>
+      <article class="card" aria-label="Showcase item placeholder">
+        <div class="img-skeleton"></div>
+        <div class="label">Coming soon</div>
+      </article>
+      <article class="card" aria-label="Showcase item placeholder">
+        <div class="img-skeleton"></div>
+        <div class="label">Coming soon</div>
+      </article>
+    </div>
+
+    <div class="divider" role="separator"></div>
+  </section>
+
+  <!-- ===== DETAIL / RICH BLOCK (optional placeholder) ===== -->
+  <section class="section container" aria-labelledby="feature-block-title">
+    <h2 id="feature-block-title">Spotlight</h2>
+    <div class="wh-grid">
+      <figure class="banner" aria-label="Spotlight visual placeholder">
+        <div class="img-wrapper">
+          <div class="img-skeleton"></div>
+          <img class="cover lazy" src="wh-banner.jpg" alt="Showcase visual placeholder" onload="this.classList.add('loaded');this.previousElementSibling.classList.add('hidden')" />
+        </div>
+        <figcaption class="now-badge">TESTING AVAILABLE</figcaption>
+      </figure>
+      <div class="wh-copy">
+        <h3 class="wh-title">Cyberia : Wira Siber</h3>
+        <p>
+          A fun 2D pixel adventure that teaches kids how to stay safe online! Learn to spot scams, fake accounts, and online dangers through exciting missions and challenges. Perfect for kids aged 7-12 - play, learn, and become a cyber safety hero!
+        </p>
+        <div class="sub tag-buttons">
+          <button class="tag-btn" type="button" data-modal-trigger="ageModal">7+</button>
+          <button class="tag-btn" type="button" data-modal-trigger="genreModal">RPG</button>
+        </div>
+        <div class="cta-right">
+          <div class="left">
+            <div class="meta">
+              <strong>Cyberia : Wira Siber</strong>
+              <div class="sub">Teach kids to stay safe online</div>
+            </div>
+          </div>
+          <div class="cta-buttons">
+            <button class="play-btn" type="button" onclick="window.location.href='/cyberia'">Learn More</button>
+            <button class="play-btn" type="button" onclick="window.open('https://cyberwise.zzaimii.com', '_blank')">Play</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Age Rating Modal -->
+  <div class="modal" id="ageModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ageModalTitle">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" aria-label="Close dialog" data-close-modal>✕</button>
+      <div class="modal-body">
+        <div class="modal-icon">👧</div>
+        <h3 class="modal-title" id="ageModalTitle">Age Rating: 7+</h3>
+        <p class="modal-text">This game is suitable for children aged 7 and above. It contains age-appropriate content designed to educate and entertain young players while keeping them safe and engaged.</p>
+        <div class="modal-actions">
+          <button class="modal-btn" type="button" data-close-modal>Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Genre Modal -->
+  <div class="modal" id="genreModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="genreModalTitle">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" aria-label="Close dialog" data-close-modal>✕</button>
+      <div class="modal-body">
+        <div class="modal-icon">⚔️</div>
+        <h3 class="modal-title" id="genreModalTitle">Genre: RPG</h3>
+        <p class="modal-text">RPG stands for Role-Playing Game. In this game, you take on the role of a character on an adventure, make decisions, complete missions, and develop your skills as you progress through an engaging story.</p>
+        <div class="modal-actions">
+          <button class="modal-btn" type="button" data-close-modal>Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects notice modal -->
+  <div class="modal" id="projectsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectsModalTitle">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" aria-label="Close dialog" data-close-modal>✕</button>
+      <div class="modal-body">
+        <div class="modal-icon">📦</div>
+        <h3 class="modal-title" id="projectsModalTitle">Project now move to Showcase!</h3>
+        <p class="modal-text">All your creative work is now displayed in one curated space. Explore the new showcase and celebrate your achievements.</p>
+        <div class="modal-actions">
+          <button class="modal-btn" type="button" data-close-modal>Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER (same markup as Home) ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="dot"></span> Zaimi aka zzaimii
+        </div>
+  <p class="footer-blurb">Interactive Multimedia Designer.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="YouTube">✕</a>
+          <a href="#" aria-label="TikTok">◎</a>
+          <a href="#" aria-label="LinkedIn">▶</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/showcase">Showcase</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-news">
+        <h5>Subscribe</h5>
+        <p>Get latest updates — no spam.</p>
+        <form class="footer-form" onsubmit="return false;">
+          <input class="footer-input" type="email" placeholder="Your email" />
+          <button class="footer-btn" type="submit">(Not available)</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2025 Zaimi. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    (function() {
+      // Generic modal handler
+      const openModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      };
+
+      const closeModal = (modal) => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+      };
+
+      // Close button handlers
+      document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const modal = e.target.closest('.modal');
+          if (modal) closeModal(modal);
+        });
+      });
+
+      // Modal overlay click to close
+      document.querySelectorAll('.modal').forEach((modal) => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal(modal);
+        });
+      });
+
+      // Escape key to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal.open').forEach(closeModal);
+        }
+      });
+
+      // Projects link modal
+      const projectsLink = document.querySelector('.nav-bar a[href="/projects"]');
+      if (projectsLink) {
+        projectsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal('projectsModal');
+        });
+      }
+
+      // Tag buttons modal triggers
+      document.querySelectorAll('[data-modal-trigger]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const modalId = btn.getAttribute('data-modal-trigger');
+          openModal(modalId);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
