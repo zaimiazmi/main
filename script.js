@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '/showcase',
       '/projects',
       '/portfolio',
-      '/cyberia-game.html',
+      '/cyberia',
       '/closed.html'
     ];
     var currentPath = window.location.pathname;
