@@ -30,8 +30,19 @@
 
     canvas {
       display: block;
-      width: 100%;
-      height: 100%;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow-y: auto;
+        height: auto;
+      }
+      #canvas-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+      }
     }
 
     #loading {
@@ -258,20 +269,28 @@
       WIDTH = isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH;
       HEIGHT = isMobile ? MOBILE_HEIGHT : DESKTOP_HEIGHT;
       
-      // Calculate scale to fill screen
-      const scaleX = containerW / WIDTH;
-      const scaleY = containerH / HEIGHT;
-      const scale = Math.max(scaleX, scaleY);
-      
       canvas.width = WIDTH * dpr;
       canvas.height = HEIGHT * dpr;
-      canvas.style.width = `${WIDTH * scale}px`;
-      canvas.style.height = `${HEIGHT * scale}px`;
       
-      // Center the canvas
-      canvas.style.position = 'absolute';
-      canvas.style.left = `${(containerW - WIDTH * scale) / 2}px`;
-      canvas.style.top = `${(containerH - HEIGHT * scale) / 2}px`;
+      if (isMobile) {
+        // Mobile: full width, auto height, scrollable
+        canvas.style.width = '100%';
+        canvas.style.height = 'auto';
+        canvas.style.position = 'relative';
+        canvas.style.left = '0';
+        canvas.style.top = '0';
+      } else {
+        // Desktop: fill screen with cover
+        const scaleX = containerW / WIDTH;
+        const scaleY = containerH / HEIGHT;
+        const scale = Math.max(scaleX, scaleY);
+        
+        canvas.style.width = `${WIDTH * scale}px`;
+        canvas.style.height = `${HEIGHT * scale}px`;
+        canvas.style.position = 'absolute';
+        canvas.style.left = `${(containerW - WIDTH * scale) / 2}px`;
+        canvas.style.top = `${(containerH - HEIGHT * scale) / 2}px`;
+      }
       
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
@@ -318,8 +337,8 @@
           canvas.style.cursor = 'default';
         }
       } else {
-        // Desktop hit detection
-        if (mouseX >= 880 && mouseX <= 970 && mouseY >= 30 && mouseY <= 60) {
+        // Desktop hit detection - TRY NOW in left panel
+        if (mouseX >= 40 && mouseX <= 310 && mouseY >= 440 && mouseY <= 490) {
           isHoveringPreOrder = true;
           isHoveringPlay = false;
           canvas.style.cursor = 'pointer';
@@ -553,26 +572,35 @@
         chipX += w + 8;
       });
 
+      // -- TRY NOW BUTTON --
+      ctx.fillStyle = isHoveringPreOrder ? colors.white : colors.neon;
+      ctx.fillRect(40, 440, 270, 50);
+      if (isHoveringPreOrder) {
+        ctx.strokeStyle = colors.panelBlack;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(40, 440, 270, 50);
+      }
+      ctx.fillStyle = colors.panelBlack;
+      ctx.font = '700 16px "Roboto Mono"';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      ctx.fillText('TRY NOW', 175, 465);
+      ctx.textAlign = 'left';
+
       // -- BOTTOM BARS --
       ctx.fillStyle = colors.panelBlack;
-      ctx.fillRect(0, 480, 350, 40);
+      ctx.fillRect(0, 520, 350, 40);
       ctx.fillStyle = colors.white;
-      ctx.font = '700 13px "Roboto Mono"';
+      ctx.font = '700 12px "Roboto Mono"';
       ctx.textBaseline = 'middle';
-      ctx.fillText('NOWHERE TO LEARN?', 40, 500);
+      ctx.fillText('NOWHERE TO LEARN? THEN PLAY.', 40, 540);
 
-      // Neon Bar with inverted text
+      // Neon Bar at bottom
       ctx.fillStyle = colors.neon;
-      ctx.fillRect(0, 520, 350, 80);
-
-      ctx.save();
-      ctx.translate(0, HEIGHT);
-      ctx.scale(1, -1);
+      ctx.fillRect(0, 560, 350, 40);
       ctx.fillStyle = colors.panelBlack;
-      ctx.font = '700 28px "Roboto Mono"';
-      ctx.textBaseline = 'top';
-      ctx.fillText('THEN PLAY', 40, 45);
-      ctx.restore();
+      ctx.font = '700 11px "Roboto Mono"';
+      ctx.fillText('ANY RUN CAN LEAD TO SAFETY', 40, 580);
     }
 
     function drawDivider() {
@@ -653,15 +681,6 @@
       ctx.lineTo(x + w - 20, 120);
       ctx.stroke();
       ctx.setLineDash([]);
-
-      // Pre-Order Button
-      ctx.fillStyle = isHoveringPreOrder ? colors.white : colors.neon;
-      ctx.fillRect(880, 30, 90, 30);
-      ctx.fillStyle = colors.black;
-      ctx.font = '700 11px "Roboto Mono"';
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-      ctx.fillText('TRY NOW', 925, 45);
 
       // Play Trailer (Center)
       const centerX = x + (w / 2);
