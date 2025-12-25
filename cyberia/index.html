@@ -87,16 +87,25 @@
     .panel-right::before{
       content:""; position:absolute; inset:0;
       background:
-        linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 100%),
-        linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 100%);
-      background-size:120px 120px;
-      opacity:.3;
+        repeating-linear-gradient(0deg, transparent 0px, rgba(255,255,255,.02) 1px, transparent 2px, transparent 4px),
+        repeating-linear-gradient(90deg, transparent 0px, rgba(255,255,255,.02) 1px, transparent 2px, transparent 4px),
+        radial-gradient(ellipse at 30% 30%, rgba(204,255,0,.08), transparent 60%),
+        radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.4) 100%);
       pointer-events:none;
+      z-index:1;
     }
     .panel-right::after{
       content:""; position:absolute; inset:0;
-      background:radial-gradient(circle at 20% 20%, rgba(204,255,0,.16), transparent 45%);
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, transparent 1px, transparent 3px);
+      opacity:.4;
       pointer-events:none;
+      z-index:2;
+      animation:crt-flicker 0.15s infinite alternate;
+    }
+    @keyframes crt-flicker{
+      0%{opacity:.38}
+      100%{opacity:.42}
     }
     .hero-frame{
       position:relative;
@@ -167,31 +176,54 @@
       mask:linear-gradient(180deg, #000 0 14%, transparent 14% 28%, #000 28% 56%, transparent 56% 72%, #000 72% 100%);
       z-index:3;
     }
-    /* CRT Scanline Effects */
+    /* CRT & Monitor Effects */
     .game-shell::before{
       content:""; position:absolute; inset:0; z-index:999; pointer-events:none;
-      background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.15) 3px);
-      animation:scanline 8s linear infinite;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.12) 1px, transparent 2px, transparent 4px);
+      animation:static-noise 0.1s steps(10) infinite;
     }
     .game-shell::after{
-      content:""; position:absolute; top:0; left:0; right:0; height:100px; z-index:998; pointer-events:none;
-      background:linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-      animation:scan-move 4s linear infinite;
+      content:""; position:absolute; top:0; left:0; right:0; height:120px; z-index:998; pointer-events:none;
+      background:linear-gradient(180deg, rgba(204,255,0,0.04) 0%, transparent 100%);
+      box-shadow:0 0 120px rgba(204,255,0,0.08);
+      animation:scan-beam 6s ease-in-out infinite;
     }
-    @keyframes scanline{
-      0%{transform:translateY(0)}
-      100%{transform:translateY(4px)}
+    @keyframes static-noise{
+      0%,100%{opacity:.85}
+      50%{opacity:.9}
     }
-    @keyframes scan-move{
-      0%{transform:translateY(-100px)}
-      100%{transform:translateY(620px)}
+    @keyframes scan-beam{
+      0%{transform:translateY(-120px); opacity:0}
+      10%{opacity:1}
+      90%{opacity:1}
+      100%{transform:translateY(620px); opacity:0}
     }
-    /* Hover Effects */
-    .chip-preorder{transition:all .2s ease;}
-    .chip-preorder:active{transform:translateY(0); box-shadow:0 4px 0 rgba(0,0,0,.4);}
-    .play-hit{transition:all .3s ease;}
-    .play-hit:active .label{transform:scale(0.95);}
-    .play-hit:active .bracket{transform:scale(1.1);}
+    /* Enhanced Hover States */
+    .chip-preorder{
+      transition:all .15s ease;
+      box-shadow:0 8px 0 rgba(0,0,0,.4), 0 0 0 rgba(204,255,0,0);
+    }
+    .chip-preorder:hover{
+      transform:translateY(-3px);
+      box-shadow:0 11px 0 rgba(0,0,0,.4), 0 0 20px rgba(204,255,0,.6);
+    }
+    .chip-preorder:active{
+      transform:translateY(2px);
+      box-shadow:0 6px 0 rgba(0,0,0,.4), 0 0 0 rgba(204,255,0,0);
+    }
+    .play-hit{transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+    .play-hit:hover .label{
+      color:#fff;
+      text-shadow:0 0 30px rgba(255,255,255,.6), 0 0 50px rgba(204,255,0,.3);
+      transform:scale(1.05);
+    }
+    .play-hit:hover .bracket{
+      border-color:var(--neon);
+      box-shadow:0 0 20px rgba(204,255,0,.5);
+    }
+    .play-hit:active .label{transform:scale(0.98);}
+    .play-hit:active .bracket{transform:scaleX(0.9);}
     /* Responsive */
     @media(max-width:1080px){
       .game-container{grid-template-columns:340px 1fr;}
