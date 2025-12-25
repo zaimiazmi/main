@@ -74,7 +74,10 @@
         <p>
           A fun 2D pixel adventure that teaches kids how to stay safe online! Learn to spot scams, fake accounts, and online dangers through exciting missions and challenges. Perfect for kids aged 7-12 - play, learn, and become a cyber safety hero!
         </p>
-        <div class="sub">7+ | RPG</div>
+        <div class="sub tag-buttons">
+          <button class="tag-btn" type="button" data-modal-trigger="ageModal">7+</button>
+          <button class="tag-btn" type="button" data-modal-trigger="genreModal">RPG</button>
+        </div>
         <div class="cta-right">
           <div class="left">
             <img class="thumb" src="cyberwise-thumb.jpg" alt="Thumbnail placeholder">
@@ -88,6 +91,36 @@
       </div>
     </div>
   </section>
+
+  <!-- Age Rating Modal -->
+  <div class="modal" id="ageModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ageModalTitle">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" aria-label="Close dialog" data-close-modal>✕</button>
+      <div class="modal-body">
+        <div class="modal-icon">👧</div>
+        <h3 class="modal-title" id="ageModalTitle">Age Rating: 7+</h3>
+        <p class="modal-text">This game is suitable for children aged 7 and above. It contains age-appropriate content designed to educate and entertain young players while keeping them safe and engaged.</p>
+        <div class="modal-actions">
+          <button class="modal-btn" type="button" data-close-modal>Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Genre Modal -->
+  <div class="modal" id="genreModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="genreModalTitle">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" aria-label="Close dialog" data-close-modal>✕</button>
+      <div class="modal-body">
+        <div class="modal-icon">⚔️</div>
+        <h3 class="modal-title" id="genreModalTitle">Genre: RPG</h3>
+        <p class="modal-text">RPG stands for Role-Playing Game. In this game, you take on the role of a character on an adventure, make decisions, complete missions, and develop your skills as you progress through an engaging story.</p>
+        <div class="modal-actions">
+          <button class="modal-btn" type="button" data-close-modal>Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Projects notice modal -->
   <div class="modal" id="projectsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectsModalTitle">
@@ -160,41 +193,59 @@
   <script src="/script.js"></script>
   <script>
     (function() {
-      const projectsLink = document.querySelector('.nav-bar a[href="/projects"]');
-      const modal = document.getElementById('projectsModal');
-      if (!projectsLink || !modal) return;
-
-      const closeButtons = modal.querySelectorAll('[data-close-modal]');
-      const openModal = () => {
+      // Generic modal handler
+      const openModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('modal-open');
       };
-      const closeModal = () => {
+
+      const closeModal = (modal) => {
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
       };
 
-      projectsLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        openModal();
+      // Close button handlers
+      document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const modal = e.target.closest('.modal');
+          if (modal) closeModal(modal);
+        });
       });
 
-      closeButtons.forEach((button) => {
-        button.addEventListener('click', closeModal);
+      // Modal overlay click to close
+      document.querySelectorAll('.modal').forEach((modal) => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal(modal);
+        });
       });
 
-      modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-          closeModal();
+      // Escape key to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal.open').forEach(closeModal);
         }
       });
 
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.classList.contains('open')) {
-          closeModal();
-        }
+      // Projects link modal
+      const projectsLink = document.querySelector('.nav-bar a[href="/projects"]');
+      if (projectsLink) {
+        projectsLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal('projectsModal');
+        });
+      }
+
+      // Tag buttons modal triggers
+      document.querySelectorAll('[data-modal-trigger]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const modalId = btn.getAttribute('data-modal-trigger');
+          openModal(modalId);
+        });
       });
     })();
   </script>

@@ -92,10 +92,13 @@ a{text-decoration:none;color:inherit}
   background:rgba(40,40,40,.9); color:#fff; border-radius:32px;
   box-shadow:0 18px 36px rgba(0,0,0,.28);
   backdrop-filter:blur(18px) saturate(180%);
+  overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
 }
+.lang-switch .bar::-webkit-scrollbar{display:none}
 .lang-switch .pill{
   display:inline-flex; align-items:center; padding:12px 20px; border-radius:999px;
   background:rgba(255,255,255,.16); color:#fff; font-weight:700; letter-spacing:.2px; transition:.2s ease;
+  flex-shrink:0; white-space:nowrap;
 }
 .lang-switch .pill:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
 .lang-switch .pill.active{background:var(--accent); color:var(--accent-ink)}
@@ -110,6 +113,23 @@ a{text-decoration:none;color:inherit}
 .wh-copy{display:flex;flex-direction:column;justify-content:center;padding:8px 6px;gap:12px}
 .wh-copy .wh-title{font-size:clamp(2rem,3.4vw,2.4rem);font-weight:900;margin:0}
 .wh-copy p{color:#3b3f46;line-height:1.75}
+
+/* Tag buttons */
+.tag-buttons{
+  display:flex; gap:8px; align-items:center;
+}
+.tag-btn{
+  display:inline-flex; align-items:center;
+  padding:6px 14px; border-radius:8px;
+  background:rgba(255,229,0,.12); color:#0F1115;
+  border:1px solid rgba(255,229,0,.3);
+  font-weight:700; font-size:.85rem;
+  cursor:pointer; transition:all .2s ease;
+}
+.tag-btn:hover{
+  background:rgba(255,229,0,.25); border-color:rgba(255,229,0,.6);
+  transform:translateY(-1px);
+}
 
 /* ---------- CTA ---------- */
 .cta-right{
