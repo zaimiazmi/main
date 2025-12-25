@@ -160,43 +160,42 @@ img.loaded{opacity:1}
 
 /* ---------- CTA (Apple App Store Style) ---------- */
 .cta-right{
-  margin-top:18px;background:#fff;color:#0F1115;border-radius:14px;padding:12px 14px;
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin-top:18px;background:#fff;color:#0F1115;border-radius:14px;padding:8px 10px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
   box-shadow:0 2px 10px rgba(0,0,0,.08);border:1px solid #E5E5EA;max-width:540px
 }
-.cta-right .left{display:flex;align-items:center;gap:14px;min-width:0;flex:1}
+.cta-right .left{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
 .cta-right .thumb{
-  width:56px;height:56px;border-radius:12px;object-fit:cover;
+  width:48px;height:48px;border-radius:11px;object-fit:cover;
   box-shadow:0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08);
   background:#F2F2F7;flex-shrink:0
 }
 .cta-right .meta{display:flex;flex-direction:column;gap:2px;line-height:1.3;min-width:0}
 .cta-right .meta strong{
-  font-weight:600;font-size:1rem;color:#000;
+  font-weight:600;font-size:0.9rem;color:#000;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
 .cta-right .meta .sub{
-  color:#8E8E93;font-size:.82rem;font-weight:400;
+  color:#8E8E93;font-size:.78rem;font-weight:400;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
 .cta-buttons{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0}
 .play-btn{
-  background:#007AFF;color:#fff;font-weight:600;border-radius:14px;
-  padding:8px 18px;font-size:.88rem;border:none;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:linear-gradient(#FFF,#F7F7F7);color:#0F1115;font-weight:700;border-radius:999px;
+  padding:8px 16px;font-size:.9rem;border:1px solid #D1D5DB;
+  box-shadow:0 1px 0 #FFF inset, 0 8px 16px rgba(0,0,0,.08);
   cursor:pointer;transition:all .2s ease;white-space:nowrap
 }
-.play-btn:hover{background:#0051D5;transform:scale(1.02)}
-.play-btn:active{transform:scale(0.98)}
+.play-btn:hover{transform:translateY(-1px)}
 
 @media(max-width:640px){
-  .cta-right{padding:14px;gap:12px}
-  .cta-right .left{gap:12px}
-  .cta-right .thumb{width:52px;height:52px;border-radius:11px}
+  .cta-right{padding:10px;gap:10px}
+  .cta-right .left{gap:10px}
+  .cta-right .thumb{width:44px;height:44px;border-radius:10px}
   .cta-buttons{width:100%;justify-content:stretch}
-  .play-btn{flex:1;text-align:center;padding:10px 18px}
+  .play-btn{flex:1;text-align:center;padding:9px 16px}
   .cta-buttons{flex-direction:column;gap:8px}
   .play-btn{width:100%;text-align:center}
 }
