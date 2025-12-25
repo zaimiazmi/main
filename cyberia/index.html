@@ -139,8 +139,12 @@
     const loadingEl = document.getElementById('loading');
 
     // --- CONFIGURATION ---
-    const WIDTH = 1000;
-    const HEIGHT = 600;
+    const DESKTOP_WIDTH = 1000;
+    const DESKTOP_HEIGHT = 600;
+    const MOBILE_WIDTH = 400;
+    const MOBILE_HEIGHT = 800;
+    let WIDTH = DESKTOP_WIDTH;
+    let HEIGHT = DESKTOP_HEIGHT;
     
     // Warna tema Cyberia
     const colors = {
@@ -250,10 +254,14 @@
       const containerW = window.innerWidth;
       const containerH = window.innerHeight;
       
-      // Calculate scale - use contain on mobile for better visibility
+      // Switch canvas dimensions based on device
+      WIDTH = isMobile ? MOBILE_WIDTH : DESKTOP_WIDTH;
+      HEIGHT = isMobile ? MOBILE_HEIGHT : DESKTOP_HEIGHT;
+      
+      // Calculate scale to fill screen
       const scaleX = containerW / WIDTH;
       const scaleY = containerH / HEIGHT;
-      const scale = isMobile ? Math.min(scaleX, scaleY) : Math.max(scaleX, scaleY);
+      const scale = Math.max(scaleX, scaleY);
       
       canvas.width = WIDTH * dpr;
       canvas.height = HEIGHT * dpr;
@@ -276,9 +284,13 @@
       ctx.fillStyle = colors.black;
       ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-      drawLeftPanel();
-      drawDivider();
-      drawRightPanel();
+      if (isMobile) {
+        drawMobileLayout();
+      } else {
+        drawLeftPanel();
+        drawDivider();
+        drawRightPanel();
+      }
       drawScanlines();
 
       requestAnimationFrame(renderLoop);
@@ -288,23 +300,193 @@
       scanlineY += 2;
       if (scanlineY > HEIGHT) scanlineY = 0;
 
-      // Hit Detection: Pre-Order Button
-      if (mouseX >= 880 && mouseX <= 970 && mouseY >= 30 && mouseY <= 60) {
-        isHoveringPreOrder = true;
-        isHoveringPlay = false;
-        canvas.style.cursor = 'pointer';
-      } else if (mouseX >= 520 && mouseX <= 890 && mouseY >= 260 && mouseY <= 340) {
-        isHoveringPlay = true;
-        isHoveringPreOrder = false;
-        canvas.style.cursor = 'pointer';
+      // Hit Detection - different positions for mobile vs desktop
+      if (isMobile) {
+        // Mobile: TRY NOW button at bottom
+        if (mouseX >= 30 && mouseX <= WIDTH - 30 && mouseY >= 680 && mouseY <= 740) {
+          isHoveringPreOrder = true;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'pointer';
+        } else if (mouseX >= 50 && mouseX <= WIDTH - 50 && mouseY >= 180 && mouseY <= 280) {
+          // Mobile: PLAY TRAILER in hero area
+          isHoveringPlay = true;
+          isHoveringPreOrder = false;
+          canvas.style.cursor = 'pointer';
+        } else {
+          isHoveringPreOrder = false;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'default';
+        }
       } else {
-        isHoveringPreOrder = false;
-        isHoveringPlay = false;
-        canvas.style.cursor = 'default';
+        // Desktop hit detection
+        if (mouseX >= 880 && mouseX <= 970 && mouseY >= 30 && mouseY <= 60) {
+          isHoveringPreOrder = true;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'pointer';
+        } else if (mouseX >= 520 && mouseX <= 890 && mouseY >= 260 && mouseY <= 340) {
+          isHoveringPlay = true;
+          isHoveringPreOrder = false;
+          canvas.style.cursor = 'pointer';
+        } else {
+          isHoveringPreOrder = false;
+          isHoveringPlay = false;
+          canvas.style.cursor = 'default';
+        }
       }
     }
 
     // --- DRAWING FUNCTIONS ---
+
+    function drawMobileLayout() {
+      // === HERO SECTION (Top half with image) ===
+      const heroH = 320;
+      
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, WIDTH, heroH);
+      ctx.clip();
+
+      // Draw background image
+      if (bgImage.complete && bgImage.naturalWidth !== 0) {
+        const imgRatio = bgImage.width / bgImage.height;
+        const canvasRatio = WIDTH / heroH;
+        let sx, sy, sWidth, sHeight;
+
+        if (imgRatio > canvasRatio) {
+          sHeight = bgImage.height;
+          sWidth = bgImage.height * canvasRatio;
+          sx = (bgImage.width - sWidth) / 2;
+          sy = 0;
+        } else {
+          sWidth = bgImage.width;
+          sHeight = bgImage.width / canvasRatio;
+          sx = 0;
+          sy = (bgImage.height - sHeight) / 2;
+        }
+        ctx.drawImage(bgImage, sx, sy, sWidth, sHeight, 0, 0, WIDTH, heroH);
+      } else {
+        ctx.fillStyle = '#151515';
+        ctx.fillRect(0, 0, WIDTH, heroH);
+      }
+
+      // Dark overlay
+      ctx.fillStyle = 'rgba(0,0,0,0.4)';
+      ctx.fillRect(0, 0, WIDTH, heroH);
+
+      // PLAY TRAILER centered in hero
+      const centerX = WIDTH / 2;
+      const centerY = heroH / 2;
+      
+      ctx.textAlign = 'center';
+      ctx.font = '700 36px "Oswald"';
+      ctx.fillStyle = isHoveringPlay ? colors.white : colors.neon;
+      
+      if (isHoveringPlay) {
+        ctx.shadowColor = 'rgba(255,255,255,0.5)';
+        ctx.shadowBlur = 20;
+      }
+      ctx.fillText('PLAY TRAILER', centerX, centerY);
+      ctx.shadowBlur = 0;
+
+      // Brackets around PLAY TRAILER
+      ctx.strokeStyle = isHoveringPlay ? colors.neon : colors.white;
+      ctx.lineWidth = 2;
+      const bracketH = 40;
+      const bracketW = 15;
+      const gap = 110;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX - gap, centerY - bracketH/2);
+      ctx.lineTo(centerX - gap - bracketW, centerY - bracketH/2);
+      ctx.lineTo(centerX - gap - bracketW, centerY + bracketH/2);
+      ctx.lineTo(centerX - gap, centerY + bracketH/2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(centerX + gap, centerY - bracketH/2);
+      ctx.lineTo(centerX + gap + bracketW, centerY - bracketH/2);
+      ctx.lineTo(centerX + gap + bracketW, centerY + bracketH/2);
+      ctx.lineTo(centerX + gap, centerY + bracketH/2);
+      ctx.stroke();
+
+      ctx.restore();
+
+      // === CONTENT SECTION (Bottom half - white background) ===
+      ctx.fillStyle = colors.white;
+      ctx.fillRect(0, heroH, WIDTH, HEIGHT - heroH);
+
+      // Checkerboard accent
+      drawCheckerPattern(0, heroH, WIDTH, 20);
+
+      // LOGO
+      ctx.fillStyle = colors.neon;
+      ctx.font = 'bold 48px "Oswald"';
+      ctx.textBaseline = 'top';
+      ctx.textAlign = 'left';
+      ctx.fillText('CYBERIA', 30, heroH + 40);
+
+      // Subtitle
+      ctx.fillStyle = colors.panelBlack;
+      ctx.font = '500 12px "Roboto Mono"';
+      ctx.fillText('from the creators', 30, heroH + 100);
+      ctx.font = '700 16px "Roboto Mono"';
+      ctx.fillText('of cyber-safety games', 30, heroH + 120);
+
+      // Description
+      ctx.fillStyle = '#333';
+      ctx.font = '400 11px "Roboto Mono"';
+      const lines = [
+        "become a cyber hero in this pixel rpg.",
+        "spot scams, fake accounts, and online",
+        "dangers through exciting missions."
+      ];
+      lines.forEach((line, i) => {
+        ctx.fillText(line, 30, heroH + 160 + (i * 18));
+      });
+
+      // Chips
+      const chips = ['7+', 'RPG', 'TESTING'];
+      let chipX = 30;
+      ctx.font = '700 10px "Roboto Mono"';
+      chips.forEach(chip => {
+        const w = ctx.measureText(chip).width + 24;
+        ctx.fillStyle = colors.panelBlack;
+        ctx.fillRect(chipX, heroH + 230, w, 26);
+        ctx.fillStyle = colors.neon;
+        ctx.beginPath();
+        ctx.arc(chipX + 12, heroH + 243, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = colors.white;
+        ctx.textBaseline = 'middle';
+        ctx.fillText(chip, chipX + 22, heroH + 243);
+        chipX += w + 8;
+      });
+
+      // === TRY NOW BUTTON (Full width at bottom) ===
+      ctx.fillStyle = isHoveringPreOrder ? colors.white : colors.neon;
+      ctx.fillRect(30, 680, WIDTH - 60, 60);
+      
+      // Button border on hover
+      if (isHoveringPreOrder) {
+        ctx.strokeStyle = colors.neon;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(30, 680, WIDTH - 60, 60);
+      }
+      
+      ctx.fillStyle = colors.black;
+      ctx.font = '700 18px "Roboto Mono"';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('TRY NOW', WIDTH / 2, 710);
+
+      // Bottom tagline bar
+      ctx.fillStyle = colors.panelBlack;
+      ctx.fillRect(0, 760, WIDTH, 40);
+      ctx.fillStyle = colors.neon;
+      ctx.font = '700 11px "Roboto Mono"';
+      ctx.textAlign = 'center';
+      ctx.fillText('ANY RUN CAN LEAD TO SAFETY', WIDTH / 2, 780);
+    }
 
     function drawLeftPanel() {
       // Background Putih
