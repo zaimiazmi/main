@@ -32,6 +32,8 @@
 
     canvas {
       display: block;
+      position: relative;
+      z-index: 1;
     }
 
     /* ========== SECTIONS ========== */
@@ -250,7 +252,8 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       animation: bounce 2s infinite;
-      z-index: 50;
+      z-index: 10;
+      pointer-events: none;
     }
 
     .scroll-indicator span {
