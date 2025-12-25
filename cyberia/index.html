@@ -608,9 +608,8 @@
         mouseY = (e.clientY - rect.top) * scaleY;
       });
 
-      // Touch events for mobile
+      // Touch events for mobile - only prevent default on buttons
       canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
         const touch = e.touches[0];
         const rect = canvas.getBoundingClientRect();
         const scaleX = WIDTH / rect.width;
@@ -621,22 +620,23 @@
         // Check hit detection immediately for touch
         updateLogic();
         if (isHoveringPreOrder) {
+          e.preventDefault();
           window.open('https://cyberwise.zzaimii.com', '_blank');
         }
         if (isHoveringPlay) {
+          e.preventDefault();
           alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
         }
       }, { passive: false });
 
       canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
         const touch = e.touches[0];
         const rect = canvas.getBoundingClientRect();
         const scaleX = WIDTH / rect.width;
         const scaleY = HEIGHT / rect.height;
         mouseX = (touch.clientX - rect.left) * scaleX;
         mouseY = (touch.clientY - rect.top) * scaleY;
-      }, { passive: false });
+      });
 
       canvas.addEventListener('click', () => {
         if (isHoveringPreOrder) {
