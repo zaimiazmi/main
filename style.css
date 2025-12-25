@@ -274,7 +274,7 @@ body.modal-open{overflow:hidden}
   white-space:nowrap;
 }
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.card{background:#1E1E1E;color:#fff;border-radius:16px;height:280px;padding:16px;display:flex;align-items:flex-end}
+.card{background:#1E1E1E;color:#fff;border-radius:16px;height:280px;padding:16px;display:flex;align-items:flex-end;position:relative;overflow:hidden}
 .card .label{font-size:1.2rem;font-weight:700;opacity:.95}
 
 /* ---------- Tablet ---------- */
