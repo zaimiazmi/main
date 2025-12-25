@@ -3,13 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio – Zaimi</title>
-  <link rel="stylesheet" href="../assets/styles.css">
+  <meta name="description" content="Portfolio – Selected work by Zai Mi" />
+  <title>Portfolio – Zai Mi</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <h1>Portfolio</h1>
-  <p>This is the Portfolio page.</p>
-  <a href="../index.html">Back to Home</a>
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero" aria-label="Portfolio hero">
+    <div class="hero-inner container">
+      <h1 class="h-eyebrow">Portfolio</h1>
+      <p class="h-sub">My creative journey and professional experience across design, game development, and multimedia.</p>
+    </div>
+  </section>
+
+  <!-- Pill navbar -->
+  <div class="pillbar-out container">
+    <nav class="bar nav-bar" id="navBar" aria-label="Primary">
+      <a class="pill" href="/">Home</a>
+      <a class="pill" href="/showcase">Showcase</a>
+      <a class="pill" href="/projects">Projects</a>
+      <a class="pill active" href="/portfolio">Portfolio</a>
+    </nav>
+  </div>
+
+  <!-- ===== CONTENT ===== -->
+  <section class="section container" aria-labelledby="portfolio-title">
+    <h2 id="portfolio-title">Coming Soon</h2>
+    <p>Portfolio content will be added here soon. Check back later!</p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="dot"></span> Zaimi aka zzaimii
+        </div>
+        <p class="footer-blurb">Interactive Multimedia Designer.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="YouTube">✕</a>
+          <a href="#" aria-label="TikTok">◎</a>
+          <a href="#" aria-label="LinkedIn">▶</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/showcase">Showcase</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-news">
+        <h5>Subscribe</h5>
+        <p>Get latest updates — no spam.</p>
+        <form class="footer-form" onsubmit="return false;">
+          <input class="footer-input" type="email" placeholder="Your email" />
+          <button class="footer-btn" type="submit">(Not available)</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Zaimi. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
   <script src="/script.js"></script>
 </body>
 </html>

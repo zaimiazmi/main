@@ -143,16 +143,39 @@
       .game-left::after{display:none}
     }
     @media(max-width:640px){
-      .game-left{padding:32px 20px; min-height:auto}
+      .game-left{padding:32px 20px; min-height:auto; padding-bottom:120px}
       .game-right{min-height:40vh}
       .game-title{font-size:2rem; letter-spacing:1px}
       .game-subtitle{font-size:.85rem}
       .game-description{font-size:.95rem; margin-bottom:20px}
       .game-info{gap:16px; margin-bottom:20px}
-      .game-cta{gap:10px}
-      .game-btn{padding:12px 20px; font-size:.9rem}
+      .game-cta{gap:10px; flex-direction:column}
+      .game-btn{padding:12px 20px; font-size:.9rem; width:100%}
       .game-badge{top:20px; right:20px; font-size:.75rem; padding:6px 12px}
       .game-visual{padding:20px}
+      
+      /* Mobile navbar fix */
+      body{ padding-bottom:96px; }
+      .pillbar-out .bar.nav-bar{
+        position:fixed;
+        bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+        left:50%;
+        transform:translateX(-50%);
+        width:calc(100% - 40px);
+        max-width:440px;
+        z-index:9999;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+      }
+      .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
+    }
+    @media(max-width:480px){
+      .game-left{padding:24px 16px; padding-bottom:120px}
+      .game-right{min-height:35vh}
+      .game-title{font-size:1.6rem}
+      .game-cta{flex-direction:column}
+      .game-btn{width:100%; padding:10px 16px}
     }
   </style>
 </head>
