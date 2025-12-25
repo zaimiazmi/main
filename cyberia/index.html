@@ -6,192 +6,181 @@
   <meta name="description" content="Cyberia: Wira Siber – A 2D pixel adventure about online safety" />
   <title>Cyberia: Wira Siber – The Game</title>
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css" />
   <style>
-    /* ===== Cyberia Game Landing – Gaming Aesthetic ===== */
-    body.game-page{overflow-x:hidden; background:#0F0F0F}
-    .game-container{
-      display:grid; grid-template-columns:1fr 1fr; gap:0;
-      min-height:100vh; align-items:stretch;
+    :root{
+      --neon:#ccff00;
+      --ink:#0a0a0a;
+      --panel:#050505;
+      --soft:#f7f7f7;
     }
-    .game-left{
-      background:#FFFFFF; padding:80px 60px;
-      display:flex; flex-direction:column; justify-content:center;
-      position:relative; z-index:2;
-    }
-    .game-left::after{
-      content:""; position:absolute; right:-1px; top:0; bottom:0;
-      width:4px; background:var(--accent);
-      pointer-events:none;
-    }
-    .game-title{
-      font-size:5rem; font-weight:900; letter-spacing:8px;
-      color:#0F0F0F; margin-bottom:24px;
-      text-transform:uppercase;
-      line-height:0.9;
-    }
-    .game-title-accent{color:var(--accent); display:block}
-    .game-tagline{
-      font-size:1.1rem; font-weight:700; color:#666;
-      margin-bottom:32px; letter-spacing:1px;
-      text-transform:uppercase;
-    }
-    .game-description{
-      font-size:1rem; line-height:1.8;
-      color:#333; margin-bottom:40px;
-      max-width:480px; font-weight:500;
-    }
-    .game-subtitle-accent{
-      font-size:.85rem; font-weight:900; color:#0F0F0F;
-      text-transform:uppercase; letter-spacing:2px;
-      background:var(--accent); padding:6px 12px;
-      display:inline-block; margin-bottom:16px;
-    }
-    .game-divider{
-      height:3px; background:#0F0F0F; width:100%; max-width:300px;
-      margin:28px 0; border-radius:2px;
-    }
-    .game-info{
-      display:flex; gap:40px; margin-bottom:40px;
-      flex-wrap:wrap;
-    }
-    .game-info-item{
-      display:flex; flex-direction:column;
-    }
-    .game-info-label{
-      font-size:.75rem; font-weight:900; color:#999;
-      text-transform:uppercase; letter-spacing:1px;
-      margin-bottom:6px;
-    }
-    .game-info-value{
-      font-size:1.4rem; font-weight:900; color:#0F0F0F
-    }
-    .game-cta{
-      display:flex; gap:16px; flex-wrap:wrap;
+    body.game-page{
+      overflow-x:hidden;
+      background:radial-gradient(ellipse at center, rgba(204,255,0,0.12), transparent 45%), #0b0b0b;
+      font-family:'Roboto Mono', monospace;
+      display:flex;
+      justify-content:center;
       align-items:center;
+      min-height:100vh;
+      padding:24px;
     }
-    .game-btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:16px 36px; border-radius:2px; border:none;
-      font-weight:900; font-size:1rem;
-      cursor:pointer; transition:all .2s ease;
-      text-transform:uppercase; letter-spacing:1px;
+    .game-shell{
+      position:relative;
+      max-width:1200px;
+      width:100%;
+      background:#0d0d0d;
+      border-radius:14px;
+      box-shadow:0 30px 70px rgba(0,0,0,.45);
+      overflow:hidden;
     }
-    .game-btn-primary{
-      background:var(--accent); color:#0F0F0F;
-      box-shadow:0 8px 0px rgba(0,0,0,.3);
+    .game-container{
+      display:grid;
+      grid-template-columns:380px 1fr;
+      min-height:620px;
     }
-    .game-btn-primary:hover{
-      transform:translateY(-2px);
-      box-shadow:0 12px 0px rgba(0,0,0,.4);
+    /* Left panel */
+    .panel-left{
+      background:#fff;
+      padding:64px 56px 0;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
     }
-    .game-btn-secondary{
-      background:transparent; color:#0F0F0F;
-      border:3px solid #0F0F0F;
+    .panel-left::after{
+      content:""; position:absolute; right:-30px; top:0; bottom:0; width:60px;
+      background:var(--panel);
+      background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 10px, transparent 10px 20px);
+      mask:linear-gradient(90deg, #000 0 60px);
     }
-    .game-btn-secondary:hover{
-      background:#0F0F0F; color:#FFF;
+    .logo-text{
+      font-family:'Oswald', sans-serif;
+      font-size:64px; letter-spacing:6px; font-weight:700;
+      color:var(--neon);
+      margin:0;
     }
-    
-    .game-right{
-      background:#1A1A1A;
-      position:relative; overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
+    .sub-kicker{font-size:14px;color:#333;font-weight:500; text-transform:lowercase; letter-spacing:0.5px; margin-top:16px;}
+    .sub-head{font-size:24px;color:#111;font-weight:700; margin-top:-2px; text-transform:lowercase; letter-spacing:0.5px;}
+    .desc-block{margin-top:6px; font-size:12px; line-height:1.7; color:#2b2b2b; max-width:260px; text-transform:lowercase;}
+    .desc-block strong{font-weight:700; color:#000;}
+    .bottom-bars{margin-top:auto;}
+    .bar-black{background:var(--panel); color:#fff; padding:12px 16px; font-weight:700; letter-spacing:1px; font-size:13px; text-transform:uppercase;}
+    .bar-neon{background:var(--neon); color:var(--panel); padding:18px 16px; font-weight:700; letter-spacing:2px; font-size:24px; text-transform:uppercase; transform:scaleY(-1); text-align:left;}
+    /* Right panel */
+    .panel-right{
+      position:relative;
+      overflow:hidden;
+      background:var(--panel);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .game-right::before{
+    .panel-right::before{
       content:""; position:absolute; inset:0;
       background:
-        linear-gradient(45deg, rgba(255,229,0,.05) 0%, transparent 50%),
-        repeating-linear-gradient(90deg, rgba(255,229,0,.02) 0px, rgba(255,229,0,.02) 2px, transparent 2px, transparent 4px);
+        linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 100%),
+        linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 100%);
+      background-size:120px 120px;
+      opacity:.3;
       pointer-events:none;
+    }
+    .panel-right::after{
+      content:""; position:absolute; inset:0;
+      background:radial-gradient(circle at 20% 20%, rgba(204,255,0,.16), transparent 45%);
+      pointer-events:none;
+    }
+    .hero-frame{
+      position:relative;
+      width:100%; height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
       z-index:1;
     }
-    .game-right::after{
-      content:""; position:absolute; inset:0;
-      background:linear-gradient(90deg, rgba(255,229,0,.15) 0%, transparent 10%, transparent 90%, rgba(255,229,0,.1) 100%);
-      pointer-events:none;
-      z-index:0;
-    }
-    .game-badge{
-      position:absolute; top:32px; right:32px;
-      background:var(--accent); color:#0F0F0F;
-      padding:10px 16px; border-radius:0px;
-      font-weight:900; font-size:.75rem;
-      text-transform:uppercase; letter-spacing:2px;
-      z-index:3; box-shadow:0 8px 0px rgba(0,0,0,.4);
-    }
-    .game-visual{
-      width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center;
-      position:relative; z-index:2;
-      padding:60px;
-    }
-    .game-hero-img{
-      width:100%; max-width:480px; aspect-ratio:1;
+    .hero-img{
+      position:relative;
+      width:100%; height:100%; max-width:760px;
       background:#111;
-      border-radius:0px;
-      display:flex; align-items:center; justify-content:center;
-      border:3px solid var(--accent);
+      border:3px solid var(--panel);
+      outline:2px solid var(--neon);
+      box-shadow:0 20px 80px rgba(0,0,0,.6);
       overflow:hidden;
-      box-shadow:0 20px 60px rgba(255,229,0,.15);
     }
-    .game-hero-img img{
-      width:100%; height:100%; object-fit:cover;
+    .hero-img img{width:100%; height:100%; object-fit:cover; display:block;}
+    .hero-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.5) 80%);}    
+    .cta-play{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      gap:18px; z-index:2;
+      pointer-events:none;
     }
-    
+    .play-hit{
+      pointer-events:auto;
+      background:transparent;
+      border:none;
+      display:flex; align-items:center; gap:18px;
+      cursor:pointer;
+    }
+    .cta-play .label{
+      font-family:'Oswald', sans-serif;
+      font-size:48px; font-weight:700; letter-spacing:2px;
+      color:var(--neon);
+      text-shadow:0 0 18px rgba(204,255,0,.35);
+    }
+    .bracket{width:26px; height:70px; border:3px solid #fff; opacity:.9;}
+    .cta-play .bracket.left{border-right:none;}
+    .cta-play .bracket.right{border-left:none;}
+    .play-hit:hover .label{color:#fff; text-shadow:0 0 18px rgba(255,255,255,.35);}
+    .play-hit:hover .bracket{border-color:var(--neon);}
+    .chip-preorder{
+      position:absolute; top:26px; right:26px; z-index:3;
+      background:var(--neon); color:var(--ink);
+      border:none; padding:10px 18px; font-weight:800; letter-spacing:1px;
+      font-size:11px; text-transform:uppercase;
+      cursor:pointer; box-shadow:0 8px 0 rgba(0,0,0,.4);
+    }
+    .chip-preorder:hover{transform:translateY(-2px);}
+    /* Checker divider */
+    .divider-strip{
+      position:absolute; left:350px; top:0; bottom:0; width:60px;
+      background:var(--panel);
+      background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 10px, transparent 10px 20px);
+      mask:linear-gradient(180deg, #000 0 14%, transparent 14% 28%, #000 28% 56%, transparent 56% 72%, #000 72% 100%);
+      z-index:3;
+    }
     /* Responsive */
-    @media(max-width:980px){
-      .game-container{grid-template-columns:1fr; min-height:auto}
-      .game-left{padding:60px 40px; min-height:60vh}
-      .game-right{min-height:50vh; margin-top:-60px}
-      .game-title{font-size:4rem}
-      .game-description{font-size:1rem}
-      .game-left::after{display:none}
+    @media(max-width:1080px){
+      .game-container{grid-template-columns:340px 1fr;}
+    }
+    @media(max-width:900px){
+      .game-shell{border-radius:10px;}
+      .game-container{grid-template-columns:1fr;}
+      .divider-strip{display:none;}
+      .panel-left{padding:48px 36px 0;}
+      .panel-left::after{display:none;}
+      .panel-right{min-height:420px;}
+      .hero-frame{padding:28px;}
+      .hero-img{max-width:640px;}
     }
     @media(max-width:640px){
-      .game-left{padding:40px 24px; padding-bottom:120px; min-height:auto}
-      .game-right{min-height:40vh}
-      .game-title{font-size:2.8rem; letter-spacing:4px}
-      .game-tagline{font-size:.9rem}
-      .game-description{font-size:.95rem; margin-bottom:28px}
-      .game-info{gap:24px; margin-bottom:32px}
-      .game-divider{width:80px}
-      .game-cta{gap:12px; flex-direction:column}
-      .game-btn{width:100%; padding:14px 20px; font-size:.9rem}
-      .game-badge{top:20px; right:20px; font-size:.7rem; padding:8px 12px}
-      .game-visual{padding:30px}
-      .game-hero-img{max-width:380px}
-      
-      /* Mobile navbar fix */
-      body{ padding-bottom:96px; }
-      .pillbar-out .bar.nav-bar{
-        position:fixed;
-        bottom:calc(16px + env(safe-area-inset-bottom, 0px));
-        left:50%;
-        transform:translateX(-50%);
-        width:calc(100% - 40px);
-        max-width:440px;
-        z-index:9999;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
-        scrollbar-width:none;
-      }
-      .pillbar-out .bar.nav-bar::-webkit-scrollbar{ display:none; }
-    }
-    @media(max-width:480px){
-      .game-left{padding:32px 16px; padding-bottom:120px}
-      .game-right{min-height:35vh}
-      .game-title{font-size:2.2rem; letter-spacing:2px}
-      .game-info-value{font-size:1.2rem}
-      .game-btn{padding:12px 16px}
-      .game-visual{padding:20px}
-      .game-hero-img{max-width:300px}
+      body.game-page{padding:12px;}
+      .panel-left{padding:40px 24px 0;}
+      .logo-text{font-size:48px; letter-spacing:4px;}
+      .sub-head{font-size:20px;}
+      .bar-neon{font-size:20px;}
+      .hero-img{max-width:100%; height:260px;}
+      .cta-play .label{font-size:32px;}
+      .bracket{height:54px;}
+      .chip-preorder{top:18px; right:18px;}
     }
   </style>
 </head>
 <body class="game-page">
-  <!-- Pill navbar (same style; links point to pages) -->
+  <!-- Pill navbar (kept for consistency) -->
   <div class="pillbar-out container" style="position:absolute; top:20px; left:0; right:0; z-index:100; margin-top:0; width:auto;">
     <nav class="bar nav-bar" id="navBar" aria-label="Primary">
       <a class="pill" href="/">Home</a>
@@ -201,57 +190,44 @@
     </nav>
   </div>
 
-  <div class="game-container">
-    <!-- Left: Info Card -->
-    <div class="game-left">
-      <div class="game-subtitle-accent">New Game</div>
-      
-      <h1 class="game-title">
-        Cyberia<span class="game-title-accent">: Wira Siber</span>
-      </h1>
-      <p class="game-tagline">A 2D Pixel Adventure</p>
-      
-      <div class="game-divider"></div>
-      
-      <p class="game-description">
-        Learn to spot scams, fake accounts, and online dangers through exciting missions and challenges. Become a cyber safety hero while having fun! Perfect for kids aged 7-12.
-      </p>
+  <main class="game-shell">
+    <div class="game-container">
+      <div class="panel-left">
+        <h1 class="logo-text">CYBERIA</h1>
+        <div class="sub-kicker">from the creators</div>
+        <div class="sub-head">of cyber-safety adventures</div>
 
-      <div class="game-info">
-        <div class="game-info-item">
-          <div class="game-info-label">Age Rating</div>
-          <div class="game-info-value">7+</div>
+        <div class="desc-block">
+          become a cyber hero in this pixel rpg. spot scams, fake accounts, and online dangers through missions.
+          defend friends, stay sharp, and learn the skills to win every run.<br><br>
+          <strong>any run can lead to safety.</strong>
         </div>
-        <div class="game-info-item">
-          <div class="game-info-label">Genre</div>
-          <div class="game-info-value">RPG</div>
-        </div>
-        <div class="game-info-item">
-          <div class="game-info-label">Status</div>
-          <div class="game-info-value">Testing</div>
+
+        <div class="bottom-bars">
+          <div class="bar-black">nowhere to learn?</div>
+          <div class="bar-neon">then play</div>
         </div>
       </div>
 
-      <div class="game-cta">
-        <button class="game-btn game-btn-primary" type="button" onclick="window.open('https://cyberwise.zzaimii.com', '_blank')">
-          Play Now
-        </button>
-        <button class="game-btn game-btn-secondary" type="button" data-modal-trigger="trailerModal">
-          Trailer
-        </button>
-      </div>
-    </div>
-
-    <!-- Right: Game Visual -->
-    <div class="game-right">
-      <div class="game-badge">Testing Available</div>
-      <div class="game-visual">
-        <div class="game-hero-img">
-          <img src="cyberwise-thumb.jpg" alt="Cyberia: Wira Siber Game Visual" />
+      <div class="panel-right">
+        <div class="divider-strip" aria-hidden="true"></div>
+        <button class="chip-preorder" type="button" onclick="window.open('https://cyberwise.zzaimii.com','_blank')">pre-order</button>
+        <div class="hero-frame">
+          <div class="hero-img">
+            <img src="cyberwise-thumb.jpg" alt="Cyberia: Wira Siber visual" loading="lazy">
+            <div class="hero-overlay"></div>
+            <div class="cta-play">
+              <button class="play-hit" type="button" data-modal-trigger="trailerModal">
+                <span class="bracket left"></span>
+                <span class="label">PLAY TRAILER</span>
+                <span class="bracket right"></span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
   <!-- Trailer Modal -->
   <div class="modal" id="trailerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="trailerModalTitle">
