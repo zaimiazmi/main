@@ -106,6 +106,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const wrapper = document.createElement('div');
     wrapper.className = 'img-wrapper';
     wrapper.style.borderRadius = window.getComputedStyle(img).borderRadius;
+    
+    // Set wrapper dimensions based on image attributes or defaults
+    if (img.width && img.height) {
+      wrapper.style.paddingBottom = (img.height / img.width * 100) + '%';
+      wrapper.style.position = 'relative';
+    } else if (img.naturalWidth && img.naturalHeight) {
+      wrapper.style.paddingBottom = (img.naturalHeight / img.naturalWidth * 100) + '%';
+      wrapper.style.position = 'relative';
+    } else {
+      // Default aspect ratio (16:9) if no dimensions available
+      wrapper.style.paddingBottom = '56.25%';
+      wrapper.style.position = 'relative';
+    }
+    
     img.parentElement.insertBefore(wrapper, img);
     wrapper.appendChild(img);
 

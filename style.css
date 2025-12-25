@@ -38,6 +38,12 @@ a{text-decoration:none;color:inherit}
 .img-wrapper{
   position:relative; overflow:hidden;
   background:#f0f0f0; border-radius:inherit;
+  display:block; width:100%;
+}
+.img-wrapper img{
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
 }
 .img-skeleton{
   position:absolute; inset:0;
