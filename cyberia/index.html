@@ -167,6 +167,31 @@
       mask:linear-gradient(180deg, #000 0 14%, transparent 14% 28%, #000 28% 56%, transparent 56% 72%, #000 72% 100%);
       z-index:3;
     }
+    /* CRT Scanline Effects */
+    .game-shell::before{
+      content:""; position:absolute; inset:0; z-index:999; pointer-events:none;
+      background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, transparent 1px, transparent 2px, rgba(0,0,0,0.15) 3px);
+      animation:scanline 8s linear infinite;
+    }
+    .game-shell::after{
+      content:""; position:absolute; top:0; left:0; right:0; height:100px; z-index:998; pointer-events:none;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+      animation:scan-move 4s linear infinite;
+    }
+    @keyframes scanline{
+      0%{transform:translateY(0)}
+      100%{transform:translateY(4px)}
+    }
+    @keyframes scan-move{
+      0%{transform:translateY(-100px)}
+      100%{transform:translateY(620px)}
+    }
+    /* Hover Effects */
+    .chip-preorder{transition:all .2s ease;}
+    .chip-preorder:active{transform:translateY(0); box-shadow:0 4px 0 rgba(0,0,0,.4);}
+    .play-hit{transition:all .3s ease;}
+    .play-hit:active .label{transform:scale(0.95);}
+    .play-hit:active .bracket{transform:scale(1.1);}
     /* Responsive */
     @media(max-width:1080px){
       .game-container{grid-template-columns:340px 1fr;}
