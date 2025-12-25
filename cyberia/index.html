@@ -676,11 +676,15 @@
       const scaleY = containerH / HEIGHT;
       const scale = Math.max(scaleX, scaleY);
       
-      canvas.style.width = `${WIDTH * scale}px`;
-      canvas.style.height = `${HEIGHT * scale}px`;
+      const scaledW = WIDTH * scale;
+      const scaledH = HEIGHT * scale;
+      
+      canvas.style.width = `${scaledW}px`;
+      canvas.style.height = `${scaledH}px`;
       canvas.style.position = 'absolute';
-      canvas.style.left = `${(containerW - WIDTH * scale) / 2}px`;
-      canvas.style.top = `${(containerH - HEIGHT * scale) / 2}px`;
+      canvas.style.left = `${(containerW - scaledW) / 2}px`;
+      // Keep canvas aligned to top, don't go negative
+      canvas.style.top = '0';
       
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
