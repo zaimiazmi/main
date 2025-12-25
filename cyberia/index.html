@@ -11,27 +11,27 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background-color: #1a1a1a;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      background-color: #0a0a0a;
+      margin: 0;
+      padding: 0;
       font-family: 'Roboto Mono', monospace;
-      overflow-x: hidden;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
     }
 
     #canvas-container {
-      position: relative;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-      border-radius: 4px;
-      max-width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     canvas {
       display: block;
-      border-radius: 4px;
-      max-width: 100%;
-      height: auto;
+      width: 100%;
+      height: 100%;
     }
 
     #loading {
@@ -182,12 +182,8 @@
 
     // --- SETUP ---
     function setupCanvas() {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = WIDTH * dpr;
-      canvas.height = HEIGHT * dpr;
-      canvas.style.width = `${WIDTH}px`;
-      canvas.style.height = `${HEIGHT}px`;
-      ctx.scale(dpr, dpr);
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
 
       canvas.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
@@ -205,6 +201,30 @@
           alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
         }
       });
+    }
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      const containerW = window.innerWidth;
+      const containerH = window.innerHeight;
+      
+      // Calculate scale to fill screen while maintaining aspect ratio
+      const scaleX = containerW / WIDTH;
+      const scaleY = containerH / HEIGHT;
+      const scale = Math.max(scaleX, scaleY); // Use max to fill entire screen
+      
+      canvas.width = WIDTH * dpr;
+      canvas.height = HEIGHT * dpr;
+      canvas.style.width = `${WIDTH * scale}px`;
+      canvas.style.height = `${HEIGHT * scale}px`;
+      
+      // Center the canvas
+      canvas.style.position = 'absolute';
+      canvas.style.left = `${(containerW - WIDTH * scale) / 2}px`;
+      canvas.style.top = `${(containerH - HEIGHT * scale) / 2}px`;
+      
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
     }
 
     // --- MAIN RENDER LOOP ---
