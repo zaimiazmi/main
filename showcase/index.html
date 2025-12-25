@@ -66,7 +66,10 @@
     <h2 id="feature-block-title">Spotlight</h2>
     <div class="wh-grid">
       <figure class="banner" aria-label="Spotlight visual placeholder">
-        <img class="cover" src="wh-banner.jpg" alt="Showcase visual placeholder" />
+        <div class="img-wrapper">
+          <div class="img-skeleton"></div>
+          <img class="cover lazy" src="wh-banner.jpg" alt="Showcase visual placeholder" onload="this.classList.add('loaded');this.previousElementSibling.classList.add('hidden')" />
+        </div>
         <figcaption class="now-badge">TESTING AVAILABLE</figcaption>
       </figure>
       <div class="wh-copy">
