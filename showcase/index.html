@@ -33,6 +33,7 @@
     <div class="lang-switch" role="tablist" aria-label="Showcase categories">
       <div class="bar nav-bar">
         <a href="#" class="pill active" role="tab" aria-selected="true" data-cat="all">All</a>
+        <a href="#" class="pill" role="tab" aria-selected="false" data-cat="fyp">FYP</a>
         <a href="#" class="pill" role="tab" aria-selected="false" data-cat="game">Game</a>
         <a href="#" class="pill" role="tab" aria-selected="false" data-cat="branding">Branding</a>
         <a href="#" class="pill" role="tab" aria-selected="false" data-cat="video">Video</a>
@@ -66,14 +67,14 @@
     <div class="wh-grid">
       <figure class="banner" aria-label="Spotlight visual placeholder">
         <img class="cover" src="wh-banner.jpg" alt="Showcase visual placeholder" />
-        <figcaption class="now-badge">COMING SOON</figcaption>
+        <figcaption class="now-badge">TESTING AVAILABLE</figcaption>
       </figure>
       <div class="wh-copy">
-        <h3 class="wh-title">Title goes here</h3>
+        <h3 class="wh-title">Cyberia : Wira Siber</h3>
         <p>
-          Add a short write‑up here describing the featured project: goals, role,
-          tools, and the outcome. You can paste your real copy later.
+          A fun 2D pixel adventure that teaches kids how to stay safe online! Learn to spot scams, fake accounts, and online dangers through exciting missions and challenges. Perfect for kids aged 7-12 - play, learn, and become a cyber safety hero!
         </p>
+        <div class="sub">7+ | RPG</div>
         <div class="cta-right">
           <div class="left">
             <img class="thumb" src="cyberwise-thumb.jpg" alt="Thumbnail placeholder">
@@ -87,6 +88,20 @@
       </div>
     </div>
   </section>
+
+  <!-- Projects notice modal -->
+  <div class="modal" id="projectsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectsModalTitle">
+    <div class="modal-card" role="document">
+      <button class="modal-close" type="button" aria-label="Close dialog" data-close-modal>✕</button>
+      <div class="modal-body">
+        <h3 class="modal-title" id="projectsModalTitle">Project notice</h3>
+        <p class="modal-text">Project now move to Showcase!</p>
+        <div class="modal-actions">
+          <button class="modal-btn" type="button" data-close-modal>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ===== FOOTER (same markup as Home) ===== -->
   <footer class="footer">
@@ -142,5 +157,45 @@
 
   <!-- Scripts -->
   <script src="/script.js"></script>
+  <script>
+    (function() {
+      const projectsLink = document.querySelector('.nav-bar a[href="/projects"]');
+      const modal = document.getElementById('projectsModal');
+      if (!projectsLink || !modal) return;
+
+      const closeButtons = modal.querySelectorAll('[data-close-modal]');
+      const openModal = () => {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      };
+      const closeModal = () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+      };
+
+      projectsLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal();
+      });
+
+      closeButtons.forEach((button) => {
+        button.addEventListener('click', closeModal);
+      });
+
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
