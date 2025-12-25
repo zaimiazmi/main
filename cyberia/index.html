@@ -630,10 +630,6 @@
         
         // Check hit detection immediately for touch
         updateLogic();
-        if (isHoveringPreOrder) {
-          e.preventDefault();
-          window.open('https://cyberwise.zzaimii.com', '_blank');
-        }
         if (isHoveringPlay) {
           e.preventDefault();
           alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
@@ -650,9 +646,6 @@
       });
 
       canvas.addEventListener('click', () => {
-        if (isHoveringPreOrder) {
-          window.open('https://cyberwise.zzaimii.com', '_blank');
-        }
         if (isHoveringPlay) {
           alert("🎬 Trailer coming soon!\n\nGet ready to embark on an epic cyber adventure!");
         }
