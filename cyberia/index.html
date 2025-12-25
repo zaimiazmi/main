@@ -66,6 +66,12 @@
     .sub-head{font-size:24px;color:#111;font-weight:700; margin-top:-2px; text-transform:lowercase; letter-spacing:0.5px;}
     .desc-block{margin-top:6px; font-size:12px; line-height:1.7; color:#2b2b2b; max-width:260px; text-transform:lowercase;}
     .desc-block strong{font-weight:700; color:#000;}
+    .chip-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:var(--panel); color:#fff; font-size:12px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; border:1px solid #111; box-shadow:0 8px 18px rgba(0,0,0,.2);}
+    .chip .dot{width:10px; height:10px; border-radius:50%; background:var(--neon); box-shadow:0 0 10px rgba(204,255,0,.8);}
+    .feature-list{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:6px; font-size:12px; color:#1f1f1f; letter-spacing:0.3px; text-transform:lowercase;}
+    .feature-list li{display:flex; align-items:center; gap:8px;}
+    .feature-list .tick{width:10px; height:10px; border:2px solid var(--neon);}
     .bottom-bars{margin-top:auto;}
     .bar-black{background:var(--panel); color:#fff; padding:12px 16px; font-weight:700; letter-spacing:1px; font-size:13px; text-transform:uppercase;}
     .bar-neon{background:var(--neon); color:var(--panel); padding:18px 16px; font-weight:700; letter-spacing:2px; font-size:24px; text-transform:uppercase; transform:scaleY(-1); text-align:left;}
@@ -144,6 +150,15 @@
       cursor:pointer; box-shadow:0 8px 0 rgba(0,0,0,.4);
     }
     .chip-preorder:hover{transform:translateY(-2px);}
+    .info-badge{
+      position:absolute; bottom:26px; right:26px; z-index:3;
+      background:rgba(0,0,0,.7); color:#fff; padding:10px 14px;
+      border:1px solid rgba(204,255,0,.5);
+      font-size:11px; letter-spacing:1px; text-transform:uppercase;
+      display:flex; align-items:center; gap:8px;
+      backdrop-filter:blur(6px);
+    }
+    .info-badge .pulse{width:10px; height:10px; border-radius:50%; background:var(--neon); box-shadow:0 0 10px rgba(204,255,0,.8);}
     /* Checker divider */
     .divider-strip{
       position:absolute; left:350px; top:0; bottom:0; width:60px;
@@ -203,6 +218,18 @@
           <strong>any run can lead to safety.</strong>
         </div>
 
+          <div class="chip-row" aria-label="Game facts">
+            <span class="chip"><span class="dot"></span>7+</span>
+            <span class="chip"><span class="dot"></span>RPG</span>
+            <span class="chip"><span class="dot"></span>Testing</span>
+          </div>
+
+          <ul class="feature-list" aria-label="Game highlights">
+            <li><span class="tick"></span>missions to spot scams & fake accounts</li>
+            <li><span class="tick"></span>co-op safety quests with friends</li>
+            <li><span class="tick"></span>quick sessions, learn fast, level up</li>
+          </ul>
+
         <div class="bottom-bars">
           <div class="bar-black">nowhere to learn?</div>
           <div class="bar-neon">then play</div>
@@ -223,6 +250,7 @@
                 <span class="bracket right"></span>
               </button>
             </div>
+            <div class="info-badge"><span class="pulse"></span> pixel rpg • 2025</div>
           </div>
         </div>
       </div>
