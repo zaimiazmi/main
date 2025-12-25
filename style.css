@@ -167,9 +167,9 @@ img.loaded{opacity:1}
 .cta-right .left{display:flex;align-items:center;gap:12px;min-width:0}
 .cta-right .thumb{width:40px;height:40px;border-radius:12px;object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,.1)}
 .cta-right .meta{display:flex;flex-direction:column;line-height:1.2}
-.cta-right .meta strong{font-weight:700;font-size:0.95rem}
-.cta-right .meta .sub{color:#6B7280;font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
-.cta-buttons{display:flex;gap:8px;align-items:center}
+.cta-right .meta strong{font-weight:700;font-size:0.9rem;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+.cta-right .meta .sub{color:#6B7280;font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+.cta-buttons{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .play-btn{
   background:linear-gradient(#FFF,#F7F7F7);color:#0F1115;font-weight:700;border-radius:999px;
   padding:8px 16px;font-size:.9rem;border:1px solid #D1D5DB;box-shadow:0 1px 0 #FFF inset, 0 8px 16px rgba(0,0,0,.08)
