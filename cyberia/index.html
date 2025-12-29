@@ -33,6 +33,18 @@
       text-align: center;
       overflow: hidden;
       box-shadow: 0 0 40px rgba(0, 255, 255, 0.4), 0 0 80px rgba(255, 0, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .countdown-section:hover {
+      background: linear-gradient(135deg, #1a1e37 0%, #2a1a4e 50%, #1f2a3e 100%);
+      border-top-color: #00ffff;
+      border-bottom-color: #ff00ff;
+      box-shadow: 
+        0 0 60px rgba(255, 0, 255, 0.6),
+        0 0 100px rgba(0, 255, 255, 0.4),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
     }
 
     /* Corner accent decorations */
@@ -751,7 +763,6 @@
       </div>
     </div>
     <div class="countdown-status" id="status">JAN 5, 2026 • 9:00 AM GMT+8</div>
-    <button class="coming-soon-btn" id="coming-soon-btn">Coming Soon</button>
   </div>
 
   <!-- Canvas Container -->
