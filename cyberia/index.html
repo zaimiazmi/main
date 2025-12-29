@@ -17,79 +17,13 @@
     body {
       background-color: #0a0a0a;
       margin: 0;
-      padding: 50px 0 0 0;
+      padding: 0;
       font-family: 'Roboto Mono', monospace;
       overflow-x: hidden;
       overflow-y: auto;
     }
 
-    /* ========== CYBERPUNK BANNER ========== */
-    .cyber-banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      background: linear-gradient(135deg, #0a0e27 0%, #1a0a3e 50%, #0f1a2e 100%);
-      border-bottom: 3px solid #00ffff;
-      padding: 12px 20px;
-      text-align: center;
-      overflow: hidden;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
 
-    .cyber-banner::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
-      animation: scanlines 8s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes scanlines {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .cyber-banner-text {
-      position: relative;
-      z-index: 1;
-      color: #00ffff;
-      font-family: 'Courier New', monospace;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.4);
-      animation: glitch 3s infinite;
-      margin: 0;
-    }
-
-    @keyframes glitch {
-      0%, 100% {
-        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.4);
-      }
-      50% {
-        text-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 30px rgba(255, 0, 255, 0.6);
-      }
-    }
-
-    .cyber-banner a {
-      color: #00ffff;
-      text-decoration: none;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      border-bottom: 2px solid transparent;
-    }
-
-    .cyber-banner a:hover {
-      color: #ff00ff;
-      text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
-      border-bottom: 2px solid #ff00ff;
-    }
 
     #canvas-container {
       position: relative;
@@ -492,11 +426,6 @@
   </style>
 </head>
 <body>
-
-  <!-- ===== CYBERPUNK BANNER ===== -->
-  <div class="cyber-banner">
-    <p class="cyber-banner-text">⚡ CYBERIA: WIRA SIBER TESTING STARTS 5/1/26. <a href="/cyberia">TRY NOW</a> ⚡</p>
-  </div>
 
   <!-- Loading Screen -->
   <div id="loading">
