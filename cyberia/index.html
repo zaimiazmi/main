@@ -233,6 +233,105 @@
       text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
     }
 
+    /* Early Access link (underlined button style) */
+    .early-access-link {
+      display: inline-block;
+      margin-top: 10px;
+      background: transparent;
+      border: none;
+      color: #00ffff;
+      text-decoration: underline;
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+    .early-access-link:hover {
+      color: #ff00ff;
+      text-shadow: 0 0 12px rgba(255, 0, 255, 0.7);
+    }
+
+    /* Modal (Early Access) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    .modal-backdrop.active { display: flex; }
+
+    .modal {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      background: #0f0f10;
+      border: 1px solid #222;
+      border-top: 3px solid #00ffff;
+      border-bottom: 3px solid #ff00ff;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,255,255,0.25);
+      padding: 26px 26px 22px;
+      color: #ddd;
+    }
+    .modal h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: #ccff00;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+    }
+    .modal p {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.7;
+      margin: 0 0 18px;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .modal-primary {
+      padding: 10px 18px;
+      background: linear-gradient(135deg, #1a0a3e 0%, #0f1a2e 100%);
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-shadow: 0 0 10px rgba(0,255,255,0.6);
+    }
+    .modal-primary:hover {
+      border-color: #ff00ff;
+      color: #ff00ff;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #aaa;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: #fff; border-color: #555; }
+
     .coming-soon-btn {
       position: relative;
       z-index: 1;
@@ -811,6 +910,7 @@
       </div>
     </div>
     <div class="countdown-status" id="status">JAN 5, 2026 • 9:00 AM GMT+8</div>
+    <button class="early-access-link" id="early-access-link" aria-haspopup="dialog">Early Access</button>
   </div>
 
   <!-- Canvas Container -->
@@ -909,6 +1009,21 @@
     <p class="footer-text">© 2025 Zaimi Azmi • All Rights Reserved</p>
     <p class="footer-text" style="margin-top: 8px; color: #333;">Any run can lead to safety.</p>
   </footer>
+
+  <!-- Early Access Modal -->
+  <div id="early-access-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="ea-title" aria-modal="true">
+      <button class="modal-close" type="button" aria-label="Close">✕</button>
+      <h3 id="ea-title">Early Access</h3>
+      <p>
+        You can request early access, but the game is still in active development. 
+        It may be unstable and bugs can occur. Continue only if you understand the risks.
+      </p>
+      <div class="modal-actions">
+        <button id="ea-understand" class="modal-primary" type="button">I Understand</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     /**
@@ -1538,7 +1653,8 @@
         document.getElementById('seconds').textContent = '00';
         document.getElementById('status').textContent = '🎮 TESTING NOW LIVE 🎮';
         document.getElementById('status').style.color = '#00ff00';
-        document.getElementById('coming-soon-btn').style.display = 'none';
+        const csBtn = document.getElementById('coming-soon-btn');
+        if (csBtn) csBtn.style.display = 'none';
         return;
       }
 
@@ -1558,6 +1674,35 @@
     // Update countdown immediately and then every second
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // ===== Early Access Modal logic =====
+    (function() {
+      const eaLink = document.getElementById('early-access-link');
+      const modalBackdrop = document.getElementById('early-access-modal');
+      if (!eaLink || !modalBackdrop) return;
+
+      const closeBtn = modalBackdrop.querySelector('.modal-close');
+      const understandBtn = document.getElementById('ea-understand');
+
+      function openModal() {
+        modalBackdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        modalBackdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      eaLink.addEventListener('click', openModal);
+      closeBtn && closeBtn.addEventListener('click', closeModal);
+      understandBtn && understandBtn.addEventListener('click', closeModal);
+      modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === modalBackdrop) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalBackdrop.classList.contains('active')) closeModal();
+      });
+    })();
   </script>
 </body>
 </html>
