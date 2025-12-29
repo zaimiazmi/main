@@ -25,34 +25,15 @@
 
     /* ========== COUNTDOWN SECTION ========== */
     .countdown-section {
-      position: relative;
-      padding: 60px 40px;
-      background: linear-gradient(135deg, #0a0e27 0%, #1a0a3e 50%, #0f1a2e 100%);
-      border-bottom: 2px solid #00ffff;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .countdown-section::before {
-      content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
-      animation: scanlines 8s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes scanlines {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
     }
 
     .countdown-title {
-      position: relative;
-      z-index: 1;
       color: #00ffff;
       font-family: 'Courier New', monospace;
       font-size: 14px;
@@ -111,8 +92,6 @@
     }
 
     .countdown-status {
-      position: relative;
-      z-index: 1;
       margin-top: 20px;
       font-family: 'Courier New', monospace;
       font-size: 12px;
@@ -123,8 +102,6 @@
     }
 
     .coming-soon-btn {
-      position: relative;
-      z-index: 1;
       display: inline-block;
       margin-top: 30px;
       padding: 14px 40px;
@@ -568,39 +545,39 @@
     </nav>
   </div>
 
-  <!-- COUNTDOWN SECTION -->
-  <div class="countdown-section">
-    <div class="countdown-title">⚡ TESTING LAUNCH COUNTDOWN ⚡</div>
-    <div class="countdown-timer">
-      <div class="countdown-item">
-        <div class="countdown-number" id="days">00</div>
-        <div class="countdown-label">Days</div>
-      </div>
-      <div class="countdown-separator">:</div>
-      <div class="countdown-item">
-        <div class="countdown-number" id="hours">00</div>
-        <div class="countdown-label">Hours</div>
-      </div>
-      <div class="countdown-separator">:</div>
-      <div class="countdown-item">
-        <div class="countdown-number" id="minutes">00</div>
-        <div class="countdown-label">Minutes</div>
-      </div>
-      <div class="countdown-separator">:</div>
-      <div class="countdown-item">
-        <div class="countdown-number" id="seconds">00</div>
-        <div class="countdown-label">Seconds</div>
-      </div>
-    </div>
-    <div class="countdown-status" id="status">JAN 5, 2026 • 9:00 AM GMT+8</div>
-    <button class="coming-soon-btn" id="coming-soon-btn">Coming Soon</button>
-  </div>
-
-  <!-- Navbar -->
+  <!-- Canvas Container with Countdown -->
   <div id="canvas-container">
     <canvas id="uiCanvas"></canvas>
     <div class="scroll-indicator">
       <span>SCROLL</span>
+    </div>
+
+    <!-- COUNTDOWN OVERLAY -->
+    <div class="countdown-section">
+      <div class="countdown-title">⚡ TESTING LAUNCH COUNTDOWN ⚡</div>
+      <div class="countdown-timer">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+      <div class="countdown-status" id="status">JAN 5, 2026 • 9:00 AM GMT+8</div>
+      <button class="coming-soon-btn" id="coming-soon-btn">Coming Soon</button>
     </div>
   </div>
 
