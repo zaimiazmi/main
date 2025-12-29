@@ -122,6 +122,34 @@
       text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
     }
 
+    .coming-soon-btn {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 40px;
+      background: linear-gradient(135deg, #1a0a3e 0%, #0f1a2e 100%);
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    }
+
+    .coming-soon-btn:hover {
+      background: linear-gradient(135deg, #2a1a4e 0%, #1f2a3e 100%);
+      border-color: #ff00ff;
+      color: #ff00ff;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+      text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+    }
+
     #canvas-container {
       position: relative;
       width: 100%;
@@ -564,7 +592,8 @@
         <div class="countdown-label">Seconds</div>
       </div>
     </div>
-    <div class="countdown-status" id="status">MAY 1, 2025 • 9:00 AM</div>
+    <div class="countdown-status" id="status">MAY 1, 2025 • 9:00 AM GMT+8</div>
+    <button class="coming-soon-btn" id="coming-soon-btn">Coming Soon</button>
   </div>
 
   <!-- Navbar -->
@@ -1272,10 +1301,17 @@
 
     /* ========== COUNTDOWN TIMER ========== */
     function updateCountdown() {
-      // Target date: May 1, 2025 at 9:00 AM
-      const targetDate = new Date('2025-05-01T09:00:00').getTime();
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+      // Target date: May 1, 2025 at 9:00 AM GMT+8
+      // Create date in UTC and adjust for GMT+8 (UTC+8)
+      const targetDate = new Date('2025-05-01T09:00:00+08:00').getTime();
+      
+      // Get current time in GMT+8
+      const now = new Date();
+      const offset = 8 * 60 * 60 * 1000; // GMT+8 offset in milliseconds
+      const gmtTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000) + offset);
+      const currentTime = gmtTime.getTime();
+      
+      const distance = targetDate - currentTime;
 
       if (distance < 0) {
         // Countdown finished
@@ -1285,6 +1321,7 @@
         document.getElementById('seconds').textContent = '00';
         document.getElementById('status').textContent = '🎮 TESTING NOW LIVE 🎮';
         document.getElementById('status').style.color = '#00ff00';
+        document.getElementById('coming-soon-btn').style.display = 'none';
         return;
       }
 
