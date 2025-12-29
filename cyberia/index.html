@@ -23,7 +23,104 @@
       overflow-y: auto;
     }
 
+    /* ========== COUNTDOWN SECTION ========== */
+    .countdown-section {
+      position: relative;
+      padding: 60px 40px;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a0a3e 50%, #0f1a2e 100%);
+      border-bottom: 2px solid #00ffff;
+      text-align: center;
+      overflow: hidden;
+    }
 
+    .countdown-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
+      animation: scanlines 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes scanlines {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .countdown-title {
+      position: relative;
+      z-index: 1;
+      color: #00ffff;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+
+    .countdown-timer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .countdown-number {
+      font-family: 'Courier New', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: #ccff00;
+      min-width: 80px;
+      text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #00ffff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .countdown-separator {
+      font-size: 36px;
+      color: #00ffff;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      51%, 99% { opacity: 0; }
+    }
+
+    .countdown-status {
+      position: relative;
+      z-index: 1;
+      margin-top: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #ff00ff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
+    }
 
     #canvas-container {
       position: relative;
@@ -443,7 +540,34 @@
     </nav>
   </div>
 
-  <!-- Canvas Container -->
+  <!-- COUNTDOWN SECTION -->
+  <div class="countdown-section">
+    <div class="countdown-title">⚡ TESTING LAUNCH COUNTDOWN ⚡</div>
+    <div class="countdown-timer">
+      <div class="countdown-item">
+        <div class="countdown-number" id="days">00</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="hours">00</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="minutes">00</div>
+        <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="seconds">00</div>
+        <div class="countdown-label">Seconds</div>
+      </div>
+    </div>
+    <div class="countdown-status" id="status">MAY 1, 2025 • 9:00 AM</div>
+  </div>
+
+  <!-- Navbar -->
   <div id="canvas-container">
     <canvas id="uiCanvas"></canvas>
     <div class="scroll-indicator">
@@ -1145,6 +1269,41 @@
 
     // Trigger initial mobile check
     isMobile = window.innerWidth <= 768;
+
+    /* ========== COUNTDOWN TIMER ========== */
+    function updateCountdown() {
+      // Target date: May 1, 2025 at 9:00 AM
+      const targetDate = new Date('2025-05-01T09:00:00').getTime();
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        // Countdown finished
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        document.getElementById('status').textContent = '🎮 TESTING NOW LIVE 🎮';
+        document.getElementById('status').style.color = '#00ff00';
+        return;
+      }
+
+      // Calculate time units
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Format with leading zeros
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    // Update countdown immediately and then every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
