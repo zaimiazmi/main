@@ -1683,6 +1683,7 @@
 
       const closeBtn = modalBackdrop.querySelector('.modal-close');
       const understandBtn = document.getElementById('ea-understand');
+      const earlyAccessUrl = 'https://drive.google.com/drive/folders/1IWXntXnZS_P4TIGKnfW_wtw9Ud53CTaI?usp=share_link';
 
       function openModal() {
         modalBackdrop.classList.add('active');
@@ -1695,7 +1696,10 @@
 
       eaLink.addEventListener('click', openModal);
       closeBtn && closeBtn.addEventListener('click', closeModal);
-      understandBtn && understandBtn.addEventListener('click', closeModal);
+      understandBtn && understandBtn.addEventListener('click', () => {
+        closeModal();
+        window.open(earlyAccessUrl, '_blank', 'noopener');
+      });
       modalBackdrop.addEventListener('click', (e) => {
         if (e.target === modalBackdrop) closeModal();
       });
