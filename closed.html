@@ -3,150 +3,116 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>We'll Be Back Soon</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Website Closed</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: rgba(10, 15, 35, 0.82);
+      --text: #f5f7fb;
+      --muted: #b8c0d9;
+      --accent: #7dd3fc;
+      --accent-2: #a78bfa;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      background: #18181b;
-      color: #fff;
-      font-family: Poppins, Arial, sans-serif;
+      margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
+      font-family: Poppins, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(167, 139, 250, 0.28), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(125, 211, 252, 0.18), transparent 28%),
+        linear-gradient(160deg, #050816 0%, var(--bg) 55%, #060913 100%);
+      padding: 24px;
     }
+
     .closed-container {
+      width: min(640px, 100%);
+      padding: 40px 28px;
       text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(14px);
     }
-    .closed-container h1 {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(125, 211, 252, 0.12);
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
     }
-    .closed-container p {
-      color: #ccc;
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1.05;
     }
-    .closed-container .credit {
-      color: #888;
-      font-size: 0.9rem;
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
-    .closed-container .contact {
-      color: #ccc;
-      font-size: 1rem;
-      margin-top: 0.5rem;
+
+    .contact {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
     }
+
     .contact-cta {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-top: 0.6rem;
-      padding: 10px 16px;
+      padding: 12px 18px;
       border-radius: 999px;
-      background: linear-gradient(90deg,#7c3aed,#06b6d4);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 6px 18px rgba(3,7,18,0.45), inset 0 -2px 6px rgba(255,255,255,0.03);
-      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-    }
-    .contact-cta svg { width: 18px; height: 18px; display:block; }
-    .contact-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(3,7,18,0.55); }
-    .contact-cta:active { transform: translateY(-1px); }
-    
-    /* ========== CYBERPUNK BANNER ========== */
-    .cyber-banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      background: linear-gradient(135deg, #0a0e27 0%, #1a0a3e 50%, #0f1a2e 100%);
-      border-bottom: 3px solid #00ffff;
-      padding: 12px 20px;
-      text-align: center;
-      overflow: hidden;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .cyber-banner::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
-      animation: scanlines 8s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes scanlines {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .cyber-banner-text {
-      position: relative;
-      z-index: 1;
-      color: #00ffff;
-      font-family: 'Courier New', monospace;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.4);
-      animation: glitch 3s infinite;
-      margin: 0;
-    }
-
-    @keyframes glitch {
-      0%, 100% {
-        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.4);
-      }
-      50% {
-        text-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 30px rgba(255, 0, 255, 0.6);
-      }
-    }
-
-    .cyber-banner a {
-      color: #00ffff;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      color: #08111f;
       text-decoration: none;
       font-weight: 700;
-      transition: all 0.3s ease;
-      border-bottom: 2px solid transparent;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .cyber-banner a:hover {
-      color: #ff00ff;
-      text-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
-      border-bottom: 2px solid #ff00ff;
+    .contact-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
     }
 
-    body {
-      padding-top: 50px;
+    .footer-note {
+      margin-top: 22px;
+      font-size: 0.92rem;
+      color: rgba(184, 192, 217, 0.72);
     }
   </style>
 </head>
 <body>
-  <!-- ===== CYBERPUNK BANNER ===== -->
-  <div class="cyber-banner">
-    <p class="cyber-banner-text">⚡ CYBERIA: WIRA SIBER TESTING STARTS 5/1/26. <a href="/cyberia">TRY NOW</a> ⚡</p>
-  </div>
-
-  <div class="closed-container">
-  <img src="img/profilelogo.png" alt="Profile Logo" style="width:160px;height:160px;border-radius:50%;margin-bottom:24px;box-shadow:0 4px 16px #0003;">
-  <h1>We'll Be Back Soon!</h1>
-    <p>This site is under maintenance.<br>Please check back later.</p>
-    <div class="credit">Designed by ikanpaus2703</div>
-    <div class="contact">Feel free to get in touch:
-      <a class="contact-cta" href="mailto:hello@zzaimii.com" aria-label="Email hello at zzaimii dot com">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M3 6.5C3 5.672 3.672 5 4.5 5h15c.828 0 1.5.672 1.5 1.5v11c0 .828-.672 1.5-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5v-11z" stroke="rgba(255,255,255,0.85)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M21 6.5l-9 7-9-7" stroke="rgba(255,255,255,0.95)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>hello@zzaimii.com</span>
-      </a>
+  <main class="closed-container">
+    <div class="badge">Website Closed</div>
+    <h1>We'll Be Back Soon</h1>
+    <p>This website is currently closed for maintenance.<br>Please check back later.</p>
+    <div class="contact">
+      <a class="contact-cta" href="mailto:hello@zzaimii.com" aria-label="Email hello at zzaimii dot com">hello@zzaimii.com</a>
     </div>
-  <script src="script.js"></script>
-  </div>
+    <div class="footer-note">Designed by ikanpaus2703</div>
+  </main>
 </body>
 </html>
